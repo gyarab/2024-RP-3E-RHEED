@@ -1,0 +1,152 @@
+body {
+    margin: 0;
+    background-color: white;
+    font-family: Helvetica, Sans-Serif;
+    background-color: black;
+    color: white;
+  }
+
+  h1 {
+    margin: 0;
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+    color: black;
+    text-shadow: 1px 3px 10px #000000;
+    text-decoration: underline overline;
+    background-image: linear-gradient(to bottom right, red, yellow);
+  }
+
+  h2 {
+    margin: 0;
+    float: right;
+    color: darkgrey;
+  }
+
+  div > p {
+    background-color: black;
+    color: white;
+    text-indent: 50px;
+  }
+
+  div p {
+    background-color: black;
+    color: white;
+    text-indent: 50px;
+  }
+  
+  .slogan{
+    margin: 0;
+    padding-top: 10px;
+    padding-right: 60px;
+    padding-bottom: 30px;
+    line-height: 1;
+    background-color: black;
+  }
+
+  .imgbox {
+    display: grid;
+    height: 100%;
+  }
+
+.intro {
+  text-align: justify;
+  font-size: 18px;
+  padding-top: 10px;
+    padding-right: 40px;
+    padding-bottom: 0px;
+    padding-left: 60px;
+}
+
+#ulp {
+  text-align: justify;
+  font-size: 18px;
+  padding-top: 100px;
+    padding-right: 100px;
+    padding-bottom: 10px;
+    padding-left: 80px;
+}
+
+ul {
+  text-align: justify;
+  font-size: 18px;
+  padding-top: 10px;
+    padding-right: 100px;
+    padding-bottom: 150px;
+    padding-left: 100px;
+}
+
+.center-fit {
+    max-width: 100%;
+    max-height: 100vh;
+    margin: auto;
+}
+
+.grid-container {
+  display: grid;
+  gap: 20px;
+  padding: 30px;
+}
+
+.grid-item {
+  overflow: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.square {
+  flex-grow: 1;
+  max-width: 100%;
+  max-height: 100vh;
+  text-align: center;
+  float: right;
+  margin: auto;
+  padding: 30px;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+footer {
+  clear: both;
+  position: relative;
+  height: 20px;
+  margin: 50px;
+}
+
+table {
+  border: 1px solid;
+  border-collapse: collapse;
+  margin: 20px
+}
+
+table:hover {
+  background-color: yellow;
+}
+
+tr {
+  text-transform: uppercase;
+}
+
+th, td {
+  padding: 10px;
+}
+
+@media screen and (min-width: 0px) and (max-width: 767px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .grid-container {
+    grid-template-columns: auto auto auto auto;
+  }
+}
