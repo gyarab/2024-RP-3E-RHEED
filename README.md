@@ -13,4 +13,4 @@ _Supervize a výzkumná infrastruktura_
  
 ## Dokumentace
 
-- Prezentace: [`.PPTX`](doc/presentation_5-12)
+- Prezentace: [`.PPTX`](docs/presentation_5-12)
