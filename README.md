@@ -25,4 +25,4 @@ Návod pro spuštění a navigaci v prvním pohledu na GUI:
         Tvary jsou k dispozici zatím dva: obdélník a kruhová výseč. Na levém panelu se dají měnit hodnoty jejich vlastností a při stisku pravého tlačítka se dá tvar změnit nebo vymazat.
 
 
-- Prezentace: [`.PPTX`](doc/presentation_5-12)
+- Prezentace: [`.PPTX`](docs/presentation_5-12)
