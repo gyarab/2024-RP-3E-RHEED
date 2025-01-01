@@ -12,7 +12,6 @@ _Supervize a výzkumná infrastruktura_
     -   Dr. Dominik Kriegner
  
 ## Dokumentace
-## Dokumentace
 
 Návod pro spuštění a navigaci v prvním pohledu na GUI:
 
