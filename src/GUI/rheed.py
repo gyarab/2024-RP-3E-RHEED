@@ -2,14 +2,20 @@ from qtpy.QtWidgets import (
     QMainWindow, QVBoxLayout, QHBoxLayout, QWidget,
     QPushButton, QGroupBox, QGraphicsEllipseItem, QGraphicsRectItem, QLabel, QSlider
 )
-from qtpy.QtCore import Qt, QRectF
+from qtpy.QtCore import Qt, QRectF, QTimer
 from qtpy.QtGui import QBrush, QColor, QPen
-from shape_item import CustomShapeItem, CustomEllipseItem
-from video_area import VideoArea
+from GUI.shape_item import CustomShapeItem, CustomEllipseItem
+from GUI.video_area import VideoArea
+from camera.camera_util import CameraInit
 
 
 class Rheed(QMainWindow):
+    
     def __init__(self):
+        self.WIDTH = 720
+        self.HEIGHT = 1280
+        self.DATASET_BATCH_SIZE = 1000
+
         super().__init__()
         self.setWindowTitle("Rheed Application")
         self.setGeometry(100, 100, 1200, 800)  # WindowSize
@@ -52,8 +58,8 @@ class Rheed(QMainWindow):
 
         # Camera buttons
         buttons = [
-            ("Init Camera", self.init_camera),
-            ("Dispatch Camera", self.dispatch_camera),
+            ("Init Camera Stream", self.init_camera),
+            ("Stop Camera Stream", self.stop_camera),
             ("STOP", self.stop_video),
             ("Load Video", self.load_video),
             ("Play Video", self.play_video),
@@ -317,11 +323,23 @@ class Rheed(QMainWindow):
             new_rect = QRectF(rect.x(), rect.y(), rect.width(), value)
             self.selected_shape.setRect(new_rect)
 
+    def init_camera(self):
+        print("Camera Stream Initialized.")
+        self.camera_instance = CameraInit(self.WIDTH, self.HEIGHT, self.DATASET_BATCH_SIZE)
 
-    # Placeholder functions
-    def init_camera(self): print("Camera Initialized.")
-    def dispatch_camera(self): print("Camera Dispatched.")
-    def stop_video(self): print("Video Stopped.")
+        self.video_timer = QTimer(self)
+        self.video_timer.timeout.connect(self.camera_instance.capture_frame)
+        self.video_timer.start(30)  # ~30 FPS
+
+    def stop_camera(self):
+        print("Camera Stream Stopped.")
+        if self.video_timer:
+            self.video_timer.stop()
+        if self.camera_instance:
+            self.camera_instance.cleanup()
+    
+    #placeholder functions
     def load_video(self): print("Load Video.")
+    def stop_video(self): print("Video Stopped.")
     def play_video(self): print("Video Playing.")
     def pause_video(self): print("Video Paused.")

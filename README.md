@@ -6,14 +6,14 @@ Python aplikace pro zpracování obrazových dat z měření RHEED při růstu M
 - **Jan Schreiber** - Výpočetní algoritmy, dokumentace
 - **Marek Švec** - GUI, dokumentace
 
-_Supervize a výzkumná infrastruktura_
+_Supervize_
 - **Fyzikální ústav AV ČR, v.v.i.**
     -   Ing. Filip Křížek Ph.D. 
     -   Dr. Dominik Kriegner
  
 ## Dokumentace
 
-Návod pro spuštění a navigaci v prvním pohledu na GUI:
+Návod pro spuštění a navigaci v prvním okně GUI:
 
 - **Systémové požadavky**  
   - Operační systém - Windows, macOS nebo Linux  
