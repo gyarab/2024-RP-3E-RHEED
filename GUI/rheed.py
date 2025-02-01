@@ -33,6 +33,7 @@ class Rheed(QMainWindow):
 
         # Variables initialization
         self.scene_shapes = []
+        self.shape_menus = {}
         self.used_color_indices = []  # No color-repeating
         self.color_palette = [
             ("Red", QColor(255, 0, 0)),
@@ -131,6 +132,10 @@ class Rheed(QMainWindow):
         self.video_area.scene.addItem(rect_item)
         self.scene_shapes.append(rect_item)
         self.add_shape_menu(color_name, color_value, rect_item)
+        
+        self.selected_shape = rect_item
+        self.shape_editor.show()
+        self.show_rectangle_sliders()
 
     def add_shape_menu(self, color_name, color_value, shape_item):
         shape_menu = QHBoxLayout()
@@ -145,7 +150,10 @@ class Rheed(QMainWindow):
         shape_menu.addWidget(color_box)
         shape_menu.addWidget(QLabel(f"{color_name}"))
         shape_menu.addWidget(analyze_button)
+
         self.shape_menu_container.addLayout(shape_menu)
+        self.shape_menus[shape_item] = shape_menu
+
 
 
     def open_analyze_window(self, color_name):
@@ -162,9 +170,7 @@ class Rheed(QMainWindow):
         self.analyze_window.show()
 
     def convert_to_rectangle(self, shape_item):
-
         current_rect = shape_item.sceneBoundingRect()
-        
         self.video_area.scene.removeItem(shape_item)
 
         new_rectangle = CustomShapeItem(QRectF(current_rect), shape_item.color, self)
@@ -180,11 +186,9 @@ class Rheed(QMainWindow):
 
         self.selected_shape = new_rectangle
         self.shape_editor.show()
-        self.show_rectangle_sliders()
 
     def convert_to_kruhova(self, shape_item):
         current_rect = shape_item.sceneBoundingRect()
-
         self.video_area.scene.removeItem(shape_item)
 
         new_ellipse = QGraphicsEllipseItem(current_rect)
@@ -194,20 +198,37 @@ class Rheed(QMainWindow):
         new_ellipse.setSpanAngle(90 * 16)
         new_ellipse.setFlags(QGraphicsEllipseItem.ItemIsMovable | QGraphicsEllipseItem.ItemIsSelectable)
         new_ellipse = CustomEllipseItem(current_rect, shape_item.color, self)
+
         self.video_area.scene.addItem(new_ellipse)
 
         self.scene_shapes.remove(shape_item)
         self.scene_shapes.append(new_ellipse)
 
+        self.show_kruhova_sliders()
         self.selected_shape = new_ellipse
         self.shape_editor.show()
-        self.show_kruhova_sliders()
 
 
     def delete_shape(self, shape_item):
         if shape_item in self.scene_shapes:
             self.video_area.scene.removeItem(shape_item)
             self.scene_shapes.remove(shape_item)
+
+            if shape_item in self.shape_menus:
+                shape_menu = self.shape_menus[shape_item]
+                for i in reversed(range(self.shape_menu_container.count())):
+                    layout_item = self.shape_menu_container.itemAt(i)
+                    if layout_item.layout() == shape_menu:
+                        while layout_item.count():
+                            widget = layout_item.takeAt(0).widget()
+                            if widget:
+                                widget.deleteLater()
+                        self.shape_menu_container.removeItem(layout_item)
+                        shape_menu.deleteLater()
+                        break
+                del self.shape_menus[shape_item]
+
+
 
     def show_rectangle_sliders(self):
         # Show width and height sliders, hide diameter and angle sliders
@@ -222,7 +243,6 @@ class Rheed(QMainWindow):
         self.angle_slider.itemAt(1).widget().hide()
 
     def show_kruhova_sliders(self):
-        # Opposite of previous
         self.diameter_slider.itemAt(0).widget().show()
         self.diameter_slider.itemAt(1).widget().show()
         self.angle_slider.itemAt(0).widget().show()
