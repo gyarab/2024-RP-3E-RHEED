@@ -6,6 +6,7 @@ from qtpy.QtCore import Qt, QRectF
 from qtpy.QtGui import QBrush, QColor, QPen
 from shape_item import CustomShapeItem, CustomEllipseItem
 from video_area import VideoArea
+from camera.camera import CameraInit
 
 
 class Rheed(QMainWindow):
@@ -299,7 +300,11 @@ class Rheed(QMainWindow):
 
 
     # Placeholder functions
-    def init_camera(self): print("Camera Initialized.")
+    def init_camera(self): 
+        print("Camera Initialized.")
+        ci = CameraInit()
+        print(ci.image_dataset.shape)
+    
     def dispatch_camera(self): print("Camera Dispatched.")
     def stop_video(self): print("Video Stopped.")
     def load_video(self): print("Load Video.")
