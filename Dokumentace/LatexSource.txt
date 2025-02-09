@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{listings}
+\graphicspath{{Images/}}
+\usepackage{color}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\addbibresource{references.bib}
+
+% Nastavení zahlaví
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Gymnázium Arabská 14, Praha 6}
+\rhead{\small\textbf{Rheed}}
+
+
+\lstset{language=java}
+\lstset{literate= {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ý}{{\'y}}1 {č}{{\v{c}}}1 {ď}{{\v{d}}}1 {ě}{{\v{e}}}1 {ň}{{\v{n}}}1 {ř}{{\v{r}}}1 {š}{{\v{s}}}1 {ť}{{\v{t}}}1 {ů}{{\r{u}}}1 {ž}{{\v{z}}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {Ý}{{\'Y}}1 {Č}{{\v{C}}}1 {Ď}{{\v{D}}}1 {Ě}{{\v{E}}}1 {Ň}{{\v{N}}}1 {Ř}{{\v{R}}}1 {Š}{{\v{S}}}1 {Ť}{{\v{T}}}1 {Ů}{{\r{U}}}1 {Ž}{{\v{Z}}}1}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+    \lstset{style=mystyle}
+\thispagestyle{empty}
+\begin{document}
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/logo.png}
+    \label{fig:logo_skoly}
+\end{figure}
+
+\centerline{\scshape\Huge Gymnázium, Praha 6, Arabská 14\par}
+\vspace{1cm}
+\centerline{\scshape\Large předmět programování, vyučující Daniel Kahoun\par}
+\vspace{2cm}
+\centerline{\huge\bfseries Rheed\par}
+\vspace{0.5cm}
+\centerline{\normalsize\bfseries Ročníkový projekt}
+
+\vspace{2cm}
+{\Large\ \\Marek Bílý,\\ Jan Schreiber,\\ Marek Švec\\ 3.E\hfill březen 2025}
+
+\newpage
+
+\section*{Prohlášení}
+\addcontentsline{toc}{section}{Prohlášení}
+	Prohlašujeme, že jsme jedinými autory tohoto projektu, všechny citace jsou
+	řádně označené a všechna použitá literatura a další zdroje jsou v práci uvedeny.
+	
+	Tímto dle zákona 121/2000 Sb. (tzv. Autorský zákon) ve znění pozdějších předpisů udělujeme
+	bezúplatně škole Gymnázium, Praha 6, Arabská 14 oprávnění k výkonu práva na rozmnožování díla
+	(§ 13) a práva na sdělování díla veřejnosti (§ 18) na dobu časově neomezenou a bez omezení
+	územního rozsahu.
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section*{Anotace}
+
+\subsection*{Název práce: Rheed}
+autoři: Marek Bílý, Jan Schreiber, Marek Švec
+\vspace{0.5cm}
+
+\subsection*{Title: Rheed}
+authors: Marek Bílý, Jan Schreiber, Marek Švec
+\vspace{0.5cm}
+
+\subsection*{Titel: Rheed}
+autoren: Marek Bílý, Jan Schreiber, Marek Švec
+\vspace{0.5cm}
+\newpage
+\section{Úvod}
+    RHEED (Reflection High-Energy Electron Diffraction) je metoda povrchové analýzy krystalických materiálů. Je zde využíván vysokoenergetický elektronový paprsek, který pod velmi malým úhlem dopadá na krystalickou strukturu zkoumaného materiálu. Elektrony se následně odrážejí od atomů na povrchu a vytvářejí tzv. difrakční vzor. Ten obsahuje potřebné informace o vzorku
+
+    RHEED se skládá ze tří hlavních komponent: zdroje elektronového paprsku, vzorku a detekčního systému. Zdroj elektronového paprsku, někdy nazývaný elektronový kanón, je zodpovědný za generování vysokoenergetického svazku přesně zamířeného na povrch krystalového vzorku. Vzorek je umístěn v ultravysokém vakuu tak, aby s ním bylo možné nadálku manipulovat a otáčet pro získávání informací z více stran. Detekční systém má za úkol zachycovat difrakční vzor vzniklý rozptýlením elektronů po střetu s atomy vzorku. Nejběžnějšími nástroji zde slouží fluorescenční obrazovka, na kterou dopadají zmíněné elektrony, a CCP (charge-coupled device) kamera, která obraz zaznamenává. K analýze sebraných dat nakonec slouží softwarový program, jehož vytvoření je cílem naší práce.
+    
+\subsection{Zadání práce}
+    Aplikace bude sloužit jako lepší alternativa stávající, z části nefunkční, aplikace v C\#. Vývoj bude obsahovat jak hardware interfacing s CCD detektorem, návrh a realizaci GUI, práci s obrazovými daty (integrace snímků), vizualizaci real-time a analýzu real-time obrazových dat, ukládání starších měřených dat do databáze pro další výzkum atd. Aplikace bude implementovat in-situ měřící metodu RHEED (Reflection High-Energy Electron Diffraction) využívající difrakci vysokoenergetických elektronů při odrazu od povrchu. Zpracování dat z této metody bude sloužit k charakterizaci celého procesu a spolehlivější predikci výsledku růstu ještě před jeho dokončením. Výsledný program bude využit na vědeckých pracovištích Fyzikálního ústavu AV ČR a to na oddělení spintroniky a kvantových materiálů Dr. Jungwirtha, a ve výzkumné skupině Dr. Tima Verhagena zabývající se přípravou sandwichových materiálů s feroelektrickými vlastnostmi.
+\subsection{Použité technologie}
+
+
+\subsection{Cíl práce}
+    Cílem naší ročníkové práce je vytvořit software pro analýzu a vizualizaci obrazových dat z in-situ  měření RHEED během růstu monoatomárních vrstev pomocí technologie MBE. Tato aplikace má být schopná pracovat jak s obrázky nebo videy, tak i s živým přenosem. Aplikace má za cíl být co nejpraktičtějším nástrojem profesionálů pracujících s technologií RHEED.
+
+\section{Teorie??}
+
+\section{Aplikace Rheed a její struktura}
+    
+\subsection{Kamera}
+
+\subsection{GUI aplikace}
+
+\subsection{Grafy a funkce}
+
+\section{Závěr}
+
+\section{Zdroje}
+
+\end{document}
