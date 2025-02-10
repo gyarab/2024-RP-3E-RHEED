@@ -105,7 +105,7 @@ autoren: Marek Bílý, Jan Schreiber, Marek Švec
 \vspace{0.5cm}
 \newpage
 \section{Úvod}
-    RHEED (Reflection High-Energy Electron Diffraction) je metoda povrchové analýzy krystalických materiálů. Je zde využíván vysokoenergetický elektronový paprsek, který pod velmi malým úhlem dopadá na krystalickou strukturu zkoumaného materiálu. Elektrony se následně odrážejí od atomů na povrchu a vytvářejí tzv. difrakční vzor. Ten obsahuje potřebné informace o vzorku
+    RHEED (Reflection High-Energy Electron Diffraction) je metoda povrchové analýzy krystalických materiálů. Je zde využíván vysokoenergetický elektronový paprsek, který pod velmi malým úhlem dopadá na krystalickou strukturu zkoumaného materiálu. Elektrony se následně odrážejí od atomů na povrchu a vytvářejí tzv. difrakční vzor. Ten obsahuje potřebné informace o vzorku.
 
     RHEED se skládá ze tří hlavních komponent: zdroje elektronového paprsku, vzorku a detekčního systému. Zdroj elektronového paprsku, někdy nazývaný elektronový kanón, je zodpovědný za generování vysokoenergetického svazku přesně zamířeného na povrch krystalového vzorku. Vzorek je umístěn v ultravysokém vakuu tak, aby s ním bylo možné nadálku manipulovat a otáčet pro získávání informací z více stran. Detekční systém má za úkol zachycovat difrakční vzor vzniklý rozptýlením elektronů po střetu s atomy vzorku. Nejběžnějšími nástroji zde slouží fluorescenční obrazovka, na kterou dopadají zmíněné elektrony, a CCP (charge-coupled device) kamera, která obraz zaznamenává. K analýze sebraných dat nakonec slouží softwarový program, jehož vytvoření je cílem naší práce.
     
@@ -122,6 +122,17 @@ autoren: Marek Bílý, Jan Schreiber, Marek Švec
 \section{Aplikace Rheed a její struktura}
     
 \subsection{Kamera}
+Pro snímání difrakčních vzorků jsme využili kameru \textbf{Player One Saturn-C}. Kamera disponuje CMOS snímačem s rozlišením 3856 x 2180 pixelů a velikostí pixelu 3.45 µm. To jí umožňuje detekovat i velmi malé detaily, nezbytný předpoklad při analýze difrakčních struktur.
+
+    Dále má široký dynamický rozsah, tudíž není problém jak s intenzivními, tak slabými světelnými signály. Zároveň se zde nachází i optimalizovaná citlivost ve viditelném i blízkém infračerveném světlu.
+
+    Vysokorychlostní přenos dat zajišťuje rozhraní USB 3.0. To je důležité zejména pro sledování vzorku v reálném čase, znamená to žádné prodlevy a tudíž menší riziko zkažení vzorku.
+    Výstup se zde nachází dvanáctibitový, tedy každý pixel je schopný zaznamenat až 4096 odstínů intenzity světla. Naprosto klíčový předpoklad v prostředí, kde i minimální rozdíl v intenzitě může nést důležité informace o struktuře vzorku.
+
+    
+
+
+
 
 \subsection{GUI aplikace}
 
