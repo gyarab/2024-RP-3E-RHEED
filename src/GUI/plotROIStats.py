@@ -22,7 +22,7 @@ import numpy
 import threading
 from silx.gui.utils import concurrent
 import time
-from camera.opencv_capture import CameraInit
+from ..camera.opencv_capture import CameraInit
 
 class UpdateThread(threading.Thread):
     """Thread updating the image of a :class:`~silx.gui.plot.Plot2D`
@@ -33,7 +33,7 @@ class UpdateThread(threading.Thread):
         self.plot2d = plot2d
         self.running = False
         super(UpdateThread, self).__init__()
-        self.camera = CameraInit(100, 100, 10000)
+        self.camera = CameraInit(720, 1280, 10000)
 
     def start(self):
         """Start the update thread"""
@@ -43,17 +43,17 @@ class UpdateThread(threading.Thread):
     def run(self):
         """Method implementing thread loop that updates the plot"""
         while self.running:
-            time.sleep(1)
-            # Run plot update asynchronously
-            concurrent.submitToQtMainThread(
-                self.plot2d.addImage,
-                self.camera.capture_frame(),
-                legend="opencv_capture",
+            frame = self.camera.capture_frame()
+            if frame is not None:
+                concurrent.submitToQtMainThread(self.plot2d.addImage, frame, legend="opencv_capture")
+
+            # Run plot update asynchronously not needed
+            #concurrent.submitToQtMainThread(
                 #only sample noise below, used for initial testing
                 #numpy.random.random(10000).reshape(100, 100),
                 #resetzoom=False,
                 #legend=random.choice(("img1", "img2")),
-            )
+            #)
 
     def stop(self):
         """Stop the update thread"""
@@ -94,6 +94,7 @@ class _RoiStatsWidget(qt.QMainWindow):
         self.addItem = self._roiStatsWindow.addItem
         self.removeItem = self._roiStatsWindow.removeItem
         self.setUpdateMode = self._updateModeControl.setUpdateMode
+        self.updateAllStats = self._roiStatsWindow._updateAllStats
 
         # setup
         self._updateModeControl.setUpdateMode("auto")
@@ -108,6 +109,21 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         qt.QMainWindow.__init__(self, parent)
         self.plot = Plot2D()
         self.setCentralWidget(self.plot)
+        # frame counter to limit ROI impact on performance
+        self.frame_counter = 0
+        self.update_interval = 10
+
+        # widget for displaying stats results and update mode
+        self._statsWidget = _RoiStatsWidget(parent=self, plot=self.plot)
+
+        # connect signal / slot
+        self._updateModeControl.sigUpdateModeChanged.connect(
+            self._statsWidget._updateModeControl.setUpdateMode
+        )
+        callback = functools.partial(
+            self._statsWidget.updateAllStats, is_request=True
+        )
+        self._updateModeControl.sigUpdateRequested.connect(callback)
 
         # 1D roi management
         self._curveRoiWidget = self.plot.getCurvesRoiDockWidget().widget()
@@ -142,9 +158,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         if hasattr(self._roisTabWidget, "setTabBarAutoHide"):
             self._roisTabWidget.setTabBarAutoHide(True)
 
-        # widget for displaying stats results and update mode
-        self._statsWidget = _RoiStatsWidget(parent=self, plot=self.plot)
-
         # create Dock widgets
         self._roisTabWidgetDockWidget = qt.QDockWidget(parent=self)
         self._roisTabWidgetDockWidget.setWidget(self._roisTabWidget)
@@ -157,8 +170,8 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._statsWidget._docker)
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
-        # expose API
-        self.setUpdateMode = self._statsWidget.setUpdateMode
+        # uncover the API of updatemode
+        self.setUpdateMode = self._updateModeControl.setUpdateMode
 
         # Create a container widget for the 2D ROI tab
         self._2DRoiContainer = qt.QWidget()
@@ -170,6 +183,13 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
         # Connect ROI creation signal to register ROIs automatically
         self._regionManager.sigRoiAdded.connect(self._registerRoi)
+    
+    def update_stats(self):
+        """Update ROI statistics only every 10 frames."""
+        self.frame_counter += 1
+        if self.frame_counter % self.update_interval == 0:
+            print("[DEBUG] Updating ROI stats...")
+            self._roiStatsWindow.updateAllStats(is_request=True)
 
     def _registerRoi(self, roi):
         #Register a newly created ROI with the stats widget.
@@ -195,9 +215,10 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 # define stats to display
 STATS = [
     ("mean", numpy.mean),
-    ("std", numpy.std),
-    ("min", numpy.min),
-    ("max", numpy.max),
+    #removed for sake of optimisation
+    #("std", numpy.std),
+    #("min", numpy.min),
+    #("max", numpy.max),
 ]
 
 def example_image(mode):
@@ -214,12 +235,6 @@ def example_image(mode):
     updateThread.start()  # Start updating the plot
 
     window.setRois(window)
-
-    # define some image and curve
-    window.plot.addImage(numpy.arange(10000).reshape(100, 100), legend="img1")
-    window.plot.addImage(
-        numpy.random.random(10000).reshape(100, 100), legend="img2", origin=(0, 100)
-    )
     window.setStats(STATS)
 
     # add some couple (plotItem, roi) to be displayed by default

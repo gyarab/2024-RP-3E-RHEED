@@ -40,11 +40,12 @@ class CameraInit:
         fr = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         #used 64bit float to normalize the image with high precision
-        nfr = cv2.normalize(fr, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_64F)
+        nfr = fr.astype(np.float64)
+        #!!!normalization should be voluntary, implement later: cv2.normalize(fr, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_64F)
 
-        # **If dataset is full, expand by 50%**
+        #if dataset is full, expand by 1000 frames
         if self.frame_index >= self.dataset_size:
-            new_size = int(self.dataset_size * 1.5)  # Expand by 50%
+            new_size = int(self.dataset_size + 1000)  # Expand by 1000 frames
             print(f"Resizing dataset from {self.dataset_size} to {new_size} frames...")
             self.image_dataset.resize(new_size, axis=0)
             self.dataset_size = new_size  # Update dataset size
@@ -53,12 +54,14 @@ class CameraInit:
         self.image_dataset[self.frame_index] = nfr
         self.frame_index += 1
 
-        # Display
-        display_img = (nfr / 255.0).astype(np.float32)
-        cv2.imshow("Grayscale Image", display_img)
+        return nfr
+
+        # Display - not needed because it is replaced with direct connection to silx plot
+        #display_img = (nfr / 255.0).astype(np.float32)
+        #cv2.imshow("Grayscale Image", display_img)
         
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            self.cleanup()
+        #if cv2.waitKey(1) & 0xFF == ord('q'):
+        #    self.cleanup()
 
     def cleanup(self):
         print(f"Saved {self.frame_index} frames.")
