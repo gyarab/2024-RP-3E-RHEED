@@ -1,3 +1,7 @@
+#timeframe of plotting is better is from origin of capture
+#in time series add a feature of viewing and unviewing the curves and time plots of the images
+#how to save locations of ROIs? easy solution
+
 from silx.gui import qt
 from silx.gui.plot.tools.roi import RegionOfInterestManager
 from silx.gui.plot.tools.roi import RegionOfInterestTableWidget

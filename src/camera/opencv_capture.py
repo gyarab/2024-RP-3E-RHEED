@@ -48,7 +48,7 @@ class CameraInit:
             print(f"Resizing dataset from {self.dataset_size} to {new_size} frames...")
             self.image_dataset.resize(new_size, axis=0)
             self.dataset_size = new_size  # Update dataset size
-
+        
         # Store frame
         self.image_dataset[self.frame_index] = nfr
         self.frame_index += 1
