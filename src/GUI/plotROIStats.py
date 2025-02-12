@@ -109,21 +109,9 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         qt.QMainWindow.__init__(self, parent)
         self.plot = Plot2D()
         self.setCentralWidget(self.plot)
-        # frame counter to limit ROI impact on performance
-        self.frame_counter = 0
-        self.update_interval = 10
 
         # widget for displaying stats results and update mode
         self._statsWidget = _RoiStatsWidget(parent=self, plot=self.plot)
-
-        # connect signal / slot
-        self._updateModeControl.sigUpdateModeChanged.connect(
-            self._statsWidget._updateModeControl.setUpdateMode
-        )
-        callback = functools.partial(
-            self._statsWidget.updateAllStats, is_request=True
-        )
-        self._updateModeControl.sigUpdateRequested.connect(callback)
 
         # 1D roi management
         self._curveRoiWidget = self.plot.getCurvesRoiDockWidget().widget()
@@ -171,7 +159,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
         # uncover the API of updatemode
-        self.setUpdateMode = self._updateModeControl.setUpdateMode
+        self.setUpdateMode = self._statsWidget._updateModeControl.setUpdateMode
 
         # Create a container widget for the 2D ROI tab
         self._2DRoiContainer = qt.QWidget()
@@ -183,13 +171,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
         # Connect ROI creation signal to register ROIs automatically
         self._regionManager.sigRoiAdded.connect(self._registerRoi)
-    
-    def update_stats(self):
-        """Update ROI statistics only every 10 frames."""
-        self.frame_counter += 1
-        if self.frame_counter % self.update_interval == 0:
-            print("[DEBUG] Updating ROI stats...")
-            self._roiStatsWindow.updateAllStats(is_request=True)
 
     def _registerRoi(self, roi):
         #Register a newly created ROI with the stats widget.
