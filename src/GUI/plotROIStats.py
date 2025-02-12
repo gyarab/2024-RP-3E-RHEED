@@ -28,7 +28,7 @@ import threading
 from silx.gui.utils import concurrent
 import random
 import time
-
+import src.camera.opencv_capture as camera
 
 class UpdateThread(threading.Thread):
     """Thread updating the image of a :class:`~silx.gui.plot.Plot2D`
@@ -39,6 +39,7 @@ class UpdateThread(threading.Thread):
         self.plot2d = plot2d
         self.running = False
         super(UpdateThread, self).__init__()
+        camera.CameraInit(100, 100, 10000)
 
     def start(self):
         """Start the update thread"""
@@ -52,9 +53,12 @@ class UpdateThread(threading.Thread):
             # Run plot update asynchronously
             concurrent.submitToQtMainThread(
                 self.plot2d.addImage,
-                numpy.random.random(10000).reshape(100, 100),
-                resetzoom=False,
-                legend=random.choice(("img1", "img2")),
+                camera.CameraInit(100, 100, 10000).image_dataset[0],
+                legend="opencv_capture",
+                #only sample noise below, used for initial testing
+                #numpy.random.random(10000).reshape(100, 100),
+                #resetzoom=False,
+                #legend=random.choice(("img1", "img2")),
             )
 
     def stop(self):
