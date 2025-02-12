@@ -7,7 +7,7 @@ from silx.gui.plot.tools.roi import RegionOfInterestManager
 from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
 from silx.gui.plot import Plot2D
 from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
-from silx.gui.plot.StatsWidget import UpdateModeWidgets
+from silx.gui.plot.StatsWidget import UpdateModeWidget
 import sys
 from silx.gui import qt
 from silx.gui.plot import Plot2D
