@@ -5,20 +5,15 @@
 from silx.gui import qt
 from silx.gui.plot.tools.roi import RegionOfInterestManager
 from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
-from silx.gui.plot.items.roi import RectangleROI, PolygonROI, ArcROI
 from silx.gui.plot import Plot2D
-from silx.gui.plot.CurvesROIWidget import ROI
 from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
-from silx.gui.plot.StatsWidget import UpdateModeWidget
+from silx.gui.plot.StatsWidget import UpdateModeWidgets
 import sys
 from silx.gui import qt
 from silx.gui.plot import Plot2D
 from silx.gui.plot.tools.roi import RegionOfInterestManager
 from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
 from silx.gui.plot.tools.roi import RoiModeSelectorAction
-from silx.gui.plot.items.roi import RectangleROI
-from silx.gui.plot.items import LineMixIn, SymbolMixIn
-from silx.gui.plot.actions import control as control_actions
 from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
 from silx.gui.plot.StatsWidget import UpdateModeWidget
 import argparse
@@ -26,9 +21,8 @@ import functools
 import numpy
 import threading
 from silx.gui.utils import concurrent
-import random
 import time
-import src.camera.opencv_capture as camera
+from camera.opencv_capture import CameraInit
 
 class UpdateThread(threading.Thread):
     """Thread updating the image of a :class:`~silx.gui.plot.Plot2D`
@@ -39,7 +33,7 @@ class UpdateThread(threading.Thread):
         self.plot2d = plot2d
         self.running = False
         super(UpdateThread, self).__init__()
-        camera.CameraInit(100, 100, 10000)
+        self.camera = CameraInit(100, 100, 10000)
 
     def start(self):
         """Start the update thread"""
@@ -53,7 +47,7 @@ class UpdateThread(threading.Thread):
             # Run plot update asynchronously
             concurrent.submitToQtMainThread(
                 self.plot2d.addImage,
-                camera.CameraInit(100, 100, 10000).image_dataset[0],
+                self.camera.capture_frame(),
                 legend="opencv_capture",
                 #only sample noise below, used for initial testing
                 #numpy.random.random(10000).reshape(100, 100),
