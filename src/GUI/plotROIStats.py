@@ -107,7 +107,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
     def __init__(self, parent=None, mode=None):
         qt.QMainWindow.__init__(self, parent)
-        self.plot = Plot2D()
+        self.plot = Plot2D(parent=self, backend="gl")
         self.setCentralWidget(self.plot)
 
         # widget for displaying stats results and update mode
