@@ -84,6 +84,12 @@
 	(§ 13) a práva na sdělování díla veřejnosti (§ 18) na dobu časově neomezenou a bez omezení
 	územního rozsahu.
 
+	\vspace{1cm}
+	
+	{Podpis autora: }
+	\makebox[4cm]{\hrulefill} \hspace{3cm}
+	Datum: \makebox[3cm]{\hrulefill}
+
 \newpage
 
 \tableofcontents
@@ -105,7 +111,7 @@ autoren: Marek Bílý, Jan Schreiber, Marek Švec
 \vspace{0.5cm}
 \newpage
 \section{Úvod}
-    RHEED (Reflection High-Energy Electron Diffraction) je metoda povrchové analýzy krystalických materiálů. Je zde využíván vysokoenergetický elektronový paprsek, který pod velmi malým úhlem dopadá na krystalickou strukturu zkoumaného materiálu. Elektrony se následně odrážejí od atomů na povrchu a vytvářejí tzv. difrakční vzor. Ten obsahuje potřebné informace o vzorku.
+    RHEED (Reflection High-Energy Electron Diffraction) je metoda povrchové analýzy krystalických materiálů. Je zde využíván vysokoenergetický elektronový paprsek, který pod velmi malým úhlem dopadá na krystalickou strukturu zkoumaného materiálu. Elektrony se následně odrážejí od atomů na povrchu a vytvářejí tzv. difrakční vzor. Ten obsahuje potřebné informace o vzorku.\\
 
     RHEED se skládá ze tří hlavních komponent: zdroje elektronového paprsku, vzorku a detekčního systému. Zdroj elektronového paprsku, někdy nazývaný elektronový kanón, je zodpovědný za generování vysokoenergetického svazku přesně zamířeného na povrch krystalového vzorku. Vzorek je umístěn v ultravysokém vakuu tak, aby s ním bylo možné nadálku manipulovat a otáčet pro získávání informací z více stran. Detekční systém má za úkol zachycovat difrakční vzor vzniklý rozptýlením elektronů po střetu s atomy vzorku. Nejběžnějšími nástroji zde slouží fluorescenční obrazovka, na kterou dopadají zmíněné elektrony, a CCP (charge-coupled device) kamera, která obraz zaznamenává. K analýze sebraných dat nakonec slouží softwarový program, jehož vytvoření je cílem naší práce.
     
@@ -123,12 +129,21 @@ autoren: Marek Bílý, Jan Schreiber, Marek Švec
     
 \subsection{Kamera}
 Pro snímání difrakčních vzorků jsme využili kameru \textbf{Player One Saturn-C}. Kamera disponuje CMOS snímačem s rozlišením 3856 x 2180 pixelů a velikostí pixelu 3.45 µm. To jí umožňuje detekovat i velmi malé detaily, nezbytný předpoklad při analýze difrakčních struktur.
-
-    Dále má široký dynamický rozsah, tudíž není problém jak s intenzivními, tak slabými světelnými signály. Zároveň se zde nachází i optimalizovaná citlivost ve viditelném i blízkém infračerveném světlu.
-
+    Dále má široký dynamický rozsah, tudíž není problém jak s intenzivními, tak slabými světelnými signály. Zároveň se zde nachází i optimalizovaná citlivost ve viditelném i blízkém infračerveném světle.
     Vysokorychlostní přenos dat zajišťuje rozhraní USB 3.0. To je důležité zejména pro sledování vzorku v reálném čase, znamená to žádné prodlevy a tudíž menší riziko zkažení vzorku.
     Výstup se zde nachází dvanáctibitový, tedy každý pixel je schopný zaznamenat až 4096 odstínů intenzity světla. Naprosto klíčový předpoklad v prostředí, kde i minimální rozdíl v intenzitě může nést důležité informace o struktuře vzorku.
 
+\subsubsection{Ovladače kamery}
+ Ovladače kamery jsou umístěny ve dvou souborech: "opencv\_capture.py" a "playerone\_driver.py". Ovladače jsou psány v jazyce Python a jsou rozděleny do dvou hlavních komponent: správu hardwarové inicializace a konfigurace kamery a systém pro snímání a ukládání obrazových dat ve formátu HDF5.\\
+
+    Prvním krokem při práci s kamerou je její inicializace a konfigurace. Implementovaná třída PlayerOneCamera zastřešuje detekci a otevření připojené kamery, její inicializaci a nastavení parametrů snímání. Proces začíná voláním metody initialize\_camera(), která vyhledá dostupné zařízení, získá jeho ID a následně provede jeho otevření a inicializaci. Po otevření kamery je nutné nastavit její parametry. To zajišťuje metoda \_configure\_camera(), která se stará o nastavení formátu obrazu, rozlišení, expozičního času, zisku (gain), barevného vyvážení a třídění (binning). Konfigurace je prováděna postupným voláním konfiguračních metod, které jsou organizovány v seznamu operací.\\
+
+    Kromě základního nastavení expozičních parametrů ovladač umožňuje řízení režimu expozice, zásadní pro dynamické přizpůsobení podmínek snímání. Kamera podporuje manuální nastavení expozičního času a automatickou regulaci citlivosti, což umožňuje přizpůsobit se jak nízkointenzitním, tak velmi jasným difrakčním vzorům. Samotné snímání je realizováno metodou capture\_image(), která provede zahájení expozice, kontrolu jejího dokončení a načtení obrazových dat do struktury numpy.ndarray. Obraz je před návratem převeden do 16bitového formátu, umožňujícího zachovat vysokou přesnost zaznamenaných intenzit.\\
+
+Pro zachování konzistence a správu dlouhých záznamů byl vyvinut modul pro ukládání snímků do souboru ve formátu HDF5, který umožňuje efektivní manipulaci s velkými objemy dat. Tato část je implementována ve třídě CameraInit, která kombinuje funkce pro inicializaci záznamu a postupné rozšiřování datasetu. Po spuštění aplikace je vytvořen HDF5 soubor, jehož název odpovídá aktuálnímu datu a času. Soubory jsou ukládány do k tomu určené složky cacheimg, zajišťující, že jednotlivé experimentální běhy jsou přehledně odděleny.
+Každý nový snímek je nejprve převeden do odstínů šedi a následně může být na žádost uživatele normalizován do formátu s dvojitou přesností (float64), což umožňuje pozdější analýzu bez ztráty detailů. Snímky jsou ukládány do předem alokovaného datasetu, přičemž pokud dojde k jeho naplnění, je dataset automaticky rozšířen o dalších 1000 snímků. Pro delší záznamy je implementována metoda capture\_video(), která umožňuje kontinuální ukládání snímků po definovanou dobu. Využívá při tom přímý zápis do souboru, čímž snižuje paměťové nároky na běhový systém. Ukládaná data jsou kompatibilní s vizualizačními a analytickými nástroji využívajícími knihovnu Silx, tím usnadňuje následnou interpretaci výsledků.
+
+Aby byla zajištěna stabilita aplikace a prevence úniku paměti, obsahuje ovladač mechanismus pro správu zdrojů. Metoda close\_camera() uzavírá připojení ke kameře, zatímco metoda cleanup() zajišťuje uzavření HDF5 souboru a uvolnění všech alokovaných prostředků. Tento přístup umožňuje opakované použití kamery v rámci jednoho experimentu bez nutnosti restartování systému.
     
 
 
