@@ -1,0 +1,86 @@
+1/0: uncompressed; offset = 80193
+2/0: uncompressed; offset = 80301
+3/0: uncompressed; offset = 81159
+4/0: uncompressed; offset = 81267
+5/0: uncompressed; offset = 81973
+6/0: uncompressed; offset = 82081
+7/0: uncompressed; offset = 82508
+8/0: uncompressed; offset = 82616
+9/0: uncompressed; offset = 85255
+10/0: uncompressed; offset = 85364
+11/0: uncompressed; offset = 88655
+12/0: uncompressed; offset = 89447
+13/0: uncompressed; offset = 89557
+14/0: uncompressed; offset = 90909
+15/0: uncompressed; offset = 100672
+16/0: uncompressed; offset = 119490
+17/0: uncompressed; offset = 135244
+18/0: uncompressed; offset = 162469
+19/0: uncompressed; offset = 163409
+20/0: uncompressed; offset = 164349
+21/0: uncompressed; offset = 165290
+22/0: uncompressed; offset = 166229
+23/0: uncompressed; offset = 166480
+24/0: uncompressed; offset = 15
+25/0: uncompressed; offset = 216
+26/0: uncompressed; offset = 976
+27/0: uncompressed; offset = 1027
+28/0: uncompressed; offset = 1265
+29/0: uncompressed; offset = 1375
+30/0: uncompressed; offset = 7348
+31/0: uncompressed; offset = 7849
+32/0: uncompressed; offset = 8083
+33/0: uncompressed; offset = 14556
+34/0: uncompressed; offset = 25471
+35/0: uncompressed; offset = 35400
+36/0: uncompressed; offset = 48850
+37/0: uncompressed; offset = 49791
+38/0: uncompressed; offset = 50731
+39/0: uncompressed; offset = 51671
+40/0: uncompressed; offset = 52611
+41/0: uncompressed; offset = 56830
+42/0: uncompressed; offset = 79253
+43/0: compressed; stream = 40, index = 0
+44/0: compressed; stream = 40, index = 1
+45/0: compressed; stream = 40, index = 2
+46/0: compressed; stream = 40, index = 3
+47/0: compressed; stream = 40, index = 4
+48/0: compressed; stream = 40, index = 5
+49/0: compressed; stream = 40, index = 6
+50/0: compressed; stream = 40, index = 7
+51/0: compressed; stream = 40, index = 8
+52/0: compressed; stream = 40, index = 9
+53/0: compressed; stream = 40, index = 10
+54/0: compressed; stream = 40, index = 11
+55/0: compressed; stream = 40, index = 12
+56/0: compressed; stream = 40, index = 13
+57/0: compressed; stream = 40, index = 14
+58/0: compressed; stream = 40, index = 15
+59/0: compressed; stream = 40, index = 16
+60/0: compressed; stream = 40, index = 17
+61/0: compressed; stream = 40, index = 18
+62/0: compressed; stream = 40, index = 19
+63/0: compressed; stream = 40, index = 20
+64/0: compressed; stream = 40, index = 21
+65/0: compressed; stream = 40, index = 22
+66/0: compressed; stream = 40, index = 23
+67/0: compressed; stream = 40, index = 24
+68/0: compressed; stream = 40, index = 25
+69/0: compressed; stream = 40, index = 26
+70/0: compressed; stream = 40, index = 27
+71/0: compressed; stream = 40, index = 28
+72/0: compressed; stream = 40, index = 29
+73/0: compressed; stream = 40, index = 30
+74/0: compressed; stream = 40, index = 31
+75/0: compressed; stream = 40, index = 32
+76/0: compressed; stream = 40, index = 33
+77/0: compressed; stream = 40, index = 34
+78/0: compressed; stream = 40, index = 35
+79/0: compressed; stream = 40, index = 36
+80/0: compressed; stream = 40, index = 37
+81/0: compressed; stream = 40, index = 38
+82/0: compressed; stream = 40, index = 39
+83/0: compressed; stream = 40, index = 40
+84/0: compressed; stream = 40, index = 41
+85/0: compressed; stream = 40, index = 42
+86/0: compressed; stream = 40, index = 43
