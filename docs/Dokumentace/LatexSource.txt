@@ -146,7 +146,20 @@ Každý nový snímek je nejprve převeden do odstínů šedi a následně můž
 Aby byla zajištěna stabilita aplikace a prevence úniku paměti, obsahuje ovladač mechanismus pro správu zdrojů. Metoda close\_camera() uzavírá připojení ke kameře, zatímco metoda cleanup() zajišťuje uzavření HDF5 souboru a uvolnění všech alokovaných prostředků. Tento přístup umožňuje opakované použití kamery v rámci jednoho experimentu bez nutnosti restartování systému.
     
 
+\subsubsection{Ukládání a analýza snímků}
+Ukládání a následná analýza difrakčních snímků jsou důležitými aspekty při zpracování dat. Pro efektivní správu a organizaci velkého množství získaných obrazových dat využíváme formát HDF5 (Hierarchical Data Format version 5), který umožňuje strukturované ukládání dat s možností rozšiřování a optimalizace výkonu při čtení a zápisu. Veškeré snímky pořízené kamerou Player One Saturn-C jsou ukládány v binárním formátu s vysokou přesností, umožňující jejich následnou analýzu a vizualizaci v interaktivním prostředí aplikace.\\
 
+Při inicializaci kamery se vytvoří nový soubor ve formátu HDF5, který slouží jako sklad pro všechny snímky pořízené v rámci jedné relace. Každý soubor je uložen ve složce cacheimg, přičemž jeho název je generován dynamicky podle aktuálního data a času, aby bylo možné snímky jednoznačně identifikovat. Vytvořený dataset arrays je předalokován s definovanou počáteční kapacitou, čímž se minimalizuje latence při zápisu nových snímků. Díky funkci rozšiřitelnosti datasetu je možné dynamicky alokovat další paměť v případě, že počet uložených snímků překročí původní alokaci. Tento proces probíhá automaticky a při dosažení limitu se dataset rozšíří o 1000 snímků, to zajišťuje plynulý provoz aplikace bez přerušení.\\
+
+Každý snímek je před uložením převáděn do stupňů šedi a volitelně může být normalizován s vysokou přesností pomocí 64bitových hodnot. Tento přístup je klíčový pro zachování detailů v intenzitě difrakčních vzorků, které by mohly být při běžném 8bitovém nebo 16bitovém ukládání ztraceny. Uložené snímky lze následně číst a zpracovávat v rámci dalších analýz, aniž by došlo ke snížení kvality záznamu.\\
+
+Vizualizace snímků probíhá v interaktivním grafickém prostředí s možností výběru konkrétních oblastí zájmu (ROI – Region of Interest). Pomocí specializovaných nástrojů lze definovat oblasti, ve kterých se provádí statistická analýza intenzity signálu, což umožňuje detailní zkoumání difrakčních vzorků. Tento proces je realizován v reálném čase. Snímky získané z kamery jsou okamžitě zobrazovány a mohou být interaktivně analyzovány.\\
+
+Hlavním prvkem interaktivního prostředí je okno vizualizace, které obsahuje nástroje pro správu oblastí zájmu a výpočet souvisejících statistik. Výběr ROI je umožněn prostřednictvím intuitivního uživatelského rozhraní, kde lze jednotlivé oblasti vytvářet, upravovat a porovnávat. Veškeré vybrané oblasti jsou následně spravovány prostřednictvím specializovaného ROI manageru, který se stará o jejich evidenci a propojení s výpočetními funkcemi. Statistické parametry, např. průměrná intenzita signálu, jsou zobrazovány v přehledné tabulce a umožňují okamžitou interpretaci výsledků.\\
+
+Pro zajištění plynulé vizualizace a rychlé analýzy je veškeré zpracování snímků realizováno v samostatném vláknu, které neblokuje hlavní běh aplikace. Díky tomu je možné sledovat změny v datech bez jakýchkoliv prodlev. Celý proces je navržen tak, aby podporoval automatickou aktualizaci, přičemž uživatel může volit mezi manuálním a automatickým režimem, který průběžně zpracovává nové snímky.\\
+
+Tento systém umožňuje nejen efektivní ukládání velkého objemu obrazových dat, ale také jejich pokročilou analýzu s využitím interaktivních nástrojů. Kombinace rychlého ukládání, dynamického rozšiřování datasetu a real-time vizualizace poskytuje uživateli výkonný nástroj pro studium difrakčních vzorků s vysokou přesností a flexibilitou.\\
 
 
 \subsection{GUI aplikace}
