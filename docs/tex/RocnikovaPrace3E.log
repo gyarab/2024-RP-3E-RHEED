@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  20 FEB 2025 23:16
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  20 FEB 2025 23:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -809,24 +809,24 @@ LaTeX Font Info:    ... okay on input line 57.
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
 * driver: xetex
-* paper: <default>
+* paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(92.14519pt, 430.00462pt, 92.14519pt)
-* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=430.00462pt
-* \textheight=556.47656pt
-* \oddsidemargin=19.8752pt
-* \evensidemargin=19.8752pt
-* \topmargin=-13.87262pt
+* h-part:(L,W,R)=(89.62709pt, 418.25368pt, 89.6271pt)
+* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=418.25368pt
+* \textheight=591.5302pt
+* \oddsidemargin=17.3571pt
+* \evensidemargin=17.3571pt
+* \topmargin=-7.86334pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
+* \marginparwidth=57.0pt
 * \marginparsep=11.0pt
 * \columnsep=10.0pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
@@ -882,6 +882,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 114--115
  []
 
 [5]
+Overfull \hbox (3.21634pt too wide) in paragraph at lines 137--138
+\TU/lmr/m/n/10 Ovladače kamery jsou umístěny ve dvou souborech: ”opencv_capture
+.py”a ”playerone_driver.py”.
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
@@ -910,10 +916,10 @@ Package logreq Info: Writing requests to 'RocnikovaPrace3E.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24648 strings out of 476683
- 499747 string characters out of 5804046
+ 24651 strings out of 476683
+ 499788 string characters out of 5804046
  1858018 words of memory out of 5000000
- 44543 multiletter control sequences out of 15000+600000
+ 44545 multiletter control sequences out of 15000+600000
  512391 words of font info for 45 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  84i,12n,89p,977b,3856s stack positions out of 10000i,1000n,20000p,200000b,200000s
