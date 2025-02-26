@@ -121,7 +121,33 @@ autoren: Marek Bílý, Jan Schreiber, Marek Švec
     
 \subsection{Zadání práce}
     Aplikace bude sloužit jako lepší alternativa stávající, z části nefunkční, aplikace v C\#. Vývoj bude obsahovat jak hardware interfacing s CCD detektorem, návrh a realizaci GUI, práci s obrazovými daty (integrace snímků), vizualizaci real-time a analýzu real-time obrazových dat, ukládání starších měřených dat do databáze pro další výzkum atd. Aplikace bude implementovat in-situ měřící metodu RHEED (Reflection High-Energy Electron Diffraction) využívající difrakci vysokoenergetických elektronů při odrazu od povrchu. Zpracování dat z této metody bude sloužit k charakterizaci celého procesu a spolehlivější predikci výsledku růstu ještě před jeho dokončením. Výsledný program bude využit na vědeckých pracovištích Fyzikálního ústavu AV ČR a to na oddělení spintroniky a kvantových materiálů Dr. Jungwirtha a ve výzkumné skupině Dr. Tima Verhagena zabývající se přípravou sandwichových materiálů s feroelektrickými vlastnostmi.
+\newpage
 \subsection{Použité technologie}
+
+Pro realizaci projektu byly využity následující knihovny:
+
+\begin{itemize}
+    \item \textbf{h5py (3.13.0)} – Knihovna pro práci se soubory ve formátu HDF5, využívaná pro ukládání a organizaci obrazových dat.
+    \item \textbf{lxml (5.3.1)} – Zpracování XML a HTML souborů.
+    \item \textbf{matplotlib (3.10.0)} – Vizualizace dat v Pythonu.
+    \item \textbf{numpy (2.2.3)} – Vědecké výpočty a efektivní práce s poli.
+    \item \textbf{opencv (4.11.0.86)} – Zpracování obrazu a práci s kamerou.
+    \item \textbf{pillow (11.1.0)} – Manipulace s obrazovými soubory různých formátů.
+    \item \textbf{OpenGL} – Rozhraní pro 2D a 3D grafiku.
+    \item \textbf{PyQt5 (5.15.11)} – Tvorbu GUI na bázi Qt.
+    \item \textbf{dateutil (2.9.0)} – Rozšíření práce s datem a časem.
+    \item \textbf{silx (2.2.0 a 1.17.0)} – Vědecké vizualizace a práce s daty.
+\end{itemize}
+
+Kromě těchto knihoven byly využity další nástroje pro vývoj softwaru, zejména:
+
+\begin{itemize}
+    \item \textbf{Python 3.10+} – Hlavní programovací jazyk projektu.
+    \item \textbf{Visual Studio Code} – Vývojové prostředí používané pro programování a ladění kódu.
+    \item \textbf{HDF5 formát} – Efektivní způsob ukládání a správy velkých datových souborů.
+    \item \textbf{Player One Saturn-C} – Kamera použitá pro sběr difrakčních snímků.
+\end{itemize}
+
 
 
 \subsection{Cíl práce}
