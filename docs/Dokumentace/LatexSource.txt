@@ -22,6 +22,7 @@
 \fancyhf{}
 \lhead{Gymnázium Arabská 14, Praha 6}
 \rhead{\small\textbf{Rheed}}
+\fancyfoot[C]{\thepage}
 
 
 \lstset{language=java}
@@ -53,8 +54,9 @@
 }
 
     \lstset{style=mystyle}
-\thispagestyle{empty}
+
 \begin{document}
+\thispagestyle{empty}  % Pouze na první stránce bez číslování
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.2\textwidth]{images/logo.png}
@@ -73,6 +75,8 @@
 {\Large\ \\Marek Bílý,\\ Jan Schreiber,\\ Marek Švec\\ 3.E\hfill březen 2025}
 
 \newpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
 
 \section*{Prohlášení}
 \addcontentsline{toc}{section}{Prohlášení}
@@ -158,7 +162,26 @@ Proces začíná snímáním obrazu pomocí kamery, přičemž data jsou získá
 
 Pro plynulé zobrazení snímků je implementována vláknová správa aktualizace obrazu, která umožňuje přenos dat mezi OpenCV a Silx Plot2D. Tento přístup zajišťuje, že nově získané snímky jsou ihned přidány do vykreslovacího okna bez nutnosti pozastavení běhu aplikace. Snímky jsou přidávány pomocí asynchronních volání, aby GUI aplikace zůstalo responzivní i při dlouhodobém záznamu. Tím je zajištěno, že všechny vykreslovací operace jsou prováděny na GPU, čímž se významně snižuje zatížení CPU a umožňuje práci i při zobrazení několika snímků najednou. Díky tomu je možné nejen zobrazovat jednotlivé snímky, ale i provádět časovou analýzu sekvenčních dat, což je klíčové pro sledování dynamických změn v difrakčních vzorech.\\
 
-Každé tlačítko v Toolbaru odpovídá specifické akci související s manipulací s ROI. Základní funkcionalitou je volba typu oblasti zájmu, to uživateli umožňuje definovat konkrétní oblast analýzy. K dispozici jsou nástroje pro přidání obdélníkových, kruhových nebo vlastnoručně nakreslených ROI. Po aktivaci režimu přidávání ROI uživatel jednoduše vybere oblast v rámci zobrazeného snímku, přičemž její parametry se ihned zobrazí v přehledné tabulce. Pomocí dalších nástrojů v liště lze oblast posouvat, upravovat její velikost, měnit její tvar či otáčet, což zajišťuje maximální flexibilitu při práci. Veškeré změny jsou ihned reflektovány v propojeném statistickém modulu, který umožňuje dynamickou analýzu dat.\\
+\subsection{GUI aplikace}
+GUI pro aplikaci RHEED je navrženo tak, aby poskytovalo uživatelsky přívětivé a intuitivní rozhraní pro vizualizaci obrazových dat a následnou analýzu. V GUI se může pracovat s kamerou, nastavením živého přenosu, vytvářením a úpravou ROI (region of interest) a analýzou dat. GUI je postaveno pomocí knihovny Silx což je nástavba na QTPY5
+
+\subsubsection{Okno vizualizace}
+Významným prvkem interaktivního uživatelského prostředí je okno vizualizace, které slouží k přehlednému zobrazení snímků a videa RHEED a jejich analýze. Tento modul zařizuje jak zobrazování snímků, správu ROI tak výpočty parametrů. Okno vizualizace je vytvořené s knihovnou Silx, která poskytuje užitečné nástroje pro zpracovávání a zobrazování dat.\\
+
+Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha, ROI manager, statistický panel, panel režimu aktualizace a Toolbar (nástrojová lišta). Hlavní zobrazovací plocha zobrazuje aktuální snímek. Statistický panel vypočítává a zobrazuje parametry intenzity signálu pro vybrané ROI. Panel režimu aktualizace ovládá způsoby statistických výpočtů. Tyto dva panely spolu úzce souvisí a dodatečné informace k nim, ROI manageru a Toolbaru představíme v následujících podkapitolách. 
+
+\subsubsection{Statistický panel}
+Statistická panel slouží k analýze dat v rámci jednotlivých ROI. Implementován je s pomocí ROIStatsWidget, který propojuje ROI manager s výpočetními funkcemi a poskytuje přehled statistik vypočítaných pro jednotlivé ROI. Mezi dostupné statistiky naší aplikace patří například průměrná intenzita signálu.
+
+\subsubsection{Panel režimu aktualizace}
+Panel režimu aktualizace slouží k ovládání způsobu, jakým se aktualizují statistické výpočty. Uživateli je v něm umožněno přepínat mezi dvěma režimy aktualizace. V automatickém režimu jsou statistiky přepočítávány průběžně bez zásahu uživatele, zatímco v manuálním režimu se aktualizace provede pouze po stisknutí tlačítka "update".
+
+\subsubsection{Toolbar}
+Toolbar obsahuje sadu tlačítek pro jednoduchou interakci s vizualizací obrazu a jeho přizpůsobením dle potřeb uživatele. Toolbar se nachází v horní části aplikace a poskytuje rychlý přístup k nástrojům pro navigaci, úpravu vzhledu a analýzu dat.\\
+
+Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Všechny omyly v úpravě obrazu lze rychle napravit tlačítkem "reset pozic". Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
+
+Tlačítko s názvem "copy snapshot of the plot" zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko "save curve/image/plot snapshot dialog" která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko "enable horizontal line profile selection", které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko "clear profiles", které vymaže všechny aktuálně zobrazené profily
 
 Další důležitou funkcí nástrojové lišty je možnost zobrazení nebo skrytí jednotlivých ROI. To umožňuje provádět srovnávací analýzu mezi různými částmi snímku a identifikovat klíčové rozdíly. Pokud uživatel potřebuje pracovat pouze s vybranými ROI, může jednoduše skrýt ostatní oblasti, čímž se usnadní jejich vyhodnocení.\\
 
@@ -167,13 +190,14 @@ Systém je navržen tak, aby podporoval víceúrovňovou práci s ROI, čili že
 Díky kombinaci interaktivního výběru ROI, pokročilé správy v ovládacím panelu a propojení se statistickým modulem poskytuje aplikace efektivní nástroje pro analýzu difrakčních snímků. Tímto způsobem je možné přesně vyhodnotit rozložení intenzity signálu a získat důležité informace o struktuře analyzovaných vzorků.\\
 
 \subsection{ROI}
- ROI (Region of interest) nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována prostřednictvím ROI manageru, který zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet a vizualizaci statistik souvisejících s danou oblastí. Statistické hodnoty zahrnují například průměrnou intenzitu signálu.\\
+ ROI (Region of interest) nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována ROI managerem, který se nachází v pravé části GUI jako dokovací okno. Ten zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je ROI automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet, vizualizaci statistik souvisejících s danou oblastí a ukazuje label (název), kind (typ), coordinates (souřadnice) a zároveň umožňuje ROI editovat nebo odstranit.\\
 
-Proces přidávání oblastí zájmu je umožněn prostřednictvím interaktivního uživatelského rozhraní. Uživatel má možnost manuálně definovat oblast na snímku pomocí myši a následně ji přizpůsobit podle požadavků analýzy. Po výběru ROI se její data okamžitě zapisují do interního systému aplikace. Každá ROI může být individuálně konfigurována, nebo-li uživatel může upravit její velikost, tvar a přesnou polohu ve snímku.\\
+Proces přidávání ROI je umožněn prostřednictvím interaktivního uživatelského rozhraní obsaženého v ROI manageru. Uživatel má možnost manuálně definovat oblast na snímku pomocí myši a následně ji přizpůsobit podle požadavků analýzy. Po výběru ROI se její data okamžitě zapisují do interního systému aplikace. Každá ROI může být individuálně konfigurována, nebo-li uživatel může upravit její velikost, tvar a přesnou polohu ve snímku.\\
 
-Aplikace podporuje různé tvary, mezi které patří předdefinované obdélníkové, eliptické nebo volně definované, což poskytuje vysokou flexibilitu při analýze. Každá přidaná oblast je evidována ve správci ROI, kde je možné ji přejmenovat, duplikovat, nebo odstranit, čímž se usnadňuje organizace a porovnávání různých částí snímku.\\
+Aplikace podporuje různé tvary, mezi které patří předdefinované obdélníkové, eliptické nebo volně definované uživatelem, což poskytuje vysokou flexibilitu při analýze. Každá přidaná oblast je evidována ve správci ROI, kde je možné ji přejmenovat, duplikovat, nebo odstranit, čímž se usnadňuje organizace a porovnávání různých částí snímku.\\
 
 Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat. Pokud uživatel preferuje manuální režim, je možné aktualizaci řídit pomocí ručně spouštěných výpočtů pro lepší kontrolu nad vyhodnocením výsledků. Všechny změny ROI jsou uchovávány po dobu analýzy a lze je dynamicky měnit podle potřeby.
+
 
 
 \section{Závěr}
@@ -181,3 +205,5 @@ Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě refl
 \section{Zdroje}
 
 \end{document}
+Schreiber.txt
+Strana 1 z 10
