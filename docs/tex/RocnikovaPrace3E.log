@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  24 FEB 2025 08:39
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  26 FEB 2025 21:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -92,9 +92,6 @@ Language: czech 2008/07/06 v3.1a Czech support from the babel system
 Package babel Info: Making " an active character on input line 172.
 \cs@wordlen=\count194
 Package babel Info: Making - an active character on input line 226.
-)
-(/usr/local/texlive/2023/texmf-dist/tex/generic/babel-czech/czech.ldf
-Language: czech 2008/07/06 v3.1a Czech support from the babel system
 ))
 (/usr/local/texlive/2023/texmf-dist/tex/generic/babel/locale/cs/babel-czech.tex
 Package babel Info: Importing font and identification data for czech
@@ -782,51 +779,51 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (./RocnikovaPrace3E.aux)
 \openout1 = `RocnikovaPrace3E.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 57.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 59.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 5
-7.
+9.
 
 (/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
 *geometry* verbose mode - [ preamble ] result:
 * driver: xetex
-* paper: a4paper
+* paper: <default>
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(89.62709pt, 418.25368pt, 89.6271pt)
-* v-part:(T,H,B)=(101.40665pt, 591.5302pt, 152.11pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=418.25368pt
-* \textheight=591.5302pt
-* \oddsidemargin=17.3571pt
-* \evensidemargin=17.3571pt
-* \topmargin=-7.86334pt
+* h-part:(L,W,R)=(92.14519pt, 430.00462pt, 92.14519pt)
+* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=430.00462pt
+* \textheight=556.47656pt
+* \oddsidemargin=19.8752pt
+* \evensidemargin=19.8752pt
+* \topmargin=-13.87262pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
 * \footskip=30.0pt
-* \marginparwidth=57.0pt
+* \marginparwidth=65.0pt
 * \marginparsep=11.0pt
 * \columnsep=10.0pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
@@ -854,74 +851,235 @@ Package biblatex Info: Automatic encoding selection.
 \openout4 = `RocnikovaPrace3E.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-
-
-Package biblatex Warning: File 'RocnikovaPrace3E.bbl' is wrong format version -
- expected 3.2.
-
 Package biblatex Info: ... file 'RocnikovaPrace3E.bbl' found.
+
 (./RocnikovaPrace3E.bbl)
-Package biblatex Info: Reference section=0 on input line 57.
-Package biblatex Info: Reference segment=0 on input line 57.
+Package biblatex Info: Reference section=0 on input line 59.
+Package biblatex Info: Reference segment=0 on input line 59.
 File: images/logo.png Graphic file (type bmp)
 <images/logo.png>
  [1
 
-] [2] (./RocnikovaPrace3E.toc
+]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 4.
+(Font)              <7> on input line 95.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 4.
-)
+(Font)              <5> on input line 95.
+ [1] (./RocnikovaPrace3E.toc)
 \tf@toc=\write5
 \openout5 = `RocnikovaPrace3E.toc'.
 
- [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 114--115
-
- []
-
-[5]
-Overfull \hbox (3.21634pt too wide) in paragraph at lines 137--138
-\TU/lmr/m/n/10 Ovladače kamery jsou umístěny ve dvou souborech: ”opencv_capture
-.py”a ”playerone_driver.py”.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
+ [2]
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 117--118
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
 
  []
 
-[6] [7] (./RocnikovaPrace3E.aux)
 
-LaTeX Warning: There were undefined references.
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
+
+ []
 
 
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                RocnikovaPrace3E
-(biblatex)                and rerun LaTeX afterwards.
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 122--123
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--124
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+
+ []
+
+[3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
+
+ []
+
+[5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 220--221
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--229
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 239--240
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--246
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 249--250
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 253--254
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 257--258
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 259--260
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 261--262
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 263--264
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--266
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 267--268
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 269--270
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 286--287
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 292--293
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--297
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--300
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--302
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
+
+ []
+
+[12]
+
+LaTeX Warning: Empty bibliography on input line 315.
+
+[13] (./RocnikovaPrace3E.aux)
 Package logreq Info: Writing requests to 'RocnikovaPrace3E.run.xml'.
 \openout1 = `RocnikovaPrace3E.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24651 strings out of 476683
- 499788 string characters out of 5804046
+ 24656 strings out of 476683
+ 499711 string characters out of 5804046
  1858018 words of memory out of 5000000
- 44545 multiletter control sequences out of 15000+600000
+ 44553 multiletter control sequences out of 15000+600000
  512391 words of font info for 45 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,12n,89p,977b,3856s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,12n,89p,999b,3856s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on RocnikovaPrace3E.pdf (7 pages).
+Output written on RocnikovaPrace3E.pdf (14 pages).

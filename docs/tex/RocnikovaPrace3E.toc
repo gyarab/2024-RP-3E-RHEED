@@ -1,14 +1,21 @@
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Prohlášení}{2}{}%
-\contentsline {section}{\numberline {1}Úvod}{5}{}%
-\contentsline {subsection}{\numberline {1.1}Zadání práce}{5}{}%
-\contentsline {subsection}{\numberline {1.2}Použité technologie}{5}{}%
-\contentsline {subsection}{\numberline {1.3}Cíl práce}{5}{}%
-\contentsline {section}{\numberline {2}Teorie??}{5}{}%
-\contentsline {section}{\numberline {3}Aplikace Rheed a její struktura}{5}{}%
-\contentsline {subsection}{\numberline {3.1}Kamera}{5}{}%
-\contentsline {subsubsection}{\numberline {3.1.1}Ovladače kamery}{6}{}%
-\contentsline {subsection}{\numberline {3.2}GUI aplikace}{7}{}%
-\contentsline {subsection}{\numberline {3.3}Grafy a funkce}{7}{}%
-\contentsline {section}{\numberline {4}Závěr}{7}{}%
-\contentsline {section}{\numberline {5}Zdroje}{7}{}%
+\contentsline {section}{Prohlášení}{1}{}%
+\contentsline {section}{\numberline {1}Slovník}{3}{}%
+\contentsline {section}{\numberline {2}Úvod}{5}{}%
+\contentsline {subsection}{\numberline {2.1}Zadání práce}{5}{}%
+\contentsline {subsection}{\numberline {2.2}Použité technologie}{5}{}%
+\contentsline {subsection}{\numberline {2.3}Cíl práce}{6}{}%
+\contentsline {section}{\numberline {3}Teorie}{7}{}%
+\contentsline {section}{\numberline {4}Aplikace Rheed a její struktura}{8}{}%
+\contentsline {subsection}{\numberline {4.1}Kamera}{8}{}%
+\contentsline {subsubsection}{\numberline {4.1.1}Ovladač kamery}{8}{}%
+\contentsline {subsubsection}{\numberline {4.1.2}Ukládání, HDF5 formát a analýza snímků}{9}{}%
+\contentsline {subsubsection}{\numberline {4.1.3}Zpracování obrazu}{9}{}%
+\contentsline {subsection}{\numberline {4.2}GUI aplikace}{11}{}%
+\contentsline {subsubsection}{\numberline {4.2.1}Okno vizualizace}{11}{}%
+\contentsline {subsubsection}{\numberline {4.2.2}Statistický panel}{11}{}%
+\contentsline {subsubsection}{\numberline {4.2.3}Panel režimu aktualizace}{11}{}%
+\contentsline {subsubsection}{\numberline {4.2.4}Toolbar}{11}{}%
+\contentsline {subsection}{\numberline {4.3}ROI}{12}{}%
+\contentsline {section}{\numberline {5}Závěr}{13}{}%
+\contentsline {section}{\numberline {6}Zdroje}{13}{}%
