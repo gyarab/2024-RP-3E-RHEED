@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage[pdftex]{graphicx}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage[utf8]{inputenc}
@@ -13,11 +14,9 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
 
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
+\addbibresource{refs.bib}
 
-\usepackage[backend=biber,style=alphabetic]{biblatex}
-\addbibresource{references.bib}
-
-% Nastavení zahlaví
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{Gymnázium Arabská 14, Praha 6}
@@ -53,10 +52,11 @@
     tabsize=2
 }
 
-    \lstset{style=mystyle}
+\lstset{style=mystyle}
 
 \begin{document}
-\thispagestyle{empty}  % Pouze na první stránce bez číslování
+\pagenumbering{gobble}
+\thispagestyle{empty}
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.2\textwidth]{images/logo.png}
@@ -75,11 +75,8 @@
 {\Large\ \\Marek Bílý,\\ Jan Schreiber,\\ Marek Švec\\ 3.E\hfill březen 2025}
 
 \newpage
-\pagenumbering{arabic}
-\pagestyle{fancy}
-
+\thispagestyle{empty}
 \section*{Prohlášení}
-\addcontentsline{toc}{section}{Prohlášení}
 Prohlašujeme, že jsme jedinými autory tohoto projektu, všechny citace jsou
 řádně označené a všechna použitá literatura a další zdroje jsou v práci uvedeny.
 
@@ -103,12 +100,13 @@ bezúplatně škole Gymnázium, Praha 6, Arabská 14 oprávnění k výkonu prá
     Datum: \makebox[3cm]{\hrulefill} \\
 \end{tabular}
 
-
 \newpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
 
 \tableofcontents
-
 \newpage
+
 
 \section{Slovník}
 \begin{itemize}
@@ -272,9 +270,15 @@ Aplikace podporuje různé tvary, mezi které patří předdefinované obdélní
 Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat. Pokud uživatel preferuje manuální režim, je možné aktualizaci řídit pomocí ručně spouštěných výpočtů pro lepší kontrolu nad vyhodnocením výsledků. Všechny změny ROI jsou uchovávány po dobu analýzy a lze je dynamicky měnit podle potřeby.
 
 
-
-
-
+\newpage
 \section{Zdroje}
-
+\textbf{h5py} - \cite{h5pyDocs}\\
+\textbf{Matplotlib} - \cite{matplotlibDocs}\\
+\textbf{Numpy} - \cite{numpyDocs}\\
+\textbf{OpenCV} - \cite{opencvDocs}\\
+\textbf{Silx} - \cite{silxDocs}\\
+\textbf{Player One SDK} - \cite{PlayerOneSDK}\\
+\textbf{RHEED} - \cite{RHEED}\\
+\textbf{HDF5} - \cite{WhatIsHDF5}\\
+\printbibliography
 \end{document}
