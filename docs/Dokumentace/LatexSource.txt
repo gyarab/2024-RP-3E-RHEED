@@ -205,5 +205,3 @@ Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě refl
 \section{Zdroje}
 
 \end{document}
-Schreiber.txt
-Strana 1 z 10
