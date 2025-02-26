@@ -28,10 +28,9 @@ Latexmk: Examining 'output.fls'
 Latexmk: Examining 'output.log'
 Latexmk: Found input bbl file 'output.bbl'
 Latexmk: Log file says output to 'output.pdf'
-Latexmk: Bibliography file(s) from .bcf file:
-  references.bib
-Bib file(s) not found in search path:
-  references.bib
+Latexmk: Found bibliography file(s):
+  ./output-blx.bib
+  ./refs.bib
 Latexmk: All targets (output.pdf) are up-to-date
 ------------
 Running 'internal overleaf_post_process "main.tex" "output.pdf"'
