@@ -24,7 +24,7 @@
 \fancyfoot[C]{\thepage}
 
 
-\lstset{language=java}
+\lstset{language=python}
 \lstset{literate= {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ý}{{\'y}}1 {č}{{\v{c}}}1 {ď}{{\v{d}}}1 {ě}{{\v{e}}}1 {ň}{{\v{n}}}1 {ř}{{\v{r}}}1 {š}{{\v{s}}}1 {ť}{{\v{t}}}1 {ů}{{\r{u}}}1 {ž}{{\v{z}}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {Ý}{{\'Y}}1 {Č}{{\v{C}}}1 {Ď}{{\v{D}}}1 {Ě}{{\v{E}}}1 {Ň}{{\v{N}}}1 {Ř}{{\v{R}}}1 {Š}{{\v{S}}}1 {Ť}{{\v{T}}}1 {Ů}{{\r{U}}}1 {Ž}{{\v{Z}}}1}
 
 
@@ -52,7 +52,7 @@
     tabsize=2
 }
 
-\lstset{style=mystyle}
+    \lstset{style=mystyle}
 
 \begin{document}
 \pagenumbering{gobble}
@@ -207,9 +207,38 @@ Pro snímání difrakčních vzorků jsme využili kameru \textbf{Player One Sat
     Dále má široký dynamický rozsah, tudíž není problém jak s intenzivními, tak slabými světelnými signály. Zároveň se zde nachází i optimalizovaná citlivost ve viditelném i blízkém infračerveném světle.
     Vysokorychlostní přenos dat zajišťuje rozhraní USB 3.0. To je důležité zejména pro sledování vzorku v reálném čase, znamená to žádné prodlevy a tudíž menší riziko zkažení vzorku.
     Výstup se zde nachází dvanáctibitový, tedy každý pixel je schopný zaznamenat až 4096 odstínů intenzity světla. Naprosto klíčový předpoklad v prostředí, kde i minimální rozdíl v intenzitě může nést důležité informace o struktuře vzorku.
-
+\newpage
 \subsubsection{Ovladač kamery}
 S kamerou operuje soubor "opencv\_capture.py", který kameru inicializuje, konfiguruje a stará se o záznam snímků. Při spuštění je kamera inicializována a nastavena na požadované parametry a dále je zajištěno propojení s kamerou pomocí knihovny OpenCV. Při zdařilé inicializaci se otevírá datové úložiště, kde se každá relace ukládá do unikátního souboru ve složce cacheimg. To je adresář pro ukládání dat.\\
+
+\begin{lstlisting}
+class CameraInit:
+    def __init__(self, width, height, initial_size):
+        self.width = width
+        self.height = height
+        self.frame_index = 0
+        self.dataset_size = initial_size  # Initial allocation size
+        
+        self.cache_folder = "cacheimg"
+        os.makedirs(self.cache_folder, exist_ok=True)
+        
+        self.cap = cv2.VideoCapture(0)
+        if not self.cap.isOpened():
+            print("Failed to open camera.")
+            return
+        
+        self.h5_file = h5py.File(
+            os.path.join(self.cache_folder, f"dataset_{datetime.datetime.now().strftime('%d-%m-%Y_%H-%M-%S')}.h5"), "w"
+        )
+
+        self.image_dataset = self.h5_file.create_dataset(
+            "arrays",
+            shape=(self.dataset_size, self.width, self.height),
+            maxshape=(None, self.width, self.height),
+            dtype=np.uint16,
+\end{lstlisting}
+\captionof{lstlisting}{Inicializace kamery a ukládání dat do formátu HDF5}
+\vspace{0.5cm}
 
 Při ukončení záznamu je modul vybaven funkcemi zajišťujícími, že nedochází k úniku paměti nebo blokování systémových prostředků. Uzavírá se jak kamerové rozhraní tak soubory, čímž se předchází nechtěnému růstu souborů nebo vzniku chyb v již nasbíraných datech. Zároveň je vše uvedeno do stavu, kdy nic nebrání další bezproblémové inicializaci kamery.
 
@@ -220,6 +249,30 @@ Ukládání a následná analýza difrakčních snímků jsou důležitými aspe
 HDF5 formát je tedy skvělou volbou pro organizaci a manipulaci s velkými objemy dat. HDF5 je hiearchycký souborový formát a umožňuje schraňování různých datových struktur v jednom souboru. V naší aplikaci je využíván pouze pro ukládání a organizaci snímků difrakčních vzorků, ale formát jako takový se dá využít i pro ukládání numerických simulacích nebo jiných měření. Dá se říci že je to systém menších souborů uvnitř jednoho většího binárního souboru. Organizování uvnitř formátu HDF5 jinak funguje velmi obdobně jako v běžném souborovém systému. Má tři hlavní složky: Skupiny, Datasety a Atributy. My pro ukládání snímků využíváme datasety, kde je každý snímek uložen jako matice hodnot intenzit.
 
 Při inicializaci kamery se vytvoří nový soubor ve formátu HDF5, který slouží jako sklad pro všechny snímky pořízené v rámci jedné relace. Každý soubor je uložen v již zmíněné složce cacheimg, přičemž jeho název je generován dynamicky podle aktuálního data a času, aby bylo možné snímky jednoznačně identifikovat. Vytvořený dataset arrays je předalokován s definovanou počáteční kapacitou, čímž se minimalizuje latence při zápisu nových snímků. Díky funkci rozšiřitelnosti datasetu je také možné dynamicky alokovat další paměť v případě, že počet uložených snímků překročí původní alokaci. Tento proces probíhá automaticky a při dosažení limitu se dataset rozšíří o 1000 snímků.\\
+
+\begin{lstlisting}
+def capture_frame(self):
+    ret, frame = self.cap.read()
+    if not ret:
+        print("Failed to capture frame.")
+        return
+
+    fr = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    nfr = fr.astype(np.float64)
+
+    if self.frame_index >= self.dataset_size:
+        new_size = int(self.dataset_size + 1000)
+        print(f"Resizing dataset from {self.dataset_size} to {new_size} frames...")
+        self.image_dataset.resize(new_size, axis=0)
+        self.dataset_size = new_size  
+
+    self.image_dataset[self.frame_index] = nfr
+    self.frame_index += 1
+
+    return nfr
+\end{lstlisting}
+\captionof{lstlisting}{Zachycení a uložení snímku do datasetu}
+\vspace{0.5cm}
 
 Každý snímek je před uložením převáděn do stupňů šedi a volitelně může být normalizován s vysokou přesností pomocí 64bitových hodnot. Tento přístup je klíčový pro zachování detailů v intenzitě difrakčních vzorků, které by mohly být při běžném 8bitovém nebo 16bitovém ukládání ztraceny. Uložené snímky lze následně číst a zpracovávat v rámci dalších analýz, aniž by došlo ke snížení kvality záznamu. Vizualizace snímků probíhá v interaktivním grafickém prostředí s možností výběru konkrétních oblastí zájmu, více v kapitole "ROI a jejich správa". Pro zajištění plynulé vizualizace a analýzy je veškeré zpracování snímků realizováno v samostatném vláknu, které neblokuje hlavní běh aplikace. Díky tomu je možné sledovat změny v datech bez jakýchkoliv prodlev. Celý proces podporuje automatickou aktualizaci, přičemž uživatel může volit mezi manuálním a automatickým režimem, který průběžně zpracovává nové snímky.\\
 
@@ -243,15 +296,24 @@ Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha,
 
 \subsubsection{Statistický panel}
 Statistická panel slouží k analýze dat v rámci jednotlivých ROI. Implementován je s pomocí ROIStatsWidget, který propojuje ROI manager s výpočetními funkcemi a poskytuje přehled statistik vypočítaných pro jednotlivé ROI. Mezi dostupné statistiky naší aplikace patří například průměrná intenzita signálu.
-
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/StatistickyPanel.png}
+    \caption{Statistický panel}
+\end{figure}
 \subsubsection{Panel režimu aktualizace}
 Panel režimu aktualizace slouží k ovládání způsobu, jakým se aktualizují statistické výpočty. Uživateli je v něm umožněno přepínat mezi dvěma režimy aktualizace. V automatickém režimu jsou statistiky přepočítávány průběžně bez zásahu uživatele, zatímco v manuálním režimu se aktualizace provede pouze po stisknutí tlačítka "update".
+\newpage
 
 \subsubsection{Toolbar}
 Toolbar obsahuje sadu tlačítek pro jednoduchou interakci s vizualizací obrazu a jeho přizpůsobením dle potřeb uživatele. Toolbar se nachází v horní části aplikace a poskytuje rychlý přístup k nástrojům pro navigaci, úpravu vzhledu a analýzu dat.\\
 
 Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Všechny omyly v úpravě obrazu lze rychle napravit tlačítkem "reset pozic". Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
-
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Toolbar.png}
+    \caption{Toolbar}
+\end{figure}
 Tlačítko s názvem "copy snapshot of the plot" zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko "save curve/image/plot snapshot dialog" která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko "enable horizontal line profile selection", které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko "clear profiles", které vymaže všechny aktuálně zobrazené profily
 
 Další důležitou funkcí nástrojové lišty je možnost zobrazení nebo skrytí jednotlivých ROI. To umožňuje provádět srovnávací analýzu mezi různými částmi snímku a identifikovat klíčové rozdíly. Pokud uživatel potřebuje pracovat pouze s vybranými ROI, může jednoduše skrýt ostatní oblasti, čímž se usnadní jejich vyhodnocení.\\
@@ -259,17 +321,47 @@ Další důležitou funkcí nástrojové lišty je možnost zobrazení nebo skry
 Systém je navržen tak, aby podporoval víceúrovňovou práci s ROI, čili že uživatel může zároveň spravovat několik ROI a analyzovat jejich vzájemné vztahy. Všechny akce v rámci ovládacího panelu jsou synchronizovány s vizualizačním modulem, uživatel má tedy neustálý přehled o tom, jaké oblasti jsou aktivní a jaké parametry jsou vyhodnocovány.\\
 
 Díky kombinaci interaktivního výběru ROI, pokročilé správy v ovládacím panelu a propojení se statistickým modulem poskytuje aplikace efektivní nástroje pro analýzu difrakčních snímků. Tímto způsobem je možné přesně vyhodnotit rozložení intenzity signálu a získat důležité informace o struktuře analyzovaných vzorků.\\
+\newpage
 
 \subsection{ROI}
  ROI nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována ROI managerem, který se nachází v pravé části GUI jako dokovací okno. Ten zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je ROI automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet, vizualizaci statistik souvisejících s danou oblastí a ukazuje label (název), kind (typ), coordinates (souřadnice) a zároveň umožňuje ROI editovat nebo odstranit.\\
 
 Proces přidávání ROI je umožněn prostřednictvím interaktivního uživatelského rozhraní obsaženého v ROI manageru. Uživatel má možnost manuálně definovat oblast na snímku pomocí myši a následně ji přizpůsobit podle požadavků analýzy. Po výběru ROI se její data okamžitě zapisují do interního systému aplikace. Každá ROI může být individuálně konfigurována, nebo-li uživatel může upravit její velikost, tvar a přesnou polohu ve snímku.\\
 
+\begin{lstlisting}
+    class _RoiStatsDisplayExWindow(qt.QMainWindow):
+    def __init__(self, parent=None, mode=None):
+        qt.QMainWindow.__init__(self, parent)
+        self.plot = Plot2D(parent=self, backend="gl")
+        self.setCentralWidget(self.plot)
+
+        self._statsWidget = _RoiStatsWidget(parent=self, plot=self.plot)
+
+        self._regionManager = RegionOfInterestManager(parent=self.plot)
+        self._roiTable = RegionOfInterestTableWidget()
+        self._roiTable.setRegionOfInterestManager(self._regionManager)
+
+        self._roiToolbar = qt.QToolBar()
+        self._roiToolbar.setIconSize(qt.QSize(16, 16))
+
+        for roiClass in self._regionManager.getSupportedRoiClasses():
+            self._roiToolbar.addAction(self._regionManager.getInteractionModeAction(roiClass))
+
+        modeSelectorAction = RoiModeSelectorAction()
+        modeSelectorAction.setRoiManager(self._regionManager)
+
+\end{lstlisting}
+\captionof{lstlisting}{Vizualizace, výběr a analýza ROI}
+\newpage
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/ROIManager.png}
+    \caption{ROI manager}
+\end{figure}
+
 Aplikace podporuje různé tvary, mezi které patří předdefinované obdélníkové, eliptické nebo volně definované uživatelem, což poskytuje vysokou flexibilitu při analýze. Každá přidaná oblast je evidována ve správci ROI, kde je možné ji přejmenovat, duplikovat, nebo odstranit, čímž se usnadňuje organizace a porovnávání různých částí snímku.\\
 
 Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat. Pokud uživatel preferuje manuální režim, je možné aktualizaci řídit pomocí ručně spouštěných výpočtů pro lepší kontrolu nad vyhodnocením výsledků. Všechny změny ROI jsou uchovávány po dobu analýzy a lze je dynamicky měnit podle potřeby.
-
-
 \newpage
 \section{Zdroje}
 \textbf{h5py} - \cite{h5pyDocs}\\
