@@ -1,11 +1,10 @@
 \documentclass{article}
-\usepackage[pdftex]{graphicx}
+\usepackage{graphicx}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 \usepackage[czech]{babel}
-\usepackage{graphicx}
 \usepackage{listings}
 \graphicspath{{Images/}}
 \usepackage{color}
@@ -14,8 +13,9 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
 
-\usepackage[backend=bibtex,style=alphabetic]{biblatex}
+\usepackage[backend=biber,style=numeric]{biblatex}
 \addbibresource{refs.bib}
+
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -51,32 +51,56 @@
     showtabs=false,                  
     tabsize=2
 }
+\lstset{style=mystyle}
 
-    \lstset{style=mystyle}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Gymnázium Arabská 14, Praha 6}
+\rhead{\small\textbf{RHEED}}
+
+\rfoot{\thepage}
 
 \begin{document}
-\pagenumbering{gobble}
-\thispagestyle{empty}
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=0.2\textwidth]{images/logo.png}
-    \label{fig:logo_skoly}
-\end{figure}
-
-\centerline{\scshape\Huge Gymnázium, Praha 6, Arabská 14\par}
-\vspace{1cm}
-\centerline{\scshape\Large předmět programování, vyučující Daniel Kahoun\par}
-\vspace{2cm}
-\centerline{\huge\bfseries Rheed\par}
-\vspace{0.5cm}
-\centerline{\normalsize\bfseries Ročníkový projekt}
-
-\vspace{2cm}
-{\Large\ \\Marek Bílý,\\ Jan Schreiber,\\ Marek Švec\\ 3.E\hfill březen 2025}
-
-\newpage
-\thispagestyle{empty}
-\section*{Prohlášení}
+	\thispagestyle{empty}
+	
+	\begin{flushleft}
+		\includegraphics[width=1.5cm]{logo.png}
+		\begin{tabular}[b]{@{}p{0.6\textwidth}}
+			\large\textbf{Gymnázium, Praha 6, Arabská 14}\\
+			\textbf{Předmět:} Programování\\
+			\textbf{Vedoucí práce:} Ing. Daniel Kahoun
+			\textbf{Odborná konzultace:} Dr. Dominik Kriegner, Ing. Filip Křížek, Ph. D. 
+		\end{tabular}
+	\end{flushleft}
+	
+	\vspace*{\fill}
+	
+	\begin{center}
+		\vspace{1cm}
+		{\Huge\textbf{Aplikace pro vizualizaci a analýzu dat z in-situ měření RHEED při epitaxi monoatomárních vrstev pomocí technologie MBE}}\\
+		\vspace{0.5cm}
+		Ročníková práce
+		\vspace{0.5cm}
+	\end{center}
+	
+	\begin{figure}[h]
+		\centering
+		%\includegraphics[width=0.87\textwidth]{title.png}
+	\end{figure}
+	
+	\vspace*{\fill}
+	
+	\begin{flushleft}
+		Marek Bílý\\
+		Marek Švec\\
+		Jan Schreiber\\
+		\hspace{10cm}
+		březen 2024
+	\end{flushleft}
+	
+	\newpage
+	\thispagestyle{empty}
+	\section*{Prohlášení}
 Prohlašujeme, že jsme jedinými autory tohoto projektu, všechny citace jsou
 řádně označené a všechna použitá literatura a další zdroje jsou v práci uvedeny.
 
@@ -364,13 +388,15 @@ Aplikace podporuje různé tvary, mezi které patří předdefinované obdélní
 Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat. Pokud uživatel preferuje manuální režim, je možné aktualizaci řídit pomocí ručně spouštěných výpočtů pro lepší kontrolu nad vyhodnocením výsledků. Všechny změny ROI jsou uchovávány po dobu analýzy a lze je dynamicky měnit podle potřeby.
 \newpage
 \section{Zdroje}
-\textbf{h5py} - \cite{h5pyDocs}\\
-\textbf{Matplotlib} - \cite{matplotlibDocs}\\
-\textbf{Numpy} - \cite{numpyDocs}\\
-\textbf{OpenCV} - \cite{opencvDocs}\\
-\textbf{Silx} - \cite{silxDocs}\\
-\textbf{Player One SDK} - \cite{PlayerOneSDK}\\
-\textbf{RHEED} - \cite{RHEED}\\
-\textbf{HDF5} - \cite{WhatIsHDF5}\\
+%\textbf{h5py} - \cite{h5pyDocs}\\
+%\textbf{Matplotlib} - \cite{matplotlibDocs}\\
+%\textbf{Numpy} - \cite{numpyDocs}\\
+%\textbf{OpenCV} - \cite{opencvDocs}\\
+%\textbf{Silx} - \cite{silxDocs}\\
+%\textbf{Player One SDK} - \cite{PlayerOneSDK}\\
+%\textbf{RHEED} - \cite{RHEED}\\
+%\textbf{HDF5} - \cite{WhatIsHDF5}\\
+\nocite{*}
+
 \printbibliography
 \end{document}

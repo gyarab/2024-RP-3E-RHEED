@@ -3,8 +3,8 @@
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
-% This file may safely be deleted. It will be recreated as
-% required.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
 %
 \begingroup
 \makeatletter
@@ -16,198 +16,242 @@
   {}
 \endgroup
 
-\datalist[entry]{anyt/global//global/global/global}
-  \entry{h5pyDocs}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=CA}{%
-         family={Collette},
-         familyi={C\bibinitperiod},
-         given={Andrew},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{CA1}
-    \strng{fullhash}{CA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{Col24}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{note}{Zpřístupněno: 15.12.2024}
-    \field{title}{h5py Documentation}
-    \verb{url}
-    \verb https://docs.h5py.org/en/stable/
-    \endverb
-    \field{year}{2024}
-  \endentry
 
-  \entry{opencvDocs}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=DO}{%
-         family={Developers},
-         familyi={D\bibinitperiod},
-         given={OpenCV},
-         giveni={O\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{DO1}
-    \strng{fullhash}{DO1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{Dev24}
-    \field{extraalpha}{1}
-    \field{sortinit}{D}
-    \field{sortinithash}{D}
-    \field{note}{Zpřístupněno: 13.12.2024}
-    \field{title}{OpenCV Documentation}
-    \verb{url}
-    \verb https://docs.opencv.org/master/
-    \endverb
-    \field{year}{2024}
-  \endentry
-
-  \entry{numpyDocs}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=DTN}{%
-         family={Developers},
-         familyi={D\bibinitperiod},
-         given={The\bibnamedelima NumPy},
-         giveni={T\bibinitperiod\bibinitdelim N\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{DTN1}
-    \strng{fullhash}{DTN1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{Dev24}
-    \field{extraalpha}{2}
-    \field{sortinit}{D}
-    \field{sortinithash}{D}
-    \field{note}{Zpřístupněno: 12.12.2024}
-    \field{title}{NumPy Documentation}
-    \verb{url}
-    \verb https://numpy.org/doc/stable/
-    \endverb
-    \field{year}{2024}
-  \endentry
-
-  \entry{RHEED}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=M}{%
-         family={MFF},
-         familyi={M\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{M1}
-    \strng{fullhash}{M1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{MFF24}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{note}{Zpřístupněno: 20.11.2024}
-    \field{title}{RHEED}
-    \verb{url}
-    \verb https://physics.mff.cuni.cz/kfpp/s4r/povrch/rheed.html
-    \endverb
-    \field{year}{2024}
-  \endentry
-
-  \entry{PlayerOneSDK}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=OP}{%
-         family={One},
-         familyi={O\bibinitperiod},
-         given={Player},
-         giveni={P\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{OP1}
-    \strng{fullhash}{OP1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{One24}
-    \field{sortinit}{O}
-    \field{sortinithash}{O}
-    \field{note}{Zpřístupněno: 2.1.2025}
-    \field{title}{Player One SDK Documentation}
-    \verb{url}
-    \verb https://player-one-astronomy.com/service/software/
-    \endverb
-    \field{year}{2024}
-  \endentry
-
-  \entry{WhatIsHDF5}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=SN}{%
-         family={Science},
-         familyi={S\bibinitperiod},
-         given={NEON},
-         giveni={N\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{SN1}
-    \strng{fullhash}{SN1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{Sci24}
-    \field{sortinit}{S}
-    \field{sortinithash}{S}
-    \field{note}{Zpřístupněno: 2.1.2025}
-    \field{title}{Hierarchical Data Formats - What is HDF5?}
-    \verb{url}
-    \verb https://www.neonscience.org/resources/learning-hub/tutorials/about-hd
-    \verb f5
-    \endverb
-    \field{year}{2024}
-  \endentry
-
-  \entry{matplotlibDocs}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=TTMD}{%
-         family={Team},
-         familyi={T\bibinitperiod},
-         given={The Matplotlib\bibnamedelima Development},
-         giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim D\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{TTMD1}
-    \strng{fullhash}{TTMD1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{Tea24}
-    \field{sortinit}{T}
-    \field{sortinithash}{T}
-    \field{note}{Zpřístupněno: 12.12.2024}
-    \field{title}{Matplotlib Documentation}
-    \verb{url}
-    \verb https://matplotlib.org/stable/contents.html
-    \endverb
-    \field{year}{2024}
-  \endentry
-
-  \entry{silxDocs}{online}{}{}
-    \name{author}{1}{}{%
-      {{hash=UDA}{%
-         family={Unit},
-         familyi={U\bibinitperiod},
-         given={Data\bibnamedelima Analysis},
-         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{UDA1}
-    \strng{fullhash}{UDA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelalpha}{Uni24}
-    \field{sortinit}{U}
-    \field{sortinithash}{U}
-    \field{note}{Zpřístupněno: 5.1.2025}
-    \field{title}{Silx Documentation}
-    \verb{url}
-    \verb https://www.silx.org/doc/silx/latest/
-    \endverb
-    \field{year}{2024}
-  \endentry
-\enddatalist
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{h5pyDocs}{online}{}
+      \name{author}{1}{}{%
+        {{hash=1c91b0e342f89cef33c0dc386abe77d9}{%
+           family={Collette},
+           familyi={C\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \strng{fullhash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \strng{bibnamehash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \strng{authorbibnamehash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \strng{authornamehash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \strng{authorfullhash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 15.12.2024}
+      \field{title}{h5py Documentation}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://docs.h5py.org/en/stable/
+      \endverb
+      \verb{url}
+      \verb https://docs.h5py.org/en/stable/
+      \endverb
+    \endentry
+    \entry{opencvDocs}{online}{}
+      \name{author}{1}{}{%
+        {{hash=b299fb2b1d50ca2c9485edaaab88e0a4}{%
+           family={Developers},
+           familyi={D\bibinitperiod},
+           given={OpenCV},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \strng{fullhash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \strng{bibnamehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \strng{authorbibnamehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \strng{authornamehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \strng{authorfullhash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \field{extraname}{1}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 13.12.2024}
+      \field{title}{OpenCV Documentation}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://docs.opencv.org/master/
+      \endverb
+      \verb{url}
+      \verb https://docs.opencv.org/master/
+      \endverb
+    \endentry
+    \entry{numpyDocs}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c646e822442ba58aefb86997bbdd7fbc}{%
+           family={Developers},
+           familyi={D\bibinitperiod},
+           given={The\bibnamedelima NumPy},
+           giveni={T\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \strng{namehash}{c646e822442ba58aefb86997bbdd7fbc}
+      \strng{fullhash}{c646e822442ba58aefb86997bbdd7fbc}
+      \strng{bibnamehash}{c646e822442ba58aefb86997bbdd7fbc}
+      \strng{authorbibnamehash}{c646e822442ba58aefb86997bbdd7fbc}
+      \strng{authornamehash}{c646e822442ba58aefb86997bbdd7fbc}
+      \strng{authorfullhash}{c646e822442ba58aefb86997bbdd7fbc}
+      \field{extraname}{2}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 12.12.2024}
+      \field{title}{NumPy Documentation}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://numpy.org/doc/stable/
+      \endverb
+      \verb{url}
+      \verb https://numpy.org/doc/stable/
+      \endverb
+    \endentry
+    \entry{RHEED}{online}{}
+      \name{author}{1}{}{%
+        {{hash=c1692a82454404286a41f5644137750c}{%
+           family={MFF},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{c1692a82454404286a41f5644137750c}
+      \strng{fullhash}{c1692a82454404286a41f5644137750c}
+      \strng{bibnamehash}{c1692a82454404286a41f5644137750c}
+      \strng{authorbibnamehash}{c1692a82454404286a41f5644137750c}
+      \strng{authornamehash}{c1692a82454404286a41f5644137750c}
+      \strng{authorfullhash}{c1692a82454404286a41f5644137750c}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 20.11.2024}
+      \field{title}{RHEED}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://physics.mff.cuni.cz/kfpp/s4r/povrch/rheed.html
+      \endverb
+      \verb{url}
+      \verb https://physics.mff.cuni.cz/kfpp/s4r/povrch/rheed.html
+      \endverb
+    \endentry
+    \entry{PlayerOneSDK}{online}{}
+      \name{author}{1}{}{%
+        {{hash=76bae194dd0d59b4ffbc5f5093410888}{%
+           family={One},
+           familyi={O\bibinitperiod},
+           given={Player},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{76bae194dd0d59b4ffbc5f5093410888}
+      \strng{fullhash}{76bae194dd0d59b4ffbc5f5093410888}
+      \strng{bibnamehash}{76bae194dd0d59b4ffbc5f5093410888}
+      \strng{authorbibnamehash}{76bae194dd0d59b4ffbc5f5093410888}
+      \strng{authornamehash}{76bae194dd0d59b4ffbc5f5093410888}
+      \strng{authorfullhash}{76bae194dd0d59b4ffbc5f5093410888}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 2.1.2025}
+      \field{title}{Player One SDK Documentation}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://player-one-astronomy.com/service/software/
+      \endverb
+      \verb{url}
+      \verb https://player-one-astronomy.com/service/software/
+      \endverb
+    \endentry
+    \entry{WhatIsHDF5}{online}{}
+      \name{author}{1}{}{%
+        {{hash=adf220965d8f477466aedc79191978cf}{%
+           family={Science},
+           familyi={S\bibinitperiod},
+           given={NEON},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{adf220965d8f477466aedc79191978cf}
+      \strng{fullhash}{adf220965d8f477466aedc79191978cf}
+      \strng{bibnamehash}{adf220965d8f477466aedc79191978cf}
+      \strng{authorbibnamehash}{adf220965d8f477466aedc79191978cf}
+      \strng{authornamehash}{adf220965d8f477466aedc79191978cf}
+      \strng{authorfullhash}{adf220965d8f477466aedc79191978cf}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 2.1.2025}
+      \field{title}{Hierarchical Data Formats - What is HDF5?}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.neonscience.org/resources/learning-hub/tutorials/about-hdf5
+      \endverb
+      \verb{url}
+      \verb https://www.neonscience.org/resources/learning-hub/tutorials/about-hdf5
+      \endverb
+    \endentry
+    \entry{matplotlibDocs}{online}{}
+      \name{author}{1}{}{%
+        {{hash=649ee044a636c882945b3ede3c65584a}{%
+           family={Team},
+           familyi={T\bibinitperiod},
+           given={The\bibnamedelimb Matplotlib\bibnamedelima Development},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \strng{namehash}{649ee044a636c882945b3ede3c65584a}
+      \strng{fullhash}{649ee044a636c882945b3ede3c65584a}
+      \strng{bibnamehash}{649ee044a636c882945b3ede3c65584a}
+      \strng{authorbibnamehash}{649ee044a636c882945b3ede3c65584a}
+      \strng{authornamehash}{649ee044a636c882945b3ede3c65584a}
+      \strng{authorfullhash}{649ee044a636c882945b3ede3c65584a}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 12.12.2024}
+      \field{title}{Matplotlib Documentation}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://matplotlib.org/stable/contents.html
+      \endverb
+      \verb{url}
+      \verb https://matplotlib.org/stable/contents.html
+      \endverb
+    \endentry
+    \entry{silxDocs}{online}{}
+      \name{author}{1}{}{%
+        {{hash=06952a08b18847c170abf7af80bb3bfb}{%
+           family={Unit},
+           familyi={U\bibinitperiod},
+           given={Data\bibnamedelima Analysis},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{06952a08b18847c170abf7af80bb3bfb}
+      \strng{fullhash}{06952a08b18847c170abf7af80bb3bfb}
+      \strng{bibnamehash}{06952a08b18847c170abf7af80bb3bfb}
+      \strng{authorbibnamehash}{06952a08b18847c170abf7af80bb3bfb}
+      \strng{authornamehash}{06952a08b18847c170abf7af80bb3bfb}
+      \strng{authorfullhash}{06952a08b18847c170abf7af80bb3bfb}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 5.1.2025}
+      \field{title}{Silx Documentation}
+      \field{year}{2024}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.silx.org/doc/silx/latest/
+      \endverb
+      \verb{url}
+      \verb https://www.silx.org/doc/silx/latest/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
+

@@ -44,8 +44,7 @@
   <internal package="biblatex" priority="9" active="1">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>RocnikovaPrace3E.aux</file>
-      <file>RocnikovaPrace3E-blx.bib</file>
+      <file>RocnikovaPrace3E.bcf</file>
     </provides>
     <requires type="dynamic">
       <file>RocnikovaPrace3E.bbl</file>
@@ -54,24 +53,22 @@
       <file>blx-dm.def</file>
       <file>blx-unicode.def</file>
       <file>blx-compat.def</file>
-      <file>blx-bibtex.def</file>
       <file>biblatex.def</file>
       <file>standard.bbx</file>
-      <file>alphabetic.bbx</file>
-      <file>alphabetic.cbx</file>
+      <file>numeric.bbx</file>
+      <file>numeric.cbx</file>
       <file>biblatex.cfg</file>
       <file>czech.lbx</file>
     </requires>
   </internal>
   <external package="biblatex" priority="5" active="1">
-    <generic>bibtex</generic>
+    <generic>biber</generic>
     <cmdline>
-      <binary>bibtex</binary>
-      <option>-min-crossrefs 2</option>
+      <binary>biber</binary>
       <infile>RocnikovaPrace3E</infile>
     </cmdline>
     <input>
-      <file>RocnikovaPrace3E.aux</file>
+      <file>RocnikovaPrace3E.bcf</file>
     </input>
     <output>
       <file>RocnikovaPrace3E.bbl</file>
@@ -80,14 +77,10 @@
       <file>RocnikovaPrace3E.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>RocnikovaPrace3E.aux</file>
-      <file>RocnikovaPrace3E-blx.bib</file>
+      <file>RocnikovaPrace3E.bcf</file>
     </requires>
     <requires type="editable">
       <file>refs.bib</file>
-    </requires>
-    <requires type="static">
-      <file>biblatex.bst</file>
     </requires>
   </external>
 </requests>
