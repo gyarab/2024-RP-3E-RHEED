@@ -1,9 +1,9 @@
-
 \documentclass{article}
+\usepackage[pdftex]{graphicx}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
 \usepackage[czech]{babel}
 \usepackage{graphicx}
 \usepackage{listings}
@@ -14,15 +14,13 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
 
-
-\usepackage[backend=biber,style=alphabetic]{biblatex}
+\usepackage[backend=bibtex,style=alphabetic]{biblatex}
 \addbibresource{refs.bib}
 
-% Nastavení zahlaví
 \pagestyle{fancy}
 \fancyhf{}
 \lhead{Gymnázium Arabská 14, Praha 6}
-\rhead{\small\textbf{RHEED}}
+\rhead{\small\textbf{Rheed}}
 \fancyfoot[C]{\thepage}
 
 
@@ -54,10 +52,11 @@
     tabsize=2
 }
 
-    \lstset{style=mystyle}
+\lstset{style=mystyle}
 
 \begin{document}
-\thispagestyle{empty}  % Pouze na první stránce bez číslování
+\pagenumbering{gobble}
+\thispagestyle{empty}
 \begin{figure}[htp]
     \centering
     \includegraphics[width=0.2\textwidth]{images/logo.png}
@@ -76,11 +75,8 @@
 {\Large\ \\Marek Bílý,\\ Jan Schreiber,\\ Marek Švec\\ 3.E\hfill březen 2025}
 
 \newpage
-\pagenumbering{arabic}
-\pagestyle{fancy}
-
+\thispagestyle{empty}
 \section*{Prohlášení}
-\addcontentsline{toc}{section}{Prohlášení}
 Prohlašujeme, že jsme jedinými autory tohoto projektu, všechny citace jsou
 řádně označené a všechna použitá literatura a další zdroje jsou v práci uvedeny.
 
@@ -104,12 +100,13 @@ bezúplatně škole Gymnázium, Praha 6, Arabská 14 oprávnění k výkonu prá
     Datum: \makebox[3cm]{\hrulefill} \\
 \end{tabular}
 
-
 \newpage
+\pagenumbering{arabic}
+\pagestyle{fancy}
 
 \tableofcontents
-
 \newpage
+
 
 \section{Slovník}
 \begin{itemize}
@@ -153,33 +150,9 @@ Diese Arbeit beschäftigt sich mit der Entwicklung einer Software zur Analyse un
     RHEED se skládá ze tří hlavních komponent: zdroje elektronového paprsku, vzorku a detekčního systému. Zdroj elektronového paprsku, někdy nazývaný elektronové dělo, je zodpovědný za generování vysokoenergetického svazku přesně zamířeného na povrch krystalového vzorku. Vzorek je umístěn v ultravysokém vakuu tak, aby s ním bylo možné nadálku manipulovat a otáčet pro získávání informací z více stran. Detekční systém má za úkol zachycovat difrakční vzor vzniklý rozptýlením elektronů po střetu s atomy vzorku. Nejběžnějšími nástroji zde slouží fluorescenční obrazovka, na kterou dopadají zmíněné elektrony, a CCP kamera, která obraz zaznamenává. K analýze sebraných dat nakonec slouží softwarový program, jehož vytvoření je cílem naší práce.
     
 \subsection{Zadání práce}
-    Aplikace bude sloužit jako lepší alternativa stávající, z části nefunkční, aplikace v C\#. Vývoj bude obsahovat jak hardware interfacing s CCD detektorem, návrh a realizaci GUI, práci s obrazovými daty (integrace snímků), vizualizaci real-time a analýzu real-time obrazových dat, ukládání starších měřených dat do databáze pro další výzkum atd. Aplikace bude implementovat in-situ měřící metodu RHEED (Reflection High-Energy Electron Diffraction) využívající difrakci vysokoenergetických elektronů při odrazu od povrchu. Zpracování dat z této metody bude sloužit k charakterizaci celého procesu a spolehlivější predikci výsledku růstu ještě před jeho dokončením. Výsledný program bude využit na vědeckých pracovištích Fyzikálního ústavu AV ČR a to na oddělení spintroniky a kvantových materiálů Dr. Jungwirtha a ve výzkumné skupině Dr. Tima Verhagena zabývající se přípravou sandwichových materiálů s feroelektrickými vlastnostmi.
+    Aplikace bude sloužit jako lepší alternativa stávající, z části nefunkční, aplikace v C\#. Vývoj bude obsahovat jak hardware interfacing s CCD detektorem, návrh a realizaci GUI, práci s obrazovými daty (integrace snímků), vizualizaci real-time a analýzu real-time obrazových dat, ukládání starších měřených dat do databáze pro další výzkum atd. Aplikace bude implementovat in-situ měřící metodu RHEED využívající difrakci vysokoenergetických elektronů při odrazu od povrchu. Zpracování dat z této metody bude sloužit k charakterizaci celého procesu a spolehlivější predikci výsledku růstu ještě před jeho dokončením. Výsledný program bude využit na vědeckých pracovištích Fyzikálního ústavu AV ČR a to na oddělení spintroniky a kvantových materiálů Dr. Jungwirtha a ve výzkumné skupině Dr. Tima Verhagena zabývající se přípravou sandwichových materiálů s feroelektrickými vlastnostmi.
+\newpage
 \subsection{Použité technologie}
-
-Pro realizaci projektu byly využity následující knihovny:
-
-\begin{itemize}
-    \item \textbf{h5py (3.13.0)} – Knihovna pro práci se soubory ve formátu HDF5, využívaná pro ukládání a organizaci obrazových dat.
-    \item \textbf{lxml (5.3.1)} – Zpracování XML a HTML souborů.
-    \item \textbf{matplotlib (3.10.0)} – Vizualizace dat v Pythonu.
-    \item \textbf{numpy (2.2.3)} – Vědecké výpočty a efektivní práce s poli.
-    \item \textbf{opencv (4.11.0.86)} – Zpracování obrazu a práci s kamerou.
-    \item \textbf{pillow (11.1.0)} – Manipulace s obrazovými soubory různých formátů.
-    \item \textbf{OpenGL} – Rozhraní pro 2D a 3D grafiku.
-    \item \textbf{PyQt5 (5.15.11)} – Tvorbu GUI na bázi Qt.
-    \item \textbf{dateutil (2.9.0)} – Rozšíření práce s datem a časem.
-    \item \textbf{silx (2.2.0 a 1.17.0)} – Vědecké vizualizace a práce s daty.
-\end{itemize}
-
-Kromě těchto knihoven byly využity další nástroje pro vývoj softwaru, zejména:
-
-\begin{itemize}
-    \item \textbf{Python 3.10+} – Hlavní programovací jazyk projektu.
-    \item \textbf{Visual Studio Code} – Vývojové prostředí používané pro programování a ladění kódu.
-    \item \textbf{HDF5 formát} – Efektivní způsob ukládání a správy velkých datových souborů.
-    \item \textbf{Player One Saturn-C} – Kamera použitá pro sběr difrakčních snímků.
-\end{itemize}
-
 
 Pro realizaci projektu byly využity následující knihovny:
 
@@ -260,14 +233,6 @@ Proces začíná snímáním obrazu pomocí kamery, přičemž data jsou získá
 
 Pro plynulé zobrazení snímků je implementována vláknová správa aktualizace obrazu, která umožňuje přenos dat mezi OpenCV a Silx Plot2D. Tento přístup zajišťuje, že nově získané snímky jsou ihned přidány do vykreslovacího okna bez nutnosti pozastavení běhu aplikace. Snímky jsou přidávány pomocí asynchronních volání, aby GUI aplikace zůstalo responzivní i při dlouhodobém záznamu. Tím je zajištěno, že všechny vykreslovací operace jsou prováděny na GPU, čímž se významně snižuje zatížení CPU a umožňuje práci i při zobrazení několika snímků najednou. Díky tomu je možné nejen zobrazovat jednotlivé snímky, ale i provádět časovou analýzu sekvenčních dat, což je klíčové pro sledování dynamických změn v difrakčních vzorech.\\
 
-Každé tlačítko v Toolbaru odpovídá specifické akci související s manipulací s ROI. Základní funkcionalitou je volba typu oblasti zájmu, to uživateli umožňuje definovat konkrétní oblast analýzy. K dispozici jsou nástroje pro přidání obdélníkových, kruhových nebo vlastnoručně nakreslených ROI. Po aktivaci režimu přidávání ROI uživatel jednoduše vybere oblast v rámci zobrazeného snímku, přičemž její parametry se ihned zobrazí v přehledné tabulce. Pomocí dalších nástrojů v liště lze oblast posouvat, upravovat její velikost, měnit její tvar či otáčet, což zajišťuje maximální flexibilitu při práci. Veškeré změny jsou ihned reflektovány v propojeném statistickém modulu, který umožňuje dynamickou analýzu dat.\\
-
-Další důležitou funkcí nástrojové lišty je možnost zobrazení nebo skrytí jednotlivých ROI. To umožňuje provádět srovnávací analýzu mezi různými částmi snímku a identifikovat klíčové rozdíly. Pokud uživatel potřebuje pracovat pouze s vybranými ROI, může jednoduše skrýt ostatní oblasti, čímž se usnadní jejich vyhodnocení.\\
-
-Systém je navržen tak, aby podporoval víceúrovňovou práci s ROI, čili že uživatel může zároveň spravovat několik ROI a analyzovat jejich vzájemné vztahy. Všechny akce v rámci ovládacího panelu jsou synchronizovány s vizualizačním modulem, uživatel má tedy neustálý přehled o tom, jaké oblasti jsou aktivní a jaké parametry jsou vyhodnocovány.\\
-
-Díky kombinaci interaktivního výběru ROI, pokročilé správy v ovládacím panelu a propojení se statistickým modulem poskytuje aplikace efektivní nástroje pro analýzu difrakčních snímků. Tímto způsobem je možné přesně vyhodnotit rozložení intenzity signálu a získat důležité informace o struktuře analyzovaných vzorků.\\
-
 \subsection{GUI aplikace}
 GUI pro aplikaci RHEED je navrženo tak, aby poskytovalo uživatelsky přívětivé a intuitivní rozhraní pro vizualizaci obrazových dat a následnou analýzu. V GUI se může pracovat s kamerou, nastavením živého přenosu, vytvářením a úpravou ROI a analýzou dat. GUI je postaveno pomocí knihovny Silx což je nástavba na QTPY5
 
@@ -296,7 +261,7 @@ Systém je navržen tak, aby podporoval víceúrovňovou práci s ROI, čili že
 Díky kombinaci interaktivního výběru ROI, pokročilé správy v ovládacím panelu a propojení se statistickým modulem poskytuje aplikace efektivní nástroje pro analýzu difrakčních snímků. Tímto způsobem je možné přesně vyhodnotit rozložení intenzity signálu a získat důležité informace o struktuře analyzovaných vzorků.\\
 
 \subsection{ROI}
- ROI (Region of interest) nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována prostřednictvím ROI manageru, který zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet a vizualizaci statistik souvisejících s danou oblastí. Statistické hodnoty zahrnují například průměrnou intenzitu signálu.\\
+ ROI nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována ROI managerem, který se nachází v pravé části GUI jako dokovací okno. Ten zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je ROI automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet, vizualizaci statistik souvisejících s danou oblastí a ukazuje label (název), kind (typ), coordinates (souřadnice) a zároveň umožňuje ROI editovat nebo odstranit.\\
 
 Proces přidávání ROI je umožněn prostřednictvím interaktivního uživatelského rozhraní obsaženého v ROI manageru. Uživatel má možnost manuálně definovat oblast na snímku pomocí myši a následně ji přizpůsobit podle požadavků analýzy. Po výběru ROI se její data okamžitě zapisují do interního systému aplikace. Každá ROI může být individuálně konfigurována, nebo-li uživatel může upravit její velikost, tvar a přesnou polohu ve snímku.\\
 
@@ -305,14 +270,15 @@ Aplikace podporuje různé tvary, mezi které patří předdefinované obdélní
 Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat. Pokud uživatel preferuje manuální režim, je možné aktualizaci řídit pomocí ručně spouštěných výpočtů pro lepší kontrolu nad vyhodnocením výsledků. Všechny změny ROI jsou uchovávány po dobu analýzy a lze je dynamicky měnit podle potřeby.
 
 
-
-
-
-\section{Závěr}
-
+\newpage
 \section{Zdroje}
-
+\textbf{h5py} - \cite{h5pyDocs}\\
+\textbf{Matplotlib} - \cite{matplotlibDocs}\\
+\textbf{Numpy} - \cite{numpyDocs}\\
+\textbf{OpenCV} - \cite{opencvDocs}\\
+\textbf{Silx} - \cite{silxDocs}\\
+\textbf{Player One SDK} - \cite{PlayerOneSDK}\\
+\textbf{RHEED} - \cite{RHEED}\\
+\textbf{HDF5} - \cite{WhatIsHDF5}\\
 \printbibliography
-
-
 \end{document}
