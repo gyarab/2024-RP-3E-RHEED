@@ -1,12 +1,12 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 \usepackage{graphicx}
 \usepackage{graphicx}
-\usepackage[]{geometry}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage[utf8]{inputenc}
+\usepackage{float}
 %\usepackage[T1]{fontenc}
 \usepackage[czech]{babel}
 \usepackage[justification=centering,labelfont=bf]{caption}
-\usepackage{float}
 \usepackage{listings}
 \graphicspath{{Images/}}
 \usepackage{color}
@@ -14,10 +14,8 @@
 \usepackage{fancyhdr}
 \usepackage{tikz}
 \usepackage{fontspec}
-\usepackage{fancyhdr}
 \usepackage{hyperref}
-\usepackage{framed}
-\usepackage{glossaries}
+%\usepackage{framed}
 \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
 
 \usepackage[backend=biber,style=numeric]{biblatex}
@@ -79,8 +77,6 @@
 		\end{tabular}
 	\end{flushleft}
 	
-	\vspace*{\fill}
-	
 	\begin{center}
 		\vspace{1cm}
 		{\Huge\textbf{Aplikace pro vizualizaci a analýzu dat z in-situ měření RHEED při epitaxi monoatomárních vrstev pomocí technologie MBE}}\\
@@ -89,19 +85,18 @@
 		\vspace{0.5cm}
 	\end{center}
 	
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.45 \textwidth]{title.png}
 	\end{figure}
-	
-	\vspace*{\fill}
+
 	
 	\begin{flushleft}
 		Marek Bílý\\
 		Marek Švec\\
-		Jan Schreiber\\
-		\hspace{10cm}
-		březen 2024
+		Jan Schreiber
+		\hspace{11cm}
+		březen 2024\\
 	\end{flushleft}
 	
 	\newpage
@@ -194,56 +189,66 @@ Diese Arbeit befasst sich mit der Entwicklung einer Software zur Analyse und Vis
 Pro realizaci projektu byly využity následující knihovny:
 
 \begin{itemize}
-    \item \textbf{h5py (3.13.0)} – Knihovna pro práci se soubory ve formátu HDF5, využívaná pro ukládání a organizaci obrazových dat.
-    \item \textbf{lxml (5.3.1)} – Zpracování XML a HTML souborů.
+    \item \textbf{h5py (3.13.0)} – Knihovna pro práci se soubory ve formátu HDF5, využívaná pro ukládání a organizaci obrazových dat. 
     \item \textbf{matplotlib (3.10.0)} – Vizualizace dat v Pythonu.
     \item \textbf{numpy (2.2.3)} – Vědecké výpočty a efektivní práce s poli.
     \item \textbf{opencv (4.11.0.86)} – Zpracování obrazu a práci s kamerou.
-    \item \textbf{pillow (11.1.0)} – Manipulace s obrazovými soubory různých formátů.
     \item \textbf{OpenGL} – Rozhraní pro 2D a 3D grafiku.
     \item \textbf{PyQt5 (5.15.11)} – Tvorbu GUI na bázi Qt.
     \item \textbf{dateutil (2.9.0)} – Rozšíření práce s datem a časem.
     \item \textbf{silx (2.2.0 a 1.17.0)} – Vědecké vizualizace a práce s daty.
 \end{itemize}
 
-Kromě těchto knihoven byly využity další nástroje pro vývoj softwaru, zejména:
+Kromě těchto knihoven byly při vývoji softwaru využity i další nástroje, zejména:
 
 \begin{itemize}
     \item \textbf{Python 3.10+} – Hlavní programovací jazyk projektu.
     \item \textbf{Visual Studio Code} – Vývojové prostředí používané pro programování a ladění kódu.
-    \item \textbf{HDF5 formát} – Efektivní způsob ukládání a správy velkých datových souborů.
     \item \textbf{Player One Saturn-C} – Kamera použitá pro sběr difrakčních snímků.
 \end{itemize}
 
 \newpage
 
 \section{Teorie}
-RHEED je vysoce specializovaná analytická metoda využívaná především ve fyzice pevných látek a materiálovém výzkumu. Její princip spočívá v interakci vysokoenergetických elektronů s povrchem materiálu pod velmi malým dopadovým úhlem, což umožňuje detailní analýzu jeho krystalové struktury. Tato technika se nejčastěji využívá při studiu epitaxních vrstev během růstu metodami jako je molekulární svazková epitaxe, kde slouží jako klíčový nástroj pro monitorování morfologie a struktury nanostruktur a tenkých vrstev.\\
+RHEED je vysoce specializovaná analytická metoda využívaná především ve fyzice pevných látek a materiálovém výzkumu. Její princip spočívá v interakci vysokoenergetických elektronů s povrchem materiálu pod velmi malým dopadovým úhlem, což umožňuje detailní analýzu jeho krystalové struktury. Tato technika se nejčastěji využívá při studiu epitaxních vrstev během růstu metodami jako je \textbf{molekulární svazková epitaxe} (\textbf{MBE}), kde slouží jako klíčový nástroj pro monitorování morfologie a struktury nanostruktur a tenkých vrstev.\\
 
 Základní fyzikální princip RHEED vychází z Braggovy difrakce, avšak vzhledem k extrémně malému dopadovému úhlu elektronového svazku (typicky mezi 1° až 3°) dochází k difrakci především na povrchových rovinách krystalu. Elektrony s vysokou energií, obvykle v rozmezí 10 až 50 keV, mají ,relativně s atomovými rozměry, velmi malou vlnovou délku, to zajišťuje vysoké rozlišení difrakčních obrazců. Díky této konfiguraci se metoda RHEED primárně zaměřuje na povrchové vrstvy a je citlivá na jejich periodickou strukturu, defekty, rekonstrukce a růstové mechanismy.\\
 
 Experimentální uspořádání RHEED zahrnuje zdroj elektronového svazku, kolimátory a elektrostatické nebo magnetické čočky pro jeho fokusaci, analyzovaný vzorek a fluorescenční stínítko nebo CCD kameru pro detekci difrakčního obrazce. Elektronový svazek je vystřelován na povrch vzorku, kde se část elektronů elasticky rozptyluje na povrchové mřížce a interferuje podle Braggových podmínek. Výsledný difrakční obrazec, zaznamenaný na stínítku, se skládá z jasně definovaných bodů nebo pruhů, které odpovídají reciproké mříži povrchové struktury.\\
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{images/setup1.png}
+	\caption{Experimentální sestava běžně využívaná v růstových komorách MBE}
+\end{figure}
+
 Interpretace difrakčních obrazců v RHEED je zásadní pro pochopení morfologie povrchu. V případě dokonalé dvourozměrné mřížky se v reciprokém prostoru vytváří typické pruhové obrazce, zatímco přítomnost trojrozměrných ostrovů nebo teras vede ke vzniku bodových obrazců nebo tlumení difrakčních maxim. Díky analýze intenzitních oscilací těchto pruhů během depozice lze kvantitativně sledovat rychlost růstu jednotlivých monovrstev, což činí RHEED užitečným nástrojem při epitaxním růstu krystalů.\\
 
-Význam RHEED v materiálových vědách je zejména při studiu tenkých vrstev polovodičových materiálů, kovových nanostruktur a oxidových vrstev. Tato metoda umožňuje nejen identifikaci symetrie povrchové mřížky, ale také detekci povrchových defektů, jako jsou kroky, dislokace nebo segregace nečistot. V kombinaci s dalšími analytickými metodami, například rentgenovou difrakcí (XRD) či rastrovací tunelovou mikroskopií (STM), poskytuje obraz o strukturách a vlastnostech povrchu na atomární úrovni. RHEED se stal nepostradatelným nástrojem hlavně při výzkumu polovodičových heterostruktur a kvantových definovaných nanostruktur. Ve spojení s MBE umožňuje optimalizaci růstových parametrů v reálném čase, čímž se zvyšuje kontrola nad kvalitou připravovaných vrstev. Z tohoto důvodu je široce využíván ve výzkumu materiálů pro kvantovou elektroniku, spintroniku či vývoj nových dvourozměrných materiálů, jako jsou topologické izolátory nebo grafenové deriváty.\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{images/interpretation.png}
+	\caption{Příklady difrakčních vzorců RHEED a jejich korespondujícího interpretovaného obrazu ve formě uspořádání atomů}
+\end{figure}
 
-Dynamika RHEED obrazců v průběhu růstu tenkých vrstev umožňuje identifikovat rozdílné mechanismy nukleace a koalescence nanostruktur, což je důležité pro porozumění kinetice epitaxe. Například přechod mezi režimy růstu jako jsou Frank-van der Merweův (vrstva po vrstvě), Stranski-Krastanovův (počáteční vrstvený růst následovaný ostrovními strukturami) nebo Volmer-Weberův (přímý růst ostrovů) lze pomocí RHEED detailně sledovat a analyzovat.\\
+Význam RHEED v materiálových vědách je zejména při studiu tenkých vrstev polovodičových materiálů, kovových nanostruktur a oxidových vrstev. Tato metoda umožňuje nejen identifikaci symetrie povrchové mřížky, ale také detekci povrchových defektů, jako jsou kroky, dislokace nebo segregace nečistot. V kombinaci s dalšími analytickými metodami, například rentgenovou difrakcí (XRD) či rastrovací tunelovou mikroskopií (STM), poskytuje obraz o strukturách a vlastnostech povrchu na atomární úrovni. RHEED se stal nepostradatelným nástrojem hlavně při výzkumu polovodičových heterostruktur a kvantových definovaných nanostruktur. Ve spojení s MBE umožňuje optimalizaci růstových parametrů v reálném čase, čímž se zvyšuje kontrola nad kvalitou připravovaných vrstev. Z tohoto důvodu je široce využíván ve výzkumu materiálů pro \textbf{kvantovou elektroniku}, \textbf{spintroniku} či vývoj nových \textbf{dvourozměrných materiálů}, jako jsou topologické izolátory nebo grafenové deriváty.\\
 
-Moderní přístupy, které využívají kombinaci RHEED s pokročilým zpracováním obrazu a numerickou analýzou, umožňují extrahovat další informace o dynamických procesech na povrchu. Pokročilé algoritmy využívající Fourierovu transformaci nebo metody strojového učení mohou výrazně rozšířit možnosti této techniky, například automatickou klasifikací difrakčních obrazců a jejich přímou korelací s fyzikálními parametry růstu.\\
-
-RHEED je jednou z nejzajímavějších analytických metod pro studium povrchové krystalografie a epitaxních procesů. Díky své vysoké citlivosti na strukturu povrchu, reálnému monitoringu a možnosti kvantitativní analýzy hraje zásadní roli při vývoji nových materiálů a jejich aplikaci v moderních technologiích. Neustálý vývoj v oblasti detekčních systémů a numerického zpracování dat činí tuto metodu stále výkonnější a adaptabilnější na současné požadavky materiálového výzkumu a nanotechnologií.\\
-
-\section{Aplikace Rheed a její struktura}
+\section{Aplikace RHEED a její struktura}
     V této kapitole bude rozebráno s čím aplikace pracuje a jednotlivé části aplikace.
 \subsection{Kamera}
 Pro snímání difrakčních vzorků jsme využili kameru \textbf{Player One Saturn-C}. Kamera disponuje CMOS snímačem s rozlišením 3856 x 2180 pixelů a velikostí pixelu 3.45 µm. To jí umožňuje detekovat i velmi malé detaily, nezbytný předpoklad při analýze difrakčních struktur.
     Dále má široký dynamický rozsah, tudíž není problém jak s intenzivními, tak slabými světelnými signály. Zároveň se zde nachází i optimalizovaná citlivost ve viditelném i blízkém infračerveném světle.
     Vysokorychlostní přenos dat zajišťuje rozhraní USB 3.0. To je důležité zejména pro sledování vzorku v reálném čase, znamená to žádné prodlevy a tudíž menší riziko zkažení vzorku.
     Výstup se zde nachází dvanáctibitový, tedy každý pixel je schopný zaznamenat až 4096 odstínů intenzity světla. Naprosto klíčový předpoklad v prostředí, kde i minimální rozdíl v intenzitě může nést důležité informace o struktuře vzorku.
+    
+    \begin{figure}[H]
+    	\centering
+    	\includegraphics[width=0.8\textwidth]{images/saturn.png}
+    	\caption{Použitá kamera Saturn-C, běžně používaná pro aplikace v astronomii nebo astrofyzice. Zde je vidět CMOS snímací detektor.}
+    \end{figure}
+    
 \newpage
 \subsubsection{Ovladač kamery}
-S kamerou operuje soubor "opencv\_capture.py", který kameru inicializuje, konfiguruje a stará se o záznam snímků. Při spuštění je kamera inicializována a nastavena na požadované parametry a dále je zajištěno propojení s kamerou pomocí knihovny OpenCV. Při zdařilé inicializaci se otevírá datové úložiště, kde se každá relace ukládá do unikátního souboru ve složce cacheimg. To je adresář pro ukládání dat.\\
+S kamerou operuje soubor "opencv\_capture.py", který kameru za pomoci OpenCV inicializuje, konfiguruje a stará se o záznam snímků. Při spuštění je kamera inicializována a nastavena na požadované parametry. Při zdařilé inicializaci se otevírá datové úložiště, kde se každá relace ukládá do unikátního souboru ve složce cacheimg. To je adresář pro ukládání zachycených dynamických datasetů ve formátu h5py.\\
 
 \begin{lstlisting}
 class CameraInit:
@@ -331,13 +336,13 @@ Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha,
 \subsubsection{Toolbar}
 Toolbar obsahuje sadu tlačítek pro jednoduchou interakci s vizualizací obrazu a jeho přizpůsobením dle potřeb uživatele. Toolbar se nachází v horní části aplikace a poskytuje rychlý přístup k nástrojům pro navigaci, úpravu vzhledu a analýzu dat.\\
 
-Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Všechny omyly v úpravě obrazu lze rychle napravit tlačítkem "reset pozic". Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
-\begin{figure}[htp]
+Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Vrátit všechny omyly v pohybu ve vizualizaci a oddálit přiblížení vizualizace je možné díky tlačítku přeškrtnuté lupy. Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{images/Toolbar.png}
+	\includegraphics[width=0.8\textwidth]{images/Toolbar.png}
 	\caption{Toolbar}
 \end{figure}
-Tlačítko s názvem "copy snapshot of the plot" zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko "save curve/image/plot snapshot dialog" která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko "enable horizontal line profile selection", které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko "clear profiles", které vymaže všechny aktuálně zobrazené profily
+Tlačítko pro kopírování obsahu vizualice zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko s ikonou uložení, která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko pro horizontální přímkovou analýzu, které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko s přeškrtnutou čarou, které vymaže všechny aktuálně zobrazené přímkové profily.
 
 
 \subsubsection{ROI}
@@ -370,7 +375,7 @@ Proces přidávání ROI je umožněn prostřednictvím interaktivního uživate
 \end{lstlisting}
 \captionof{lstlisting}{Vizualizace, výběr a analýza ROI}
 \newpage
-\begin{figure}[htp]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/ROIManager.png}
 	\caption{ROI manager}
@@ -382,13 +387,14 @@ Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě refl
 
 \subsubsection{Statistický panel}
 Statistická panel slouží k analýze dat v rámci jednotlivých ROI. Implementován je s pomocí ROIStatsWidget, který propojuje ROI manager s výpočetními funkcemi a poskytuje přehled statistik vypočítaných pro jednotlivé ROI. Hlavním údajem, který je klíčovým pro analýzu difrakčních obrazců je průměrná hodnota vypočtena z celkové plochy pixelů, které jsou obsaženy ve zvoleném ROI.
-\begin{figure}[htp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/StatistickyPanel.png}
     \caption{Statistický panel}
 \end{figure}
+
 \subsubsection{Panel režimu aktualizace}
-Panel režimu aktualizace slouží k ovládání způsobu, jakým se aktualizují statistické výpočty. Uživateli je v něm umožněno přepínat mezi dvěma režimy aktualizace. V automatickém režimu jsou statistiky přepočítávány průběžně bez zásahu uživatele, zatímco v manuálním režimu se aktualizace provede pouze po stisknutí tlačítka "update".
+Panel režimu aktualizace slouží k ovládání způsobu, jakým se aktualizují statistické výpočty. Uživateli je v něm umožněno přepínat mezi dvěma režimy aktualizace. V automatickém režimu jsou statistiky přepočítávány průběžně bez zásahu uživatele, zatímco v manuálním režimu se aktualizace provede pouze po stisknutí tlačítka "update".\\
 
 \newpage
 \section{Zdroje}
