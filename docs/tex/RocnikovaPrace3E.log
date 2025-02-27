@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.8.9)  26 FEB 2025 22:49
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  24 FEB 2025 08:39
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -78,7 +78,11 @@ Language: czech 2008/07/06 v3.1a Czech support from the babel system
 Package babel Info: Making " an active character on input line 172.
 \cs@wordlen=\count267
 Package babel Info: Making - an active character on input line 226.
-)) (/usr/local/texlive/2024/texmf-dist/tex/generic/babel/locale/cs/babel-czech.tex
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/babel-czech/czech.ldf
+Language: czech 2008/07/06 v3.1a Czech support from the babel system
+))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/babel/locale/cs/babel-czech.tex
 Package babel Info: Importing font and identification data for czech
 (babel)             from babel-cs.ini. Reported on input line 11.
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/listings.sty
@@ -626,35 +630,25 @@ LaTeX Font Info:    ... okay on input line 57.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
 LaTeX Font Info:    ... okay on input line 57.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 57.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 5
+7.
+
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 57.
 LaTeX Font Info:    ... okay on input line 57.
 LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
 LaTeX Font Info:    ... okay on input line 57.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
 LaTeX Font Info:    ... okay on input line 57.
-(/usr/local/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count429
-\scratchdimen=\dimen274
-\scratchbox=\box65
-\nofMPsegments=\count430
-\nofMParguments=\count431
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count432
-\MPscratchDim=\dimen275
-\MPnumerator=\count433
-\makeMPintoPDFobject=\count434
-\everyMPtoPDFconversion=\toks35
-) (/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-))
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: <default>
+* driver: xetex
+* paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
@@ -701,255 +695,74 @@ Package biblatex Info: Data encoding 'utf8' specified.
 \openout4 = `output-blx.bib'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'output.bbl' found.
-(./output.bbl)
+
+
+Package biblatex Warning: File 'RocnikovaPrace3E.bbl' is wrong format version -
+ expected 3.2.
+
+Package biblatex Info: ... file 'RocnikovaPrace3E.bbl' found.
+(./RocnikovaPrace3E.bbl)
 Package biblatex Info: Reference section=0 on input line 57.
 Package biblatex Info: Reference segment=0 on input line 57.
-<images/logo.png, id=4, 225.84375pt x 225.84375pt>
-File: images/logo.png Graphic file (type png)
-<use images/logo.png>
-Package pdftex.def Info: images/logo.png  used on input line 62.
-(pdftex.def)             Requested size: 85.9996pt x 86.0007pt.
-[1
+File: images/logo.png Graphic file (type bmp)
+<images/logo.png>
+ [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./images/logo.png>]
+] [2] (./RocnikovaPrace3E.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 91.
+(Font)              <7> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 91.
-[2] (./output.toc)
+(Font)              <5> on input line 4.
+)
 \tf@toc=\write5
-\openout5 = `output.toc'.
+\openout5 = `RocnikovaPrace3E.toc'.
 
-[1]
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
-
- []
-
-
+ [3] [4]
 Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
+[5]
+Overfull \hbox (3.21634pt too wide) in paragraph at lines 137--138
+\TU/lmr/m/n/10 Ovladače kamery jsou umístěny ve dvou souborech: ”opencv_capture
+.py”a ”playerone_driver.py”.
+ []
 
-Underfull \hbox (badness 10000) in paragraph at lines 115--116
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 117--118
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
 
  []
 
+[6] [7] (./RocnikovaPrace3E.aux)
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--119
+LaTeX Warning: There were undefined references.
 
- []
 
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                RocnikovaPrace3E
+(biblatex)                and rerun LaTeX afterwards.
 
-Underfull \hbox (badness 10000) in paragraph at lines 119--120
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 120--121
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
-
- []
-
-[2{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 148--149
-
- []
-
-[4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 187--188
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 189--190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 195--196
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 197--198
-
- []
-
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 199--200
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 201--202
-
- []
-
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 212--213
-
- []
-
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 214.
-(/usr/local/texlive/2024/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-
-Package caption Warning: \setcaptiontype
-(caption)                outside box or environment on input line 240.
-See the caption package documentation for explanation.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
-
- []
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 277--278
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 279--280
-
- []
-
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 283--284
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 287--288
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 293--294
-
- []
-
-[10]
-<images/StatistickyPanel.png, id=57, 352.31625pt x 259.7203pt>
-File: images/StatistickyPanel.png Graphic file (type png)
-<use images/StatistickyPanel.png>
-Package pdftex.def Info: images/StatistickyPanel.png  used on input line 301.
-(pdftex.def)             Requested size: 215.0023pt x 158.49652pt.
-[11 <./images/StatistickyPanel.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 309--310
-
- []
-
-<images/Toolbar.png, id=64, 615.80063pt x 39.14626pt>
-File: images/Toolbar.png Graphic file (type png)
-<use images/Toolbar.png>
-Package pdftex.def Info: images/Toolbar.png  used on input line 314.
-(pdftex.def)             Requested size: 215.0023pt x 13.66734pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 321--322
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 323--324
-
- []
-
-[12 <./images/Toolbar.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 327--328
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 329--330
-
- []
-
-[13]
-<images/ROIManager.png, id=72, 365.11406pt x 371.88937pt>
-File: images/ROIManager.png Graphic file (type png)
-<use images/ROIManager.png>
-Package pdftex.def Info: images/ROIManager.png  used on input line 358.
-(pdftex.def)             Requested size: 215.0023pt x 218.9929pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 362--363
-
- []
-
-[14 <./images/ROIManager.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 367--376
-
- []
-
-
-Underfull \hbox (badness 7030) in paragraph at lines 376--376
-[]\T1/cmr/m/n/10 The Mat-plot-lib De-ve-lo-p-ment Team. \T1/cmr/m/it/10 Mat-plot-lib Do-cu-men-tation\T1/cmr/m/n/10 . Zp��-stup-n�no:
- []
-
-[15] (./output.aux)
- ***********
-LaTeX2e <2023-11-01> patch level 1
-L3 programming layer <2024-03-14>
- ***********
-Package logreq Info: Writing requests to 'output.run.xml'.
-\openout1 = `output.run.xml'.
+Package logreq Info: Writing requests to 'RocnikovaPrace3E.run.xml'.
+\openout1 = `RocnikovaPrace3E.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26282 strings out of 474104
- 519672 string characters out of 5743486
- 2128493 words of memory out of 5000000
- 48295 multiletter control sequences out of 15000+600000
- 570985 words of font info for 55 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 84i,12n,93p,1875b,1669s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfcc2488.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb></usr/local/texlive/2
-024/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on output.pdf (17 pages, 418490 bytes).
-PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
- 89 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 24651 strings out of 476683
+ 499788 string characters out of 5804046
+ 1858018 words of memory out of 5000000
+ 44545 multiletter control sequences out of 15000+600000
+ 512391 words of font info for 45 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 84i,12n,89p,977b,3856s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
+Output written on RocnikovaPrace3E.pdf (7 pages).
