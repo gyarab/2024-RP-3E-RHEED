@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  27 FEB 2025 14:50
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  27 FEB 2025 14:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1101,11 +1101,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [1]
-Underfull \hbox (badness 10000) in paragraph at lines 138--139
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
  []
@@ -1146,6 +1141,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 146--147
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
+
+ []
+
+
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
 (fancyhdr)                \setlength{\headheight}{13.59999pt}.
@@ -1154,7 +1154,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [2]
-Overfull \hbox (14.97592pt too wide) in paragraph at lines 165--165
+Overfull \hbox (14.97592pt too wide) in paragraph at lines 166--166
 [][]\TU/lmr/bx/n/12 Titel: Anwendung zur Visualisierung und Analyse von Daten a
 us in-situ RHEED-
  []
@@ -1168,7 +1168,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
@@ -1190,24 +1190,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
+Underfull \hbox (badness 10000) in paragraph at lines 214--215
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 217--218
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
 
 File: images/setup1.png Graphic file (type bmp)
 <images/setup1.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 225--226
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 
  []
 
@@ -1223,7 +1223,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 File: images/interpretation.png Graphic file (type bmp)
 <images/interpretation.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 233--234
+Underfull \hbox (badness 10000) in paragraph at lines 234--235
 
  []
 
@@ -1248,24 +1248,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [8]
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 252--253
 
  []
 
 
 Package caption Warning: \setcaptiontype
-(caption)                outside box or environment on input line 279.
+(caption)                outside box or environment on input line 280.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 279.
+(caption)                particular \caption on input line 280.
 See the caption package documentation for explanation.
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 279.
+nput line 280.
 
-Underfull \hbox (badness 10000) in paragraph at lines 286--287
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
 
  []
 
@@ -1278,27 +1278,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [9]
-Underfull \hbox (badness 10000) in paragraph at lines 290--291
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
 
  []
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 313.
+(caption)                particular \caption on input line 314.
 See the caption package documentation for explanation.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 318--319
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 322--323
+Underfull \hbox (badness 10000) in paragraph at lines 323--324
 
  []
 
@@ -1311,29 +1311,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [10]
-Underfull \hbox (badness 10000) in paragraph at lines 324--325
+Underfull \hbox (badness 10000) in paragraph at lines 325--326
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 332--333
+Underfull \hbox (badness 10000) in paragraph at lines 333--334
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 337--338
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
 
  []
 
 File: images/Toolbar.png Graphic file (type bmp)
 <images/Toolbar.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 339--344
+Underfull \hbox (badness 10000) in paragraph at lines 340--345
 
  []
 
@@ -1346,12 +1346,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 349--350
+Underfull \hbox (badness 10000) in paragraph at lines 350--351
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--352
+Underfull \hbox (badness 10000) in paragraph at lines 352--353
 
  []
 
@@ -1366,7 +1366,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [12]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 376.
+(caption)                particular \caption on input line 377.
 See the caption package documentation for explanation.
 
 
@@ -1381,14 +1381,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 File: images/ROIManager.png Graphic file (type bmp)
 <images/ROIManager.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 384--385
+Underfull \hbox (badness 10000) in paragraph at lines 385--386
 
  []
 
 File: images/StatistickyPanel.png Graphic file (type bmp)
 <images/StatistickyPanel.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 397--398
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
  []
 
