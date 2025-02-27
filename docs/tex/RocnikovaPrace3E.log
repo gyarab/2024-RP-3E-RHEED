@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  27 FEB 2025 08:59
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.12.19)  27 FEB 2025 11:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -863,7 +863,13 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 68.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 68.
- [1
+File: Images//title.png Graphic file (type bmp)
+<Images//title.png>
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[1
 
 ] [2] (./RocnikovaPrace3E.toc)
 \tf@toc=\write5
@@ -914,22 +920,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 145--146
 
  []
 
-[2] [3]
+[2] [3] [4]
 Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
  []
 
-[4] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 211--212
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 213--214
-
- []
-
-
+[5] [6]
 Underfull \hbox (badness 10000) in paragraph at lines 215--216
 
  []
@@ -949,7 +945,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 221--222
 
  []
 
-[6]
+
 Underfull \hbox (badness 10000) in paragraph at lines 223--224
 
  []
@@ -960,97 +956,93 @@ Underfull \hbox (badness 10000) in paragraph at lines 225--226
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 236--237
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 229--230
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 240--241
 
  []
 
 
 Package caption Warning: \setcaptiontype
-(caption)                outside box or environment on input line 264.
+(caption)                outside box or environment on input line 268.
 See the caption package documentation for explanation.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 271--272
-
- []
-
-[8]
 Underfull \hbox (badness 10000) in paragraph at lines 275--276
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 301--302
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 303--304
-
- []
-
 [9]
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 305--306
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 307--308
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 309--310
-
- []
-
-
+[10]
 Underfull \hbox (badness 10000) in paragraph at lines 311--312
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--318
-
- []
-
-[10]
-File: images/StatistickyPanel.png Graphic file (type bmp)
-<images/StatistickyPanel.png>
- [11]
-Underfull \hbox (badness 10000) in paragraph at lines 333--334
+Underfull \hbox (badness 10000) in paragraph at lines 313--314
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 343--344
+Underfull \hbox (badness 10000) in paragraph at lines 315--316
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 345--346
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
+
+ []
+
+File: images/Toolbar.png Graphic file (type bmp)
+<images/Toolbar.png>
+
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 347--348
+Underfull \hbox (badness 10000) in paragraph at lines 340--341
 
  []
 
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 351--352
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 353--354
-
- []
-
-[13]
+[12] [13]
 File: images/ROIManager.png Graphic file (type bmp)
 <images/ROIManager.png>
 
-Underfull \hbox (badness 10000) in paragraph at lines 386--387
+Underfull \hbox (badness 10000) in paragraph at lines 373--374
 
  []
 
-[14] [15] (./RocnikovaPrace3E.aux)
+File: images/StatistickyPanel.png Graphic file (type bmp)
+<images/StatistickyPanel.png>
+[14] [15] [16] [17] (./RocnikovaPrace3E.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1064,12 +1056,12 @@ Package logreq Info: Writing requests to 'RocnikovaPrace3E.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25180 strings out of 476683
- 508514 string characters out of 5804046
+ 25195 strings out of 476683
+ 508837 string characters out of 5804046
  2026018 words of memory out of 5000000
- 45065 multiletter control sequences out of 15000+600000
+ 45079 multiletter control sequences out of 15000+600000
  512415 words of font info for 48 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 84i,12n,89p,999b,4743s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,13n,89p,1028b,4741s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on RocnikovaPrace3E.pdf (17 pages).
+Output written on RocnikovaPrace3E.pdf (19 pages).
