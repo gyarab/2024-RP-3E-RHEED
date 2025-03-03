@@ -25,7 +25,7 @@ from silx.gui.utils import concurrent
 import time
 from ..camera.opencv_capture import CameraInit
 
-class plotUpdateThread(threading.Thread):
+class plotUpdateThread(qt.QThread):
     """Thread updating the image of a :class:`~silx.gui.plot.Plot2D`
 
     :param plot2d: The Plot2D to update."""
@@ -45,6 +45,7 @@ class plotUpdateThread(threading.Thread):
     def run(self):
         """Method implementing thread loop that updates the plot"""
         while self.running:
+            time.sleep(0.05)
             frame = self.camera.capture_frame()
             if frame is not None:
                 concurrent.submitToQtMainThread(self.plot2d.addImage, frame, legend="opencv_capture")
@@ -59,11 +60,10 @@ class plotUpdateThread(threading.Thread):
             #)
 
     def stop(self):
-        """Stop the update thread"""
         self.running = False
-        self.join(2)
+        self.wait(2000)
 
-class roiUpdateThread(threading.Thread):
+class roiUpdateThread(qt.QThread):
 
     def __init__(self, window):
         self.window = window
@@ -76,11 +76,12 @@ class roiUpdateThread(threading.Thread):
 
     def run(self):
         while self.running:
-            self.window.updateAllStats()
+            time.sleep(0.05)
+            concurrent.submitToQtMainThread(self.window.updateAllStats(is_request=True))
 
     def stop(self):
         self.running = False
-        self.join(2)
+        self.wait(2000)
 
 
 class _RoiStatsWidget(qt.QMainWindow):
@@ -137,11 +138,12 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         # 1D roi management
         self._curveRoiWidget = self.plot.getCurvesRoiDockWidget().widget()
         # hide last columns which are of no use now
-        for index in (5, 6, 7, 8):
-            self._curveRoiWidget.roiTable.setColumnHidden(index, True)
-
+        #for index in (5, 6, 7, 8):
+        #    self._curveRoiWidget.roiTable.setColumnHidden(index, True)
+    
         # 2D - 3D roi manager
         self._regionManager = RegionOfInterestManager(parent=self.plot)
+        self.plot.getROI
 
         # Create the table widget displaying
         self._roiTable = RegionOfInterestTableWidget()
@@ -164,8 +166,8 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
         # tabWidget for displaying the rois
         self._roisTabWidget = qt.QTabWidget(parent=self)
-        if hasattr(self._roisTabWidget, "setTabBarAutoHide"):
-            self._roisTabWidget.setTabBarAutoHide(True)
+        #if hasattr(self._roisTabWidget, "setTabBarAutoHide"):
+        #    self._roisTabWidget.setTabBarAutoHide(True)
 
         # create Dock widgets
         self._roisTabWidgetDockWidget = qt.QDockWidget(parent=self)
@@ -191,8 +193,11 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._2DRoiContainer.layout().addWidget(self._roiToolbar)
         self._2DRoiContainer.layout().addWidget(self._roiTable)
 
-        # Connect ROI creation signal to register ROIs automatically
+        # Connect ROI signal to register ROI automatically
         self._regionManager.sigRoiAdded.connect(self._registerRoi)
+
+        self._roisTabWidget.addTab(self._2DRoiContainer, "2D roi(s)")
+        self._roisTabWidget.addTab(self._curveRoiWidget, "1D roi(s)")
 
     def _registerRoi(self, roi):
         #Register a newly created ROI with the stats widget.
@@ -204,9 +209,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         for roi2D in rois2D:
             self._regionManager.addRoi(roi2D)
             self._statsWidget.registerROI(roi2D)
-
-        self._roisTabWidget.addTab(self._2DRoiContainer, "2D roi(s)")
-        #self._roisTabWidget.addTab(self._curveRoiWidget, "1D roi(s)")
 
     def setStats(self, stats):
         self._statsWidget.setStats(stats=stats)
@@ -230,8 +232,6 @@ def example_image(mode):
 
     window = _RoiStatsDisplayExWindow()
     # setup the stats display and updating
-    roiStatsDisplayExWindow = _RoiStatsDisplayExWindow()
-    roiStatsDisplayExWindow.setStats(STATS)
     #roiStatsDisplayExWindow.setUpdateMode("auto")
     # Create the thread that calls submitToQtMainThread
     updateThread = plotUpdateThread(window)
@@ -239,12 +239,9 @@ def example_image(mode):
     # Create the thread that updates the stats
     roiThread = roiUpdateThread(window)
     roiThread.start()  # Start updating the stats
-
-    window.setRois(window)
+    
     window.setStats(STATS)
-
     window.setUpdateMode(mode)
-
     window.show()
     app.exec()
     updateThread.stop()  # Stop updating the plot

@@ -18,7 +18,9 @@ class CameraInit:
         if not self.cap.isOpened():
             print("Failed to open camera.")
             return
-        
+        self.cap.set(cv2.CAP_PROP_FPS, 20)
+
+
         self.h5_file = h5py.File(
             os.path.join(self.cache_folder, f"dataset_{datetime.datetime.now().strftime('%d-%m-%Y_%H-%M-%S')}.h5"), "w")
 
