@@ -19,26 +19,28 @@ from silx.gui.plot.StatsWidget import UpdateModeWidget
 import argparse
 import functools
 import numpy
+import concurrent.futures
 import threading
 from silx.gui.utils import concurrent
 import time
 from ..camera.opencv_capture import CameraInit
 
-class UpdateThread(threading.Thread):
+class plotUpdateThread(threading.Thread):
     """Thread updating the image of a :class:`~silx.gui.plot.Plot2D`
 
     :param plot2d: The Plot2D to update."""
 
-    def __init__(self, plot2d):
-        self.plot2d = plot2d
+    def __init__(self, window):
+        self.window = window
+        self.plot2d = window.plot
         self.running = False
-        super(UpdateThread, self).__init__()
+        super(plotUpdateThread, self).__init__()
         self.camera = CameraInit(720, 1280, 10000)
 
     def start(self):
         """Start the update thread"""
         self.running = True
-        super(UpdateThread, self).start()
+        super(plotUpdateThread, self).start()
 
     def run(self):
         """Method implementing thread loop that updates the plot"""
@@ -46,6 +48,7 @@ class UpdateThread(threading.Thread):
             frame = self.camera.capture_frame()
             if frame is not None:
                 concurrent.submitToQtMainThread(self.plot2d.addImage, frame, legend="opencv_capture")
+                #concurrent.submitToQtMainThread(self.window.updateAllStats(), is_request=True)
 
             # Run plot update asynchronously not needed
             #concurrent.submitToQtMainThread(
@@ -60,10 +63,29 @@ class UpdateThread(threading.Thread):
         self.running = False
         self.join(2)
 
+class roiUpdateThread(threading.Thread):
+
+    def __init__(self, window):
+        self.window = window
+        self.running = False
+        super(roiUpdateThread, self).__init__()
+
+    def start(self):
+        self.running = True
+        super(roiUpdateThread, self).start()
+
+    def run(self):
+        while self.running:
+            self.window.updateAllStats()
+
+    def stop(self):
+        self.running = False
+        self.join(2)
+
 
 class _RoiStatsWidget(qt.QMainWindow):
     """
-    Window used to associate ROIStatsWidget and UpdateModeWidget
+    Window used to associate ROI manager, ROIStatsWidget and UpdateModeWidget
     """
 
     def __init__(self, parent=None, plot=None, mode=None):
@@ -72,33 +94,32 @@ class _RoiStatsWidget(qt.QMainWindow):
         self._roiStatsWindow = ROIStatsWidget(plot=plot)
         self.setCentralWidget(self._roiStatsWindow)
 
-        # update mode docker
-        self._updateModeControl = UpdateModeWidget(parent=self)
-        self._docker = qt.QDockWidget(parent=self)
-        self._docker.setWidget(self._updateModeControl)
-        self.addDockWidget(qt.Qt.TopDockWidgetArea, self._docker)
-        self.setWindowFlags(qt.Qt.Widget)
+        # remove update mode docker but keep the possibility to change the update mode
+        #self._updateModeControl
+        #self._updateModeControl = UpdateModeWidget(parent=self)
+        #self._docker = qt.QDockWidget(parent=self)
+        #self._docker.setWidget(self._updateModeControl)
+        #self.addDockWidget(qt.Qt.TopDockWidgetArea, self._docker)
+        #self.setWindowFlags(qt.Qt.Widget)
 
         # connect signal / slot
-        self._updateModeControl.sigUpdateModeChanged.connect(
-            self._roiStatsWindow._setUpdateMode
-        )
-        callback = functools.partial(
-            self._roiStatsWindow._updateAllStats, is_request=True
-        )
-        self._updateModeControl.sigUpdateRequested.connect(callback)
+        #self._updateModeControl.sigUpdateModeChanged.connect(
+        #    self._roiStatsWindow._setUpdateMode
+        #)
+        #callback = functools.partial(
+        #    self._roiStatsWindow._updateAllStats, is_request=True
+        #)
+        #self._updateModeControl.sigUpdateRequested.connect(callback)
 
         # expose API
         self.registerROI = self._roiStatsWindow.registerROI
         self.setStats = self._roiStatsWindow.setStats
         self.addItem = self._roiStatsWindow.addItem
         self.removeItem = self._roiStatsWindow.removeItem
-        self.setUpdateMode = self._updateModeControl.setUpdateMode
+        #no need to set update mode, done automatically 
+        #self.setUpdateMode = self._updateModeControl.setUpdateMode
         self.updateAllStats = self._roiStatsWindow._updateAllStats
-
-        # setup
-        self._updateModeControl.setUpdateMode("auto")
-
+        self.setUpdateMode = self._roiStatsWindow._setUpdateMode
 
 class _RoiStatsDisplayExWindow(qt.QMainWindow):
     """
@@ -155,11 +176,12 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._roiStatsWindowDockWidget = qt.QDockWidget(parent=self)
         self._roiStatsWindowDockWidget.setWidget(self._statsWidget)
         # move the docker contain in the parent widget
-        self.addDockWidget(qt.Qt.RightDockWidgetArea, self._statsWidget._docker)
+        #self.addDockWidget(qt.Qt.RightDockWidgetArea, self._statsWidget._docker)
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
-        # uncover the API of updatemode
-        self.setUpdateMode = self._statsWidget._updateModeControl.setUpdateMode
+        # uncover the API of updatemode and control over the update of all ROI stats
+        self.setUpdateMode = self._statsWidget.setUpdateMode
+        self.updateAllStats = self._statsWidget.updateAllStats
 
         # Create a container widget for the 2D ROI tab
         self._2DRoiContainer = qt.QWidget()
@@ -210,17 +232,16 @@ def example_image(mode):
     # setup the stats display and updating
     roiStatsDisplayExWindow = _RoiStatsDisplayExWindow()
     roiStatsDisplayExWindow.setStats(STATS)
-    roiStatsDisplayExWindow.setUpdateMode("auto")
+    #roiStatsDisplayExWindow.setUpdateMode("auto")
     # Create the thread that calls submitToQtMainThread
-    updateThread = UpdateThread(window.plot)
+    updateThread = plotUpdateThread(window)
     updateThread.start()  # Start updating the plot
+    # Create the thread that updates the stats
+    roiThread = roiUpdateThread(window)
+    roiThread.start()  # Start updating the stats
 
     window.setRois(window)
     window.setStats(STATS)
-
-    # add some couple (plotItem, roi) to be displayed by default
-    img1_item = window.plot.getImage("img1")
-    img2_item = window.plot.getImage("img2")
 
     window.setUpdateMode(mode)
 
@@ -237,7 +258,7 @@ def main(argv):
         help="items type(s), can be curve, image, curves+images",
     )
     parser.add_argument(
-        "--mode", dest="mode", default="auto", help="valid modes are `auto` or `manual`"
+        "--mode", dest="mode", default="manual", help="valid modes are `auto` or `manual`"
     )
     options = parser.parse_args(argv[1:])
 
