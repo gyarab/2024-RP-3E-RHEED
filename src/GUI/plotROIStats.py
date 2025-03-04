@@ -211,8 +211,10 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._statsWidget.registerROI(roi)
 
     def _unregisterRoi(self, roi):
+        print("unregistering roi")
         #Unregister a ROI with the stats widget.
-        self._statsWidget.removeItem(roi)
+        #self._statsWidget._roiStatsWindow._statsROITable.unregisterROI(roi)
+        #self._statsWidget.unregisterROI(roi)
 
     def setRois(self, rois1D=None, rois2D=None):
         rois2D = rois2D or ()

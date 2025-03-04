@@ -2,8 +2,21 @@ from silx.gui import qt
 from silx.gui.plot.tools.roi import RegionOfInterestManager, RegionOfInterestTableWidget, RoiModeSelectorAction
 from silx.io import dictdump
 import gui.roidictionary as rdict
+import datetime
 
 class roiManagerWidget(qt.QWidget):
+
+    # List of colors to be assigned to ROIs
+    colors = [qt.QColor(255, 0, 0), qt.QColor(0, 255, 0), qt.QColor(0, 0, 255), qt.QColor(255, 255, 0), 
+                qt.QColor(255, 0, 255), qt.QColor(0, 255, 255), qt.QColor(255, 255, 100), qt.QColor(0, 0, 50),
+                qt.QColor(128, 0, 0), qt.QColor(0, 128, 0), qt.QColor(0, 0, 128), qt.QColor(128, 128, 0),
+                qt.QColor(128, 0, 128), qt.QColor(0, 128, 128), qt.QColor(128, 128, 128), qt.QColor(64, 64, 64),
+                qt.QColor(255, 128, 0), qt.QColor(128, 255, 0), qt.QColor(0, 128, 255), qt.QColor(128, 0, 255),
+                qt.QColor(255, 0, 128), qt.QColor(0, 255, 128), qt.QColor(128, 128, 255), qt.QColor(128, 255, 128),
+                qt.QColor(255, 128, 128), qt.QColor(128, 128, 128), qt.QColor(128, 255, 255), qt.QColor(255, 128, 255),
+                qt.QColor(255, 255, 128), qt.QColor(128, 128, 255), qt.QColor(255, 128, 128), qt.QColor(128, 255, 128),
+                qt.QColor(128, 128, 128), qt.QColor(255, 255, 255), qt.QColor(0, 0, 0)]
+
     def __init__(self, parent=None, plot=None):
         """
         Create a composite widget that embeds the 2D ROI manager and table,
@@ -20,12 +33,12 @@ class roiManagerWidget(qt.QWidget):
         # Create a horizontal layout for the save/load buttons
         btnLayout = qt.QHBoxLayout()
         self.clearButton = qt.QPushButton("Clear All", self)
-        self.saveButton = qt.QPushButton("Load", self)
-        self.loadButton = qt.QPushButton("Save", self)
+        self.saveButton = qt.QPushButton("Save", self)
+        self.loadButton = qt.QPushButton("Load", self)
         btnLayout.addStretch(1)
         btnLayout.addWidget(self.clearButton)
-        btnLayout.addWidget(self.saveButton)
         btnLayout.addWidget(self.loadButton)
+        btnLayout.addWidget(self.saveButton)
         
         # Create the silx 2D ROI manager and table
         self.roiManager = RegionOfInterestManager(parent=plot)
@@ -47,6 +60,9 @@ class roiManagerWidget(qt.QWidget):
         layout.addWidget(self._roiToolbar)
         layout.addWidget(self._roiTable)
         layout.addLayout(btnLayout)
+
+        #automatical color and name incrementation
+        self.roiManager.sigRoiAdded.connect(self._onRoiAdded)
         
         # Connect the button signals to the saving/loading methods and clear method
         self.loadButton.clicked.connect(self.loadROIs)
@@ -60,13 +76,18 @@ class roiManagerWidget(qt.QWidget):
         dialog.setAcceptMode(qt.QFileDialog.AcceptSave)
         dialog.setNameFilters(["INI File (*.ini)", "JSON File (*.json)"])
         if dialog.exec():
-            filename = dialog.selectedFiles()[0]
+            filename = f"roi_save_{datetime.datetime.now().strftime('%d-%m-%Y_%H-%M-%S')}"
             # Automatically add extension if missing (based on the filter)
             selectedFilter = dialog.selectedNameFilter()
             extension = ".ini" if "INI" in selectedFilter else ".json"
             if not filename.endswith(extension):
                 filename += extension
             self._save(filename)
+
+    def _onRoiAdded(self, roi):
+        roi.setName(f"ROI {len(self.roiManager.getRois())}")
+        # set the colors of the ROIs from the list of colors above
+        roi.setColor(self.colors[len(self.roiManager.getRois()) % len(self.colors)])
     
     # Save ROIs to a file
     def _save(self, filename):
@@ -112,5 +133,5 @@ class roiManagerWidget(qt.QWidget):
 
     # Clear all ROIs from the plot
     def clearROIs(self):
-        self.roiManager.clear()
-        self._roiTable.clear()
+        for each in self.roiManager.getRois():
+            self.roiManager.removeRoi(each)

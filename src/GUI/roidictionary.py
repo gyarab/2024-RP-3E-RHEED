@@ -1,3 +1,4 @@
+from silx.gui import qt
 import numpy as np
 import json
 from silx.gui.plot.items.roi import (
@@ -27,8 +28,8 @@ def roi_to_dict(roi):
         "name": roi.getName() if hasattr(roi, "getName") else "",
     }
     # Use the type of ROI to decide what properties to save:
-    if hasattr(roi, "__shape"):
-        d["color"] = roi.__shape.getColor()
+    if hasattr(roi, "_color"):
+        d["color"] = roi.getColor().name()
     if isinstance(roi, (PointROI, CrossROI)):
         d["position"] = list(roi.getPosition())
     elif isinstance(roi, LineROI):
@@ -72,8 +73,8 @@ def roi_from_dict(d, plot=None):
     if "name" in d and hasattr(roi, "setName"):
         roi.setName(d["name"])
     # Set ROI-specific geometry.
-    if "color" in d and hasattr(roi, "__shape"):
-        roi.__shape.setColor(d["color"])
+    if "color" in d and hasattr(roi, "_color"):
+        roi.setColor(qt.QColor(d["color"]))
     if cls_name in ("PointROI", "CrossROI"):
         roi.setPosition(tuple(d["position"]))
     elif cls_name == "LineROI":
