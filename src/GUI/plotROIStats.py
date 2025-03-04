@@ -23,7 +23,8 @@ import concurrent.futures
 import threading
 from silx.gui.utils import concurrent
 import time
-from ..camera.opencv_capture import CameraInit
+from camera.opencv_capture import CameraInit
+from gui.roiwidget import roiManagerWidget
 
 class plotUpdateThread(qt.QThread):
     """Thread updating the image of a :class:`~silx.gui.plot.Plot2D`
@@ -144,9 +145,11 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         #    self._curveRoiWidget.roiTable.setColumnHidden(index, True)
     
         # 2D - 3D roi manager
-        self._regionManager = RegionOfInterestManager(parent=self.plot)
+        self._regionManagerWidget = roiManagerWidget(parent=self, plot=self.plot)
 
-        # Create the table widget displaying
+
+
+        '''# Create the table widget displaying
         self._roiTable = RegionOfInterestTableWidget()
         self._roiTable.setRegionOfInterestManager(self._regionManager)
 
@@ -163,7 +166,9 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
         # Create the table widget displaying
         self._roiTable = RegionOfInterestTableWidget()
-        self._roiTable.setRegionOfInterestManager(self._regionManager)
+        self._roiTable.setRegionOfInterestManager(self._regionManager)'''
+
+
 
         # tabWidget for displaying the rois
         self._roisTabWidget = qt.QTabWidget(parent=self)
@@ -186,23 +191,28 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.setUpdateMode = self._statsWidget.setUpdateMode
         self.updateAllStats = self._statsWidget.updateAllStats
 
-        # Create a container widget for the 2D ROI tab
+        '''# Create a container widget for the 2D ROI tab
         self._2DRoiContainer = qt.QWidget()
         self._2DRoiContainer.setLayout(qt.QVBoxLayout())
 
         # Add the toolbar and the table widget to the container
         self._2DRoiContainer.layout().addWidget(self._roiToolbar)
-        self._2DRoiContainer.layout().addWidget(self._roiTable)
+        self._2DRoiContainer.layout().addWidget(self._roiTable)'''
 
         # Connect ROI signal to register ROI automatically
-        self._regionManager.sigRoiAdded.connect(self._registerRoi)
+        self._regionManagerWidget.roiManager.sigRoiAdded.connect(self._registerRoi)
+        self._regionManagerWidget.roiManager.sigRoiAboutToBeRemoved.connect(self._unregisterRoi)
 
-        self._roisTabWidget.addTab(self._2DRoiContainer, "2D roi(s)")
+        self._roisTabWidget.addTab(self._regionManagerWidget, "2D roi(s)")
         self._roisTabWidget.addTab(self._curveRoiWidget, "1D roi(s)")
 
     def _registerRoi(self, roi):
         #Register a newly created ROI with the stats widget.
         self._statsWidget.registerROI(roi)
+
+    def _unregisterRoi(self, roi):
+        #Unregister a ROI with the stats widget.
+        self._statsWidget.removeItem(roi)
 
     def setRois(self, rois1D=None, rois2D=None):
         rois2D = rois2D or ()
@@ -272,5 +282,5 @@ def main(argv):
     else:
         raise ValueError("invalid entry for item type")
 
-if __name__ == "__main__":
-    main(sys.argv)
+#if __name__ == "__main__":
+#    main(sys.argv)

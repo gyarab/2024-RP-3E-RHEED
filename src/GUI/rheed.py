@@ -4,8 +4,8 @@ from qtpy.QtWidgets import (
 )
 from qtpy.QtCore import Qt, QRectF, QTimer
 from qtpy.QtGui import QBrush, QColor, QPen
-from GUI.shape_item import CustomShapeItem, CustomEllipseItem
-from GUI.video_area import VideoArea
+from gui.shape_item import CustomShapeItem, CustomEllipseItem
+from gui.video_area import VideoArea
 from camera.opencv_capture import CameraInit
 
 

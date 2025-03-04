@@ -8,6 +8,7 @@ plotInteractiveImageROI.py
 # Icon must end with two \r
 Icon
 
+*.h5
 
 # Thumbnails
 ._*
