@@ -29,7 +29,6 @@ Návod pro spuštění a navigaci v prvním okně GUI:
     ```
     
     **2. Vytvoření a aktivace virtuálního prostředí**
-    tato čás
     ```
     python -m venv venv
     source venv/bin/activate  # Na Windows: venv\Scripts\activate
