@@ -1,6 +1,6 @@
 import cv2
 import os
-import numpy as np
+import numpy
 import h5py
 import datetime
 
@@ -18,7 +18,7 @@ class CameraInit:
         if not self.cap.isOpened():
             print("Failed to open camera.")
             return
-        self.cap.set(cv2.CAP_PROP_FPS, 20)
+        self.cap.set(cv2.CAP_PROP_FPS, 24)
 
 
         self.h5_file = h5py.File(
@@ -29,7 +29,7 @@ class CameraInit:
             "arrays",
             shape=(self.dataset_size, self.width, self.height),  # Preallocate space
             maxshape=(None, self.width, self.height),  # Allow unlimited frames
-            dtype=np.uint16,
+            dtype=numpy.float32,
             chunks=(10, self.width, self.height)  # Optimize for batch writing
         )
 
@@ -42,7 +42,7 @@ class CameraInit:
         fr = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         #used 64bit float to normalize the image with high precision
-        nfr = fr.astype(np.float64)
+        nfr = fr.astype(numpy.float32)
         #!!!normalization should be voluntary, implement later: cv2.normalize(fr, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_64F)
 
         #if dataset is full, expand by 1000 frames

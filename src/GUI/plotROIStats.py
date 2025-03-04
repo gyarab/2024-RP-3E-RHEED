@@ -61,9 +61,10 @@ class plotUpdateThread(qt.QThread):
 
     def stop(self):
         self.running = False
-        self.wait(2000)
+        self.quit()
+        self.wait()
 
-class roiUpdateThread(qt.QThread):
+'''class roiUpdateThread(qt.QThread):
 
     def __init__(self, window):
         self.window = window
@@ -81,7 +82,8 @@ class roiUpdateThread(qt.QThread):
 
     def stop(self):
         self.running = False
-        self.wait(2000)
+        self.quit()
+        self.wait()'''
 
 
 class _RoiStatsWidget(qt.QMainWindow):
@@ -143,7 +145,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
     
         # 2D - 3D roi manager
         self._regionManager = RegionOfInterestManager(parent=self.plot)
-        self.plot.getROI
 
         # Create the table widget displaying
         self._roiTable = RegionOfInterestTableWidget()
@@ -213,6 +214,10 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
     def setStats(self, stats):
         self._statsWidget.setStats(stats=stats)
 
+        self.roiUpdateTimer = qt.QTimer(self)
+        self.roiUpdateTimer.timeout.connect(lambda: self._statsWidget.updateAllStats(is_request=True))
+        self.roiUpdateTimer.start(50)
+
     def addItem(self, item, roi):
         self._statsWidget.addItem(roi=roi, plotItem=item)
 
@@ -220,7 +225,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 # define stats to display
 STATS = [
     ("mean", numpy.mean),
-    #removed for sake of optimisation
+    #removed for the sake of optimisation
     #("std", numpy.std),
     #("min", numpy.min),
     #("max", numpy.max),
@@ -237,8 +242,10 @@ def example_image(mode):
     updateThread = plotUpdateThread(window)
     updateThread.start()  # Start updating the plot
     # Create the thread that updates the stats
-    roiThread = roiUpdateThread(window)
-    roiThread.start()  # Start updating the stats
+    
+    
+    #roiThread = roiUpdateThread(window)
+    #roiThread.start()  # Start updating the stats
     
     window.setStats(STATS)
     window.setUpdateMode(mode)
