@@ -20,6 +20,36 @@ Návod pro spuštění a navigaci v prvním okně GUI:
   - Python verze - 3.9 a novější  
   - Python knihovny - PyQt5 nebo PySide6 (instalace knihoven pomocí `pip install qtpy PyQt5`)
 
+- **Instalace**  
+
+    **1. Klonování repozitáře**
+    ```
+    gc//github.com/gyarab/2024-RP-3E-RHEED.git
+    cd 2024-RP-3E-RHEED
+    ```
+    
+    **2. Vytvoření a aktivace virtuálního prostředí**
+    tato čás
+    ```
+    python -m venv venv
+    source venv/bin/activate  # Na Windows: venv\Scripts\activate
+    ```
+
+    **3. Instalace požadovaných knihoven**
+    ```
+    pip install -r requirements.txt
+    ```
+    Pokud requirements.txt neexistuje, nainstalujte knihovny ručně:
+
+    ```
+    pip install silx opencv-python PyQt5 numpy h5py matplotlib
+    ```
+
+- **Závislosti**  
+
+    Seznam závislostí projektu: [Dependency Graph](https://github.com/gyarab/2024-RP-3E-RHEED/network/dependencies)
+  
+
 - **Spuštění**  
   - Otevřete si složku GUI v terminálu a napište `python main.py`
 
