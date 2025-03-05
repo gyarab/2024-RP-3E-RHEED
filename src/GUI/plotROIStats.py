@@ -25,6 +25,7 @@ from silx.gui.utils import concurrent
 import time
 from camera.opencv_capture import CameraInit
 from gui.roiwidget import roiManagerWidget
+from gui.statswindow import roiStatsWindow
 
 class plotUpdateThread(qt.QThread):
     """Thread updating the image of a :class:`~silx.gui.plot.Plot2D`
@@ -65,29 +66,7 @@ class plotUpdateThread(qt.QThread):
         self.quit()
         self.wait()
 
-'''class roiUpdateThread(qt.QThread):
-
-    def __init__(self, window):
-        self.window = window
-        self.running = False
-        super(roiUpdateThread, self).__init__()
-
-    def start(self):
-        self.running = True
-        super(roiUpdateThread, self).start()
-
-    def run(self):
-        while self.running:
-            time.sleep(0.05)
-            concurrent.submitToQtMainThread(self.window.updateAllStats(is_request=True))
-
-    def stop(self):
-        self.running = False
-        self.quit()
-        self.wait()'''
-
-
-class _RoiStatsWidget(qt.QMainWindow):
+'''class _RoiStatsWidget():
     """
     Window used to associate ROI manager, ROIStatsWidget and UpdateModeWidget
     """
@@ -123,7 +102,7 @@ class _RoiStatsWidget(qt.QMainWindow):
         #no need to set update mode, done automatically 
         #self.setUpdateMode = self._updateModeControl.setUpdateMode
         self.updateAllStats = self._roiStatsWindow._updateAllStats
-        self.setUpdateMode = self._roiStatsWindow._setUpdateMode
+        self.setUpdateMode = self._roiStatsWindow._setUpdateMode'''
 
 class _RoiStatsDisplayExWindow(qt.QMainWindow):
     """
@@ -136,7 +115,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.setCentralWidget(self.plot)
 
         # widget for displaying stats results and update mode
-        self._statsWidget = _RoiStatsWidget(parent=self, plot=self.plot)
+        self._statsWidget = roiStatsWindow(parent=self, plot=self.plot)
 
         # 1D roi management
         self._curveRoiWidget = self.plot.getCurvesRoiDockWidget().widget()
@@ -146,8 +125,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
     
         # 2D - 3D roi manager
         self._regionManagerWidget = roiManagerWidget(parent=self, plot=self.plot)
-
-
 
         '''# Create the table widget displaying
         self._roiTable = RegionOfInterestTableWidget()
@@ -166,10 +143,9 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
         # Create the table widget displaying
         self._roiTable = RegionOfInterestTableWidget()
-        self._roiTable.setRegionOfInterestManager(self._regionManager)'''
-
-
-
+        self._roiTable.setRegionOfInterestManager(self._regionManager)
+        '''
+        
         # tabWidget for displaying the rois
         self._roisTabWidget = qt.QTabWidget(parent=self)
         #if hasattr(self._roisTabWidget, "setTabBarAutoHide"):
@@ -187,9 +163,10 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         #self.addDockWidget(qt.Qt.RightDockWidgetArea, self._statsWidget._docker)
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
+        '''
         # uncover the API of updatemode and control over the update of all ROI stats
         self.setUpdateMode = self._statsWidget.setUpdateMode
-        self.updateAllStats = self._statsWidget.updateAllStats
+        self.updateAllStats = self._statsWidget.updateAllStats '''
 
         '''# Create a container widget for the 2D ROI tab
         self._2DRoiContainer = qt.QWidget()
@@ -200,12 +177,13 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._2DRoiContainer.layout().addWidget(self._roiTable)'''
 
         # Connect ROI signal to register ROI automatically
-        self._regionManagerWidget.roiManager.sigRoiAdded.connect(self._registerRoi)
-        self._regionManagerWidget.roiManager.sigRoiAboutToBeRemoved.connect(self._unregisterRoi)
+        self._regionManagerWidget.roiManager.sigRoiAdded.connect(self._statsWidget.registerRoi)
+        self._regionManagerWidget.roiManager.sigRoiAboutToBeRemoved.connect(self._statsWidget.unregisterRoi)
 
         self._roisTabWidget.addTab(self._regionManagerWidget, "2D roi(s)")
         self._roisTabWidget.addTab(self._curveRoiWidget, "1D roi(s)")
-
+    
+    '''
     def _registerRoi(self, roi):
         #Register a newly created ROI with the stats widget.
         self._statsWidget.registerROI(roi)
@@ -216,13 +194,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         #self._statsWidget._roiStatsWindow._statsROITable.unregisterROI(roi)
         #self._statsWidget.unregisterROI(roi)
 
-    def setRois(self, rois1D=None, rois2D=None):
-        rois2D = rois2D or ()
-
-        for roi2D in rois2D:
-            self._regionManager.addRoi(roi2D)
-            self._statsWidget.registerROI(roi2D)
-
     def setStats(self, stats):
         self._statsWidget.setStats(stats=stats)
 
@@ -232,16 +203,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
     def addItem(self, item, roi):
         self._statsWidget.addItem(roi=roi, plotItem=item)
-
-
-# define stats to display
-STATS = [
-    ("mean", numpy.mean),
-    #removed for the sake of optimisation
-    #("std", numpy.std),
-    #("min", numpy.min),
-    #("max", numpy.max),
-]
+    '''
 
 def example_image(mode):
     """set up the roi stats example for images"""
@@ -254,14 +216,13 @@ def example_image(mode):
     updateThread = plotUpdateThread(window)
     updateThread.start()  # Start updating the plot
     # Create the thread that updates the stats
-    
-    
+
     #roiThread = roiUpdateThread(window)
     #roiThread.start()  # Start updating the stats
-    
-    window.setStats(STATS)
-    window.setUpdateMode(mode)
+    #window.setUpdateMode(mode)
     window.show()
+    window.plot.setKeepDataAspectRatio(True)
+    window.plot.setYAxisInverted(True)
     app.exec()
     updateThread.stop()  # Stop updating the plot
 

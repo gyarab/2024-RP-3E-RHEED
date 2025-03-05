@@ -22,6 +22,7 @@ class roiManagerWidget(qt.QWidget):
         Create a composite widget that embeds the 2D ROI manager and table,
         and adds Save/Load buttons.
         """
+        assert plot is not None
         super().__init__(parent)
         self.plot = plot
 
