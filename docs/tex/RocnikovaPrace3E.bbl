@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
+% $ biblatex bbl format version 3.3 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -18,8 +18,8 @@
 
 
 \refsection{0}
-  \datalist[entry]{nty/global//global/global}
-    \entry{h5pyDocs}{online}{}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{h5pyDocs}{online}{}{}
       \name{author}{1}{}{%
         {{hash=1c91b0e342f89cef33c0dc386abe77d9}{%
            family={Collette},
@@ -29,10 +29,12 @@
       }
       \strng{namehash}{1c91b0e342f89cef33c0dc386abe77d9}
       \strng{fullhash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \strng{fullhashraw}{1c91b0e342f89cef33c0dc386abe77d9}
       \strng{bibnamehash}{1c91b0e342f89cef33c0dc386abe77d9}
       \strng{authorbibnamehash}{1c91b0e342f89cef33c0dc386abe77d9}
       \strng{authornamehash}{1c91b0e342f89cef33c0dc386abe77d9}
       \strng{authorfullhash}{1c91b0e342f89cef33c0dc386abe77d9}
+      \strng{authorfullhashraw}{1c91b0e342f89cef33c0dc386abe77d9}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
@@ -48,7 +50,7 @@
       \verb https://docs.h5py.org/en/stable/
       \endverb
     \endentry
-    \entry{opencvDocs}{online}{}
+    \entry{opencvDocs}{online}{}{}
       \name{author}{1}{}{%
         {{hash=b299fb2b1d50ca2c9485edaaab88e0a4}{%
            family={Developers},
@@ -58,10 +60,12 @@
       }
       \strng{namehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
       \strng{fullhash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \strng{fullhashraw}{b299fb2b1d50ca2c9485edaaab88e0a4}
       \strng{bibnamehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
       \strng{authorbibnamehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
       \strng{authornamehash}{b299fb2b1d50ca2c9485edaaab88e0a4}
       \strng{authorfullhash}{b299fb2b1d50ca2c9485edaaab88e0a4}
+      \strng{authorfullhashraw}{b299fb2b1d50ca2c9485edaaab88e0a4}
       \field{extraname}{1}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
@@ -78,7 +82,7 @@
       \verb https://docs.opencv.org/master/
       \endverb
     \endentry
-    \entry{numpyDocs}{online}{}
+    \entry{numpyDocs}{online}{}{}
       \name{author}{1}{}{%
         {{hash=c646e822442ba58aefb86997bbdd7fbc}{%
            family={Developers},
@@ -88,10 +92,12 @@
       }
       \strng{namehash}{c646e822442ba58aefb86997bbdd7fbc}
       \strng{fullhash}{c646e822442ba58aefb86997bbdd7fbc}
+      \strng{fullhashraw}{c646e822442ba58aefb86997bbdd7fbc}
       \strng{bibnamehash}{c646e822442ba58aefb86997bbdd7fbc}
       \strng{authorbibnamehash}{c646e822442ba58aefb86997bbdd7fbc}
       \strng{authornamehash}{c646e822442ba58aefb86997bbdd7fbc}
       \strng{authorfullhash}{c646e822442ba58aefb86997bbdd7fbc}
+      \strng{authorfullhashraw}{c646e822442ba58aefb86997bbdd7fbc}
       \field{extraname}{2}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
@@ -108,7 +114,7 @@
       \verb https://numpy.org/doc/stable/
       \endverb
     \endentry
-    \entry{RHEED}{online}{}
+    \entry{RHEED}{online}{}{}
       \name{author}{1}{}{%
         {{hash=c1692a82454404286a41f5644137750c}{%
            family={MFF},
@@ -116,10 +122,12 @@
       }
       \strng{namehash}{c1692a82454404286a41f5644137750c}
       \strng{fullhash}{c1692a82454404286a41f5644137750c}
+      \strng{fullhashraw}{c1692a82454404286a41f5644137750c}
       \strng{bibnamehash}{c1692a82454404286a41f5644137750c}
       \strng{authorbibnamehash}{c1692a82454404286a41f5644137750c}
       \strng{authornamehash}{c1692a82454404286a41f5644137750c}
       \strng{authorfullhash}{c1692a82454404286a41f5644137750c}
+      \strng{authorfullhashraw}{c1692a82454404286a41f5644137750c}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
@@ -135,7 +143,7 @@
       \verb https://physics.mff.cuni.cz/kfpp/s4r/povrch/rheed.html
       \endverb
     \endentry
-    \entry{PlayerOneSDK}{online}{}
+    \entry{PlayerOneSDK}{online}{}{}
       \name{author}{1}{}{%
         {{hash=76bae194dd0d59b4ffbc5f5093410888}{%
            family={One},
@@ -145,10 +153,12 @@
       }
       \strng{namehash}{76bae194dd0d59b4ffbc5f5093410888}
       \strng{fullhash}{76bae194dd0d59b4ffbc5f5093410888}
+      \strng{fullhashraw}{76bae194dd0d59b4ffbc5f5093410888}
       \strng{bibnamehash}{76bae194dd0d59b4ffbc5f5093410888}
       \strng{authorbibnamehash}{76bae194dd0d59b4ffbc5f5093410888}
       \strng{authornamehash}{76bae194dd0d59b4ffbc5f5093410888}
       \strng{authorfullhash}{76bae194dd0d59b4ffbc5f5093410888}
+      \strng{authorfullhashraw}{76bae194dd0d59b4ffbc5f5093410888}
       \field{sortinit}{O}
       \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
       \field{labelnamesource}{author}
@@ -164,7 +174,7 @@
       \verb https://player-one-astronomy.com/service/software/
       \endverb
     \endentry
-    \entry{WhatIsHDF5}{online}{}
+    \entry{WhatIsHDF5}{online}{}{}
       \name{author}{1}{}{%
         {{hash=adf220965d8f477466aedc79191978cf}{%
            family={Science},
@@ -174,10 +184,12 @@
       }
       \strng{namehash}{adf220965d8f477466aedc79191978cf}
       \strng{fullhash}{adf220965d8f477466aedc79191978cf}
+      \strng{fullhashraw}{adf220965d8f477466aedc79191978cf}
       \strng{bibnamehash}{adf220965d8f477466aedc79191978cf}
       \strng{authorbibnamehash}{adf220965d8f477466aedc79191978cf}
       \strng{authornamehash}{adf220965d8f477466aedc79191978cf}
       \strng{authorfullhash}{adf220965d8f477466aedc79191978cf}
+      \strng{authorfullhashraw}{adf220965d8f477466aedc79191978cf}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
@@ -193,7 +205,7 @@
       \verb https://www.neonscience.org/resources/learning-hub/tutorials/about-hdf5
       \endverb
     \endentry
-    \entry{matplotlibDocs}{online}{}
+    \entry{matplotlibDocs}{online}{}{}
       \name{author}{1}{}{%
         {{hash=649ee044a636c882945b3ede3c65584a}{%
            family={Team},
@@ -203,10 +215,12 @@
       }
       \strng{namehash}{649ee044a636c882945b3ede3c65584a}
       \strng{fullhash}{649ee044a636c882945b3ede3c65584a}
+      \strng{fullhashraw}{649ee044a636c882945b3ede3c65584a}
       \strng{bibnamehash}{649ee044a636c882945b3ede3c65584a}
       \strng{authorbibnamehash}{649ee044a636c882945b3ede3c65584a}
       \strng{authornamehash}{649ee044a636c882945b3ede3c65584a}
       \strng{authorfullhash}{649ee044a636c882945b3ede3c65584a}
+      \strng{authorfullhashraw}{649ee044a636c882945b3ede3c65584a}
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{labelnamesource}{author}
@@ -222,7 +236,7 @@
       \verb https://matplotlib.org/stable/contents.html
       \endverb
     \endentry
-    \entry{silxDocs}{online}{}
+    \entry{silxDocs}{online}{}{}
       \name{author}{1}{}{%
         {{hash=06952a08b18847c170abf7af80bb3bfb}{%
            family={Unit},
@@ -232,10 +246,12 @@
       }
       \strng{namehash}{06952a08b18847c170abf7af80bb3bfb}
       \strng{fullhash}{06952a08b18847c170abf7af80bb3bfb}
+      \strng{fullhashraw}{06952a08b18847c170abf7af80bb3bfb}
       \strng{bibnamehash}{06952a08b18847c170abf7af80bb3bfb}
       \strng{authorbibnamehash}{06952a08b18847c170abf7af80bb3bfb}
       \strng{authornamehash}{06952a08b18847c170abf7af80bb3bfb}
       \strng{authorfullhash}{06952a08b18847c170abf7af80bb3bfb}
+      \strng{authorfullhashraw}{06952a08b18847c170abf7af80bb3bfb}
       \field{sortinit}{U}
       \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
       \field{labelnamesource}{author}

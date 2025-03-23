@@ -68,7 +68,7 @@
 	\thispagestyle{empty}
 	
 	\begin{flushleft}
-		\includegraphics[width=2cm]{logo.png}
+		\includegraphics[width=2cm]{images/logo.png}
 		\begin{tabular}[b]{@{}p{0.6\textwidth}}
 			\large\textbf{Gymnázium, Praha 6, Arabská 14}\\
 			\textbf{Předmět:} Programování\\
@@ -87,7 +87,7 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.60 \textwidth]{title.png}
+		\includegraphics[width=0.60\textwidth]{images/title.png}
 	\end{figure}
 	
 	\vspace{0.5cm}
@@ -136,16 +136,18 @@ bezúplatně škole Gymnázium, Praha 6, Arabská 14 oprávnění k výkonu prá
 
 \section{Slovník}
 \begin{itemize}
-\item \textbf{RHEED – Reflection High-Energy Electron Diffraction} - metoda povrchové analýzy krystalických materiálů.\\
-\item \textbf{CCD – Charge-Coupled Device} - zařízení pro detekci a záznam obrazu.\\
-\item \textbf{MBE – Molecular Beam Epitaxy} - metoda epitaxního růstu tenkých vrstev.\\
-\item \textbf{OpenGL – Open Graphics Library} - knihovna pro vykreslování 2D a 3D grafiky pomocí GPU.\\
-\item \textbf{ROI – Region of Interest} - oblast zájmu v obraze určená pro detailní analýzu.\\
-\item \textbf{HDF5 – Hierarchical Data Format version 5} - formát pro strukturované ukládání velkých dat.\\
-\item \textbf{XRD – X-ray Diffraction} - rentgenová difrakční metoda pro analýzu krystalové struktury.\\
-\item \textbf{STM – Scanning Tunneling Microscopy} - rastrovací tunelová mikroskopie pro analýzu povrchů na atomární úrovni.\\
-\item \textbf{GUI – Graphical User Interface} - grafické uživatelské rozhraní.\\
-\item \textbf{Toolbar – nástrojová lišta} - Toolbar obsahuje tlačítka pro rychlý přístup k funkcím aplikace, jako je navigace, úprava obrazu nebo analýza dat.
+\item \textbf{RHEED – Reflection High-Energy Electron Diffraction} - metoda povrchové analýzy krystalických materiálů\\
+\item \textbf{CCD – Charge-Coupled Device} - zařízení pro detekci a záznam obrazu\\
+\item \textbf{MBE – Molecular Beam Epitaxy} - metoda epitaxního růstu tenkých vrstev\\
+\item \textbf{eV - Elektrovolt} - množství kinetické energie, které získá elektron urychlený elektrickým napětím 1 volt
+\item \textbf{Kolimátor} - zařízení směřující, formující nebo zužující svazek záření nebo částic do úzkého a dobře definovaného paprsku
+\item \textbf{OpenGL – Open Graphics Library} - knihovna pro vykreslování 2D a 3D grafiky pomocí GPU\\
+\item \textbf{ROI – Region of Interest} - oblast zájmu v obraze určená pro detailní analýzu\\
+\item \textbf{HDF5 – Hierarchical Data Format version 5} - formát pro strukturované ukládání velkých dat\\
+\item \textbf{XRD – X-ray Diffraction} - rentgenová difrakční metoda pro analýzu krystalové struktury\\
+\item \textbf{STM – Scanning Tunneling Microscopy} - rastrovací tunelová mikroskopie pro analýzu povrchů na atomární úrovni\\
+\item \textbf{GUI – Graphical User Interface} - grafické uživatelské rozhraní\\
+\item \textbf{Toolbar – nástrojová lišta} - Toolbar obsahuje tlačítka pro rychlý přístup k funkcím aplikace, jako je navigace, úprava obrazu nebo analýza dat
 \end{itemize}
 \newpage
 
@@ -215,7 +217,7 @@ RHEED je vysoce specializovaná analytická metoda využívaná především ve 
 
 Základní fyzikální princip RHEED vychází z Braggovy difrakce, avšak vzhledem k extrémně malému dopadovému úhlu elektronového svazku (typicky mezi 1° až 3°) dochází k difrakci především na povrchových rovinách krystalu. Elektrony s vysokou energií, obvykle v rozmezí 10 až 50 keV, mají ,relativně s atomovými rozměry, velmi malou vlnovou délku, to zajišťuje vysoké rozlišení difrakčních obrazců. Díky této konfiguraci se metoda RHEED primárně zaměřuje na povrchové vrstvy a je citlivá na jejich periodickou strukturu, defekty, rekonstrukce a růstové mechanismy.\\
 
-Experimentální uspořádání RHEED zahrnuje zdroj elektronového svazku, kolimátory a elektrostatické nebo magnetické čočky pro jeho fokusaci, analyzovaný vzorek a fluorescenční stínítko nebo CCD kameru pro detekci difrakčního obrazce. Elektronový svazek je vystřelován na povrch vzorku, kde se část elektronů elasticky rozptyluje na povrchové mřížce a interferuje podle Braggových podmínek. Výsledný difrakční obrazec, zaznamenaný na stínítku, se skládá z jasně definovaných bodů nebo pruhů, které odpovídají reciproké mříži povrchové struktury.\\
+Experimentální uspořádání RHEED zahrnuje zdroj elektronového svazku, kolimátory a elektrostatické nebo magnetické čočky pro jeho fokusaci, analyzovaný vzorek a fluorescenční stínítko nebo CCD kameru pro detekci difrakčního obrazce. Elektronový svazek je vystřelován na povrch vzorku, kde se část elektronů rozptyluje na povrchové mřížce a interferuje podle Braggových podmínek. Výsledný difrakční obrazec, zaznamenaný na stínítku, se skládá z jasně definovaných bodů nebo pruhů, které odpovídají reciproké mříži povrchové struktury.\\
 
 \begin{figure}[H]
 	\centering
@@ -223,7 +225,7 @@ Experimentální uspořádání RHEED zahrnuje zdroj elektronového svazku, koli
 	\caption{Experimentální sestava běžně využívaná v růstových komorách MBE}
 \end{figure}
 
-Interpretace difrakčních obrazců v RHEED je zásadní pro pochopení morfologie povrchu. V případě dokonalé dvourozměrné mřížky se v reciprokém prostoru vytváří typické pruhové obrazce, zatímco přítomnost trojrozměrných ostrovů nebo teras vede ke vzniku bodových obrazců nebo tlumení difrakčních maxim. Díky analýze intenzitních oscilací těchto pruhů během depozice lze kvantitativně sledovat rychlost růstu jednotlivých monovrstev, což činí RHEED užitečným nástrojem při epitaxním růstu krystalů.\\
+Interpretace difrakčních obrazců v RHEED je zásadní pro pochopení morfologie povrchu. V případě dokonalé dvourozměrné mřížky se v reciprokém prostoru vytváří typické pruhové obrazce, zatímco přítomnost trojrozměrných ostrovů nebo teras vede ke vzniku bodových obrazců nebo tlumení difrakčních maxim. Díky analýze intenzitních oscilací těchto pruhů během depozice lze sledovat rychlost růstu jednotlivých monovrstev, což činí RHEED užitečným nástrojem při epitaxním růstu krystalů.\\
 
 \begin{figure}[H]
 	\centering
@@ -232,6 +234,22 @@ Interpretace difrakčních obrazců v RHEED je zásadní pro pochopení morfolog
 \end{figure}
 
 Význam RHEED v materiálových vědách je zejména při studiu tenkých vrstev polovodičových materiálů, kovových nanostruktur a oxidových vrstev. Tato metoda umožňuje nejen identifikaci symetrie povrchové mřížky, ale také detekci povrchových defektů, jako jsou kroky, dislokace nebo segregace nečistot. V kombinaci s dalšími analytickými metodami, například rentgenovou difrakcí (XRD) či rastrovací tunelovou mikroskopií (STM), poskytuje obraz o strukturách a vlastnostech povrchu na atomární úrovni. RHEED se stal nepostradatelným nástrojem hlavně při výzkumu polovodičových heterostruktur a kvantových definovaných nanostruktur. Ve spojení s MBE umožňuje optimalizaci růstových parametrů v reálném čase, čímž se zvyšuje kontrola nad kvalitou připravovaných vrstev. Z tohoto důvodu je široce využíván ve výzkumu materiálů pro \textbf{kvantovou elektroniku}, \textbf{spintroniku} či vývoj nových \textbf{dvourozměrných materiálů}, jako jsou topologické izolátory nebo grafenové deriváty.\\
+
+\subsection{Braggova difrakce}
+    Braggova difrakce je jev, který nastává při interakci rentgenového záření (případně jiného druhu elektromagnetického nebo vlnového záření) s periodickou strukturou, většinou s krystalickou mřížkou. Tento jev byl popsán v roce 1913 Williamem H. Braggem a jeho synem Williamem L. Braggem, kteří za tento objev obdrželi Nobelovu cenu za fyziku v roce 1915. Braggova difrakce  položila základ pro rentgenovou strukturní analýzu.
+
+Základní myšlenkou Braggovy difrakce je interference vln odražených od jednotlivých rovin krystalové mřížky. Pokud je splněna Braggova podmínka:
+\[
+2d \sin\theta = n\lambda
+\]
+
+kde d je vzdálenost mezi rovinami v krystalu, θ je úhel dopadu (tzv. Braggův úhel), λ je vlnová délka použitého záření a n je řád difrakce (celé číslo), dochází ke konstruktivní interferenci. Výsledkem je zesílení odraženého záření ve specifických směrech, které lze experimentálně detekovat.
+
+Tento jev umožňuje nepřímé určení polohy atomů v krystalové mřížce. V praxi se Braggova difrakce využívá zejména v rentgenové difrakční analýze (XRD), neutronové difrakci nebo elektronové difrakci. Měření polohy difraktovaných paprsků a jejich intenzity umožňuje zpětně rekonstruovat prostorové uspořádání atomů v krystalu.
+
+Braggova difrakce je závislá nejen na geometrii krystalu a vlnové délce záření, ale i na krystalografické symetrii a typech atomů v mřížce, což ovlivňuje amplitudy odražených vln. Důležitým aspektem je i tzv. strukturový faktor, který kvantifikuje příspěvek jednotlivých atomových rovin k výslednému difrakčnímu vzoru.
+\newpage
+
 
 \section{Aplikace RHEED a její struktura}
     V této kapitole bude rozebráno s čím aplikace pracuje a jednotlivé části aplikace.
