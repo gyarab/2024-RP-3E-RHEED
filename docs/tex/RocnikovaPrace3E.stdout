@@ -31,29 +31,6 @@ Latexmk: Found input bbl file 'output.bbl'
 Latexmk: Log file says output to 'output.xdv'
 Latexmk: Bibliography file(s) from .bcf file:
   refs.bib
-Latexmk: applying rule 'xelatex'...
-Rule 'xelatex':  Reasons for rerun
-Changed files or newly in use/created:
-  output.aux
-  output.toc
-
-------------
-Run number 2 of rule 'xelatex'
-------------
-------------
-Running 'xelatex -no-pdf -synctex=1 -interaction=batchmode -recorder --jobname="output"  "main.tex"'
-------------
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex)
- \write18 enabled.
-entering extended mode
-
-SyncTeX written on output.synctex.gz.Latexmk: Getting log file 'output.log'
-Latexmk: Examining 'output.fls'
-Latexmk: Examining 'output.log'
-Latexmk: Found input bbl file 'output.bbl'
-Latexmk: Log file says output to 'output.xdv'
-Latexmk: Bibliography file(s) from .bcf file:
-  refs.bib
 Latexmk: applying rule 'xdvipdfmx'...
 Rule 'xdvipdfmx':  Reasons for rerun
 Changed files or newly in use/created:

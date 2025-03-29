@@ -50,6 +50,34 @@
       \verb https://docs.h5py.org/en/stable/
       \endverb
     \endentry
+    \entry{Vzory}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=fff206eabeb5ba8823b75c1000a4d989}{%
+           family={{Department of Materials Science and Metallurgy, University of Cambridge}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{fff206eabeb5ba8823b75c1000a4d989}
+      \strng{fullhash}{fff206eabeb5ba8823b75c1000a4d989}
+      \strng{fullhashraw}{fff206eabeb5ba8823b75c1000a4d989}
+      \strng{bibnamehash}{fff206eabeb5ba8823b75c1000a4d989}
+      \strng{authorbibnamehash}{fff206eabeb5ba8823b75c1000a4d989}
+      \strng{authornamehash}{fff206eabeb5ba8823b75c1000a4d989}
+      \strng{authorfullhash}{fff206eabeb5ba8823b75c1000a4d989}
+      \strng{authorfullhashraw}{fff206eabeb5ba8823b75c1000a4d989}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 29.3.2025}
+      \field{title}{Diffraction and the Reciprocal Lattice}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.doitpoms.ac.uk/tlplib/diffraction/index.php
+      \endverb
+      \verb{url}
+      \verb https://www.doitpoms.ac.uk/tlplib/diffraction/index.php
+      \endverb
+    \endentry
     \entry{opencvDocs}{online}{}{}
       \name{author}{1}{}{%
         {{hash=b299fb2b1d50ca2c9485edaaab88e0a4}{%
@@ -114,6 +142,34 @@
       \verb https://numpy.org/doc/stable/
       \endverb
     \endentry
+    \entry{Crystal}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=daa750b9504ae876d8a958b6a29b2f7f}{%
+           family={{Encyclopedia Britannica}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{daa750b9504ae876d8a958b6a29b2f7f}
+      \strng{fullhash}{daa750b9504ae876d8a958b6a29b2f7f}
+      \strng{fullhashraw}{daa750b9504ae876d8a958b6a29b2f7f}
+      \strng{bibnamehash}{daa750b9504ae876d8a958b6a29b2f7f}
+      \strng{authorbibnamehash}{daa750b9504ae876d8a958b6a29b2f7f}
+      \strng{authornamehash}{daa750b9504ae876d8a958b6a29b2f7f}
+      \strng{authorfullhash}{daa750b9504ae876d8a958b6a29b2f7f}
+      \strng{authorfullhashraw}{daa750b9504ae876d8a958b6a29b2f7f}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 28.3.2025}
+      \field{title}{Crystal System}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.britannica.com/science/crystal-system
+      \endverb
+      \verb{url}
+      \verb https://www.britannica.com/science/crystal-system
+      \endverb
+    \endentry
     \entry{RHEED}{online}{}{}
       \name{author}{1}{}{%
         {{hash=c1692a82454404286a41f5644137750c}{%
@@ -141,6 +197,36 @@
       \endverb
       \verb{url}
       \verb https://physics.mff.cuni.cz/kfpp/s4r/povrch/rheed.html
+      \endverb
+    \endentry
+    \entry{Bragg}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=acff77041c1c2bd439c8767bea5e80b1}{%
+           family={Nave},
+           familyi={N\bibinitperiod},
+           given={Rod},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{acff77041c1c2bd439c8767bea5e80b1}
+      \strng{fullhash}{acff77041c1c2bd439c8767bea5e80b1}
+      \strng{fullhashraw}{acff77041c1c2bd439c8767bea5e80b1}
+      \strng{bibnamehash}{acff77041c1c2bd439c8767bea5e80b1}
+      \strng{authorbibnamehash}{acff77041c1c2bd439c8767bea5e80b1}
+      \strng{authornamehash}{acff77041c1c2bd439c8767bea5e80b1}
+      \strng{authorfullhash}{acff77041c1c2bd439c8767bea5e80b1}
+      \strng{authorfullhashraw}{acff77041c1c2bd439c8767bea5e80b1}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Zpřístupněno: 23.3.2025}
+      \field{title}{Bragg Reflection}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/bragg.html
+      \endverb
+      \verb{url}
+      \verb https://hyperphysics.phy-astr.gsu.edu/hbase/quantum/bragg.html
       \endverb
     \endentry
     \entry{PlayerOneSDK}{online}{}{}

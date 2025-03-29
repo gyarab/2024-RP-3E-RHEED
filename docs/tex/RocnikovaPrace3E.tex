@@ -213,6 +213,45 @@ Kromě těchto knihoven byly při vývoji softwaru využity i další nástroje,
 \newpage
 
 \section{Teorie}
+V této kapitole přiblížíme fyzikální část naší ročníkové práce, aby bylo jasné co RHEED je a na jakých základech je jeho fungování založeno.
+
+\subsection{Krystalické mřížky}
+Krystalická mřížka je pravidelné uspořádání atomů nebo molekul v pevných látkách, které se periodicky opakuje v prostoru. Toto uspořádání pomáhá pochopit vlastnosti materiálu v kontextu difrakčních metod, jako je RHEED. Struktura krystalické mřížky ovlivňuje nejen mechanické a elektrické vlastnosti materiálu, ale i způsob jakým se elektronový svazek při analýze difraktuje a jaký obrazec vytváří.
+
+Každý krystal se skládá z tzv. elementární buňky, nejmenší jednotky která se periodicky opakuje a tvoří celý krystal. Elementární buňka obsahuje informace o rozmístění atomů a symetriích. Podle geometrie buňky a typu symetrie dělíme krystaly do sedmi základních krystalových soustav: krychlová, tetragonální, ortorombická, monoklinická, triklinická, hexagonální a rombická.
+
+Uspořádání krystalické mřížky se v recipročním prostoru projevuje jako pravidelný systém bodů, nebo-li reciproká mřížka. Právě na těchto bodech dochází k difrakci vysokoenergetických elektronů podle Braggovy podmínky. RHEED je extrémně citlivý na změny v povrchové struktuře – i malá změna v uspořádání atomů (např. vznik defektů, rekonstrukcí nebo nové vrstvy) se projeví změnou difrakčního obrazce.
+
+Díky tomu, že elektrony v RHEED dopadají na povrch pod velmi malým úhlem, je metoda schopna rozlišit nejen typ mřížky, ale i její orientaci vůči substrátu. To je důležité právě při růstu epitaxních vrstev, kde se nové atomy pokládají na krystalický podklad a vytvářejí navazující mřížku. V ideálním případě dojde k  pseudomorfnímu růstu, kdy nová vrstva kopíruje strukturu podkladu. V praxi však často dochází ke vzniku napětí, dislokací nebo jiných poruch, které lze pomocí RHEED identifikovat.\cite{Crystal}
+\newpage
+
+\subsection{Braggova difrakce}
+    Braggova difrakce je jev, který nastává při interakci rentgenového záření (případně jiného druhu elektromagnetického nebo vlnového záření) s periodickou strukturou, většinou s krystalickou mřížkou. Tento jev byl popsán v roce 1913 Williamem H. Braggem a jeho synem Williamem L. Braggem, kteří za tento objev obdrželi Nobelovu cenu za fyziku v roce 1915. Braggova difrakce  položila základ pro rentgenovou strukturní analýzu.
+
+Základní myšlenkou Braggovy difrakce je interference vln odražených od jednotlivých rovin krystalové mřížky. Pokud je splněna Braggova podmínka:
+\[
+2d \sin\theta = n\lambda
+\]
+
+kde d je vzdálenost mezi rovinami v krystalu, θ je úhel dopadu (tzv. Braggův úhel), λ je vlnová délka použitého záření a n je řád difrakce (celé číslo), dochází ke konstruktivní interferenci. Výsledkem je zesílení odraženého záření ve specifických směrech, které lze experimentálně detekovat.
+
+Tento jev umožňuje nepřímé určení polohy atomů v krystalové mřížce. V praxi se Braggova difrakce využívá zejména v rentgenové difrakční analýze (XRD), neutronové difrakci nebo elektronové difrakci. Měření polohy difraktovaných paprsků a jejich intenzity umožňuje zpětně rekonstruovat prostorové uspořádání atomů v krystalu.
+
+Braggova difrakce je závislá nejen na geometrii krystalu a vlnové délce záření, ale i na krystalografické symetrii a typech atomů v mřížce, což ovlivňuje amplitudy odražených vln. Důležitým aspektem je i tzv. strukturový faktor, který kvantifikuje příspěvek jednotlivých atomových rovin k výslednému difrakčnímu vzoru.\cite{Bragg}
+\newpage
+
+
+\subsection{difrakční vzorce}
+Difrakční vzorce představují specifické obrazce vznikající v důsledku zásahu elektronových vln odražených od pravidelně uspořádaných atomů na povrchu krystalické látky. Tyto vzorce jsou základním výstupem metod jako RHEED a umožňují nepřímé zkoumání struktury a kvality krystalického povrchu.
+
+Při dopadu vysokoenergetického elektronového svazku na vzorek pod malým úhlem dochází k jeho rozptylu na periodické mřížce atomů. Vlnové vlastnosti elektronů způsobují, že některé rozptýlené vlny zesilují, zatímco jiné se ruší. Výsledkem je charakteristický obrazec světlých a tmavých oblastí, difrakční vzor. Jeho tvar a intenzita přímo odrážejí uspořádání atomů na povrchu, symetrii krystalické mřížky a přítomnost poruch.
+
+V ideálním případě dvourozměrného epitaxního růstu vznikají pravidelné pruhy tzv. streaks, hlavně u hladkých a rovných povrchů. Pokud se na povrchu začnou tvořit trojrozměrné struktury jako ostrovy nebo terasy, difrakční vzor se mění a místo pruhů se objevují bodové obrazce tzv. spots. Tyto změny slouží jako indikátor kvality růstu, fáze epitaxe a povrchových rekonstrukcí.
+
+Difrakční vzory v metodě RHEED jsou tedy zobrazením reciproční mřížky povrchu vzorku. Tato mřížka je matematickým obrazem skutečné atomární struktury a umožňuje převést složité prostorové uspořádání do roviny, kde lze lépe analyzovat symetrie, periodičnost a orientaci vrstev. Vzniklé obrazce se pak interpretují pomocí pravidel difrakce, zejména Braggovy podmínky, a pomocí softwarových nástrojů jsou kvantifikovány intenzity, vzdálenosti i jejich časová změna.\cite{Vzory}
+\newpage
+
+\subsection{RHEED a MBE}
 RHEED je vysoce specializovaná analytická metoda využívaná především ve fyzice pevných látek a materiálovém výzkumu. Její princip spočívá v interakci vysokoenergetických elektronů s povrchem materiálu pod velmi malým dopadovým úhlem, což umožňuje detailní analýzu jeho krystalové struktury. Tato technika se nejčastěji využívá při studiu epitaxních vrstev během růstu metodami jako je \textbf{molekulární svazková epitaxe} (\textbf{MBE}), kde slouží jako klíčový nástroj pro monitorování morfologie a struktury nanostruktur a tenkých vrstev.\\
 
 Základní fyzikální princip RHEED vychází z Braggovy difrakce, avšak vzhledem k extrémně malému dopadovému úhlu elektronového svazku (typicky mezi 1° až 3°) dochází k difrakci především na povrchových rovinách krystalu. Elektrony s vysokou energií, obvykle v rozmezí 10 až 50 keV, mají ,relativně s atomovými rozměry, velmi malou vlnovou délku, to zajišťuje vysoké rozlišení difrakčních obrazců. Díky této konfiguraci se metoda RHEED primárně zaměřuje na povrchové vrstvy a je citlivá na jejich periodickou strukturu, defekty, rekonstrukce a růstové mechanismy.\\
@@ -234,20 +273,6 @@ Interpretace difrakčních obrazců v RHEED je zásadní pro pochopení morfolog
 \end{figure}
 
 Význam RHEED v materiálových vědách je zejména při studiu tenkých vrstev polovodičových materiálů, kovových nanostruktur a oxidových vrstev. Tato metoda umožňuje nejen identifikaci symetrie povrchové mřížky, ale také detekci povrchových defektů, jako jsou kroky, dislokace nebo segregace nečistot. V kombinaci s dalšími analytickými metodami, například rentgenovou difrakcí (XRD) či rastrovací tunelovou mikroskopií (STM), poskytuje obraz o strukturách a vlastnostech povrchu na atomární úrovni. RHEED se stal nepostradatelným nástrojem hlavně při výzkumu polovodičových heterostruktur a kvantových definovaných nanostruktur. Ve spojení s MBE umožňuje optimalizaci růstových parametrů v reálném čase, čímž se zvyšuje kontrola nad kvalitou připravovaných vrstev. Z tohoto důvodu je široce využíván ve výzkumu materiálů pro \textbf{kvantovou elektroniku}, \textbf{spintroniku} či vývoj nových \textbf{dvourozměrných materiálů}, jako jsou topologické izolátory nebo grafenové deriváty.\\
-
-\subsection{Braggova difrakce}
-    Braggova difrakce je jev, který nastává při interakci rentgenového záření (případně jiného druhu elektromagnetického nebo vlnového záření) s periodickou strukturou, většinou s krystalickou mřížkou. Tento jev byl popsán v roce 1913 Williamem H. Braggem a jeho synem Williamem L. Braggem, kteří za tento objev obdrželi Nobelovu cenu za fyziku v roce 1915. Braggova difrakce  položila základ pro rentgenovou strukturní analýzu.
-
-Základní myšlenkou Braggovy difrakce je interference vln odražených od jednotlivých rovin krystalové mřížky. Pokud je splněna Braggova podmínka:
-\[
-2d \sin\theta = n\lambda
-\]
-
-kde d je vzdálenost mezi rovinami v krystalu, θ je úhel dopadu (tzv. Braggův úhel), λ je vlnová délka použitého záření a n je řád difrakce (celé číslo), dochází ke konstruktivní interferenci. Výsledkem je zesílení odraženého záření ve specifických směrech, které lze experimentálně detekovat.
-
-Tento jev umožňuje nepřímé určení polohy atomů v krystalové mřížce. V praxi se Braggova difrakce využívá zejména v rentgenové difrakční analýze (XRD), neutronové difrakci nebo elektronové difrakci. Měření polohy difraktovaných paprsků a jejich intenzity umožňuje zpětně rekonstruovat prostorové uspořádání atomů v krystalu.
-
-Braggova difrakce je závislá nejen na geometrii krystalu a vlnové délce záření, ale i na krystalografické symetrii a typech atomů v mřížce, což ovlivňuje amplitudy odražených vln. Důležitým aspektem je i tzv. strukturový faktor, který kvantifikuje příspěvek jednotlivých atomových rovin k výslednému difrakčnímu vzoru.
 \newpage
 
 

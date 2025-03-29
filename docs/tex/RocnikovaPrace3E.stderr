@@ -1,13 +1,13 @@
 ChkTeX v1.7.8 - Copyright 1995-96 Jens T. Berger Thielemann.
 Compiled with PCRE regex support.
-No errors printed; No warnings printed; 153 user suppressed warnings; No line suppressed warnings.
+No errors printed; No warnings printed; 159 user suppressed warnings; No line suppressed warnings.
 output.xdv -> output.pdf
 [1][2][3
 xdvipdfmx:warning: Object @page.1 already defined.
 ][4
 xdvipdfmx:warning: Object @page.2 already defined.
-][5][6][7][8][9][10][11][12][13][14][15][16][17][18][19]
-649080 bytes written
+][5][6][7][8][9][10][11][12][13][14][15][16][17][18][19][20][21]
+656908 bytes written
 Latexmk: ====Undefined refs and citations with line #s in .tex file:
   Missing character: There is no θ (U+03B8) in font [lmroman10-regular]:mapping=tex-text;!
   Missing character: There is no λ (U+03BB) in font [lmroman10-regular]:mapping=tex-text;!
