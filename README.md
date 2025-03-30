@@ -50,7 +50,7 @@ Návod pro spuštění a navigaci v prvním okně GUI:
   
 
 - **Spuštění**  
-  - Otevřete si složku GUI v terminálu a napište `python main.py`
+  - Otevřete si složku GUI v terminálu a napište `python src/main.py`
 
 - **Navigace**  
   Zatím fungují pouze funkce spojené s obrazci - pomocí tlačítka **"New"** si uživatel vygeneruje nový tvar, spolu s ním se mu pod tlačítkem **"New"** objeví i panel vlastností tohoto tvaru kde je obrázek barvy, název barvy a tlačítko **"analyze"**, toto tlačítko vygeneruje zatím nevyužité okno, do kterého bude v budoucnu umístěn graf spolu s dalšími funkcemi.
