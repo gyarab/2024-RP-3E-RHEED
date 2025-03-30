@@ -33,6 +33,8 @@ class roiStatsWindow(qt.QWidget):
         self._timeseries.plot.setGraphTitle("ROI Time Series")
         self._timeseries.plot.setKeepDataAspectRatio(False)
         self._timeseries.plot.setActiveCurveHandling(False)
+        self._timeseries.plot.setBackend("opengl")
+        self._timeseries.plot.setGraphGrid(True)
         self._timeseries.hide()
 
         self._meanarray = {[roi.getName()]: numpy.array([]) for roi in self.statsWidget._rois}
@@ -165,13 +167,9 @@ class TimeseriesWorker(qt.QThread):
             if new_value is not None:
                 self.meanarray[name] = numpy.append(self.meanarray[name], new_value)
 
-                if self.framenum > 500:
-                    x = numpy.arange(self.framenum - 500)
-                    y = self.meanarray[name][self.framenum - 500:]
-                else:
-                    x = numpy.arange(self.framenum)
-                    y = self.meanarray[name][:self.framenum]
-
+                x = numpy.arange(self.framenum)
+                y = self.meanarray[name][:self.framenum]
+                
                 if x.size != y.size:
                     y = numpy.resize(y, x.size)
 
