@@ -1,22 +1,26 @@
 from silx.gui import qt
 from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
+from silx.gui.plot.StatsWidget import _ScalarFieldViewWrapper
 import numpy
 from silx.gui.plot import Plot1D
+from silx.gui.plot.StackView import StackView
 
-class roiStatsWindow(qt.QMainWindow):
+class roiStatsWindow(qt.QWidget):
 
     STATS = [
     ("mean", numpy.mean),
     ]
 
-    def __init__(self, parent=None, plot=None):
+    def __init__(self, parent=None, plot=None, stackview=None):
         """
-        Create a window that embeds the stats widget and button for showing timeseries of the ROIs.
+        Create a window that embeds the stats widget and button for showing _timeseries of the ROIs.
         """
         assert plot is not None
         qt.QMainWindow.__init__(self, parent)
-        self.statsWidget = ROIStatsWidget(plot=plot)
-        self.setCentralWidget(self.statsWidget)
+        self._plot2d = plot
+        self._stackview = stackview
+        layout = qt.QVBoxLayout(self)
+        self.statsWidget = ROIStatsWidget(plot=self._plot2d)
 
         ''' Main layout for the custom widget
         layout = qt.QVBoxLayout(self)
@@ -24,39 +28,51 @@ class roiStatsWindow(qt.QMainWindow):
         layout.setSpacing(5)
         '''
         
-        # Create a horizontal layout for the save/load buttons
+        # Create a horizontal layout for the time series button
         btnLayout = qt.QHBoxLayout()
-        #self.timeseriesbutton = qt.QPushButton("Show Timeseries Plot", self)
-        btnLayout.addStretch(1)
-        #btnLayout.addWidget(self.timeseriesbutton)
+        btnLayout.setAlignment(qt.Qt.AlignmentFlag.AlignVCenter)
+        timeseriesbutton = qt.QPushButton("Show Timeseries Plot", self)
+        btnLayout.addStretch(2)
+        btnLayout.addWidget(timeseriesbutton)
+
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(5)
+        layout.addWidget(self.statsWidget)
+        layout.addLayout(btnLayout)
+        
 
         self.statsWidget._setUpdateMode("manual")
         self.setStats(self.STATS)
-        #self.timeseriesbutton.clicked.connect(self.showTimeseries)
+        timeseriesbutton.clicked.connect(self.showTimeseries)
     
     def showTimeseries(self):
         '''show the time series of the stats for all ROIs in a silx 1D plot, with automatic update, this will be a widget inside the main window'''
-        self.timeseries = qt.QWidget()
-        self.timeseries.setWindowTitle("ROI Time Series")
-        self.timeseries.setLayout(qt.QVBoxLayout())
-        self.timeseries.plot = Plot1D()
-        self.timeseries.layout().addWidget(self.timeseries.plot)
-        self.timeseries.plot.setGraphXLabel("Frame number")
-        self.timeseries.plot.setGraphYLabel("Value")
-        self.timeseries.plot.setGraphTitle("ROI Time Series")
-        self.timeseries.plot.setKeepDataAspectRatio(True)
-        self.timeseries.plot.setActiveCurveHandling(False)
+        self._timeseries = qt.QWidget()
+        self._timeseries.setLayout(qt.QVBoxLayout())
+        self._timeseries.setWindowTitle("ROI Time Series")
+        self._timeseries.plot = Plot1D()
+        self._timeseries.layout().addWidget(self._timeseries.plot)
+        self._timeseries.plot.setGraphXLabel("Frame number")
+        self._timeseries.plot.setGraphYLabel("Intensity")
+        self._timeseries.plot.setGraphTitle("ROI Time Series")
+        self._timeseries.plot.setKeepDataAspectRatio(True)
+        self._timeseries.plot.setActiveCurveHandling(False)
 
         for roi in self.statsWidget._rois:
+            framenum = self._stackview.getFrameNumber()
             stat = self._getMeanForROI(roi)
             if stat is not None:
                 # x is dynamically updated depending on the number of frames
-                x = numpy.arange(len(stat))
-                y = numpy.array(stat)
-                self.c = self.timeseries.plot.addCurve(x, y, legend=roi.getName())
-                self.c.setSymbolVisible(False)
+                if framenum > 500:
+                    x = numpy.arange(framenum-500,framenum+500)
+                else:
+                    x = numpy.arange(framenum+500)
+                y = numpy.full_like(x, stat)
+                self.c = self._timeseries.plot.addCurve(x, y, legend=roi.getName())
                 self.c.setColor(roi.getColor())
-        self.timeseries.show()
+        self._timeseries.show()
+
+        self._stackview.sigStackChanged.connect(self._dataset_size_changed)
 
         '''
         for roi in self.statsWidget._rois:
@@ -64,11 +80,17 @@ class roiStatsWindow(qt.QMainWindow):
             if stats is not None:
                 x = numpy.arange(len(stats))
                 y = numpy.array(stats)
-                self.c = self.timeseries.plot.addCurve(x, y, legend=roi.getName())
+                self.c = self._timeseries.plot.addCurve(x, y, legend=roi.getName())
                 self.c.setSymbolVisible(False)
                 self.c.setColor(roi.getColor())
-        self.timeseries.show()
+        self._timeseries.show()
         '''
+
+    def _dataset_size_changed(self):
+        """Update the x-axis limits of the time series plot when the dataset size changes."""
+        #(data, info) = self._stackview.getStack(copy=True, returnNumpyArray=True)
+        #print(data.size)
+        #self._timeseries.plot.setGraphXLimits(0, data.size)
 
     def _getMeanForROI(self, roi):
         """Return the current computed mean stat for the given ROI.
@@ -124,5 +146,6 @@ class roiStatsWindow(qt.QMainWindow):
     def unregisterRoi(self, roi):
         print("unregistering roi")
         #Unregister a ROI in the stats widget.
-        #self._statsWidget._roiStatsWindow._statsROITable.unregisterROI(roi)
-        #self._statsWidget.unregisterROI(roi)
+        self._statsWidget._roiStatsWindow._statsROITable.unregisterROI(roi)
+        self._statsWidget.unregisterROI(roi)
+        #self._statsWidget

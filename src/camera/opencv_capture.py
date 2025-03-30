@@ -14,7 +14,7 @@ class CameraInit:
         self.cache_folder = "cacheimg"
         os.makedirs(self.cache_folder, exist_ok=True)
         
-        self.cap = cv2.VideoCapture(1)
+        self.cap = cv2.VideoCapture(0)
         if not self.cap.isOpened():
             print("Failed to open camera.")
             return
@@ -45,13 +45,16 @@ class CameraInit:
         nfr = fr.astype(numpy.float32)
         #!!!normalization should be voluntary, implement later: cv2.normalize(fr, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_64F)
 
-        #if dataset is full, expand by 1000 frames
+        # If dataset is full, expand by 1000 frames
         if self.frame_index >= self.dataset_size:
-            new_size = int(self.dataset_size + 1000)  # Expand by 1000 frames
+            new_size = int(self.dataset_size + 1000)
             print(f"Resizing dataset from {self.dataset_size} to {new_size} frames...")
             self.image_dataset.resize(new_size, axis=0)
             self.dataset_size = new_size  # Update dataset size
-        
+            # Notify via the callback if set
+            if self.on_resize is not None:
+                self.on_resize(self.image_dataset)
+
         # Store frame
         self.image_dataset[self.frame_index] = nfr
         self.frame_index += 1
@@ -70,3 +73,9 @@ class CameraInit:
         self.cap.release()
         self.h5_file.close()
         cv2.destroyAllWindows()
+
+    def getFPS(self):
+        return self.cap.get(cv2.CAP_PROP_FPS)
+    
+    def getCurrentFrame(self):
+        return self.frame_index
