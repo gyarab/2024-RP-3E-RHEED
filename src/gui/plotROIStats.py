@@ -1,6 +1,3 @@
-#timeframe of plotting is better is from origin of capture
-#in time series add a feature of viewing and unviewing the curves and time plots of the images
-#how to save locations of ROIs? easy solution
 from silx.gui import qt
 from silx.gui.plot.tools.roi import RegionOfInterestManager
 from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
@@ -26,6 +23,9 @@ import time
 from camera.opencv_capture import CameraInit
 from gui.roiwidget import roiManagerWidget
 from gui.statswindow import roiStatsWindow
+from gui.about_menu import AboutWindow
+from gui.camera_menu import CameraMenuWindow
+import gui.file_menu as file_menu
 
 class plotUpdateThread(qt.QThread):
     """Thread updating the stack in the stack view.`
@@ -92,6 +92,27 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.plot._StackView__dimensionsLabels.clear
         self.plot.layout().spacing = 5
 
+        self.menu = qt.QMenuBar(self)
+        self.menu.setNativeMenuBar(False)
+
+        # add file menu for video/dataset upload (h5py for now only)
+        file_action = qt.QAction("Video/Dataset Upload", self)
+        file_action.triggered.connect(self._file_menu)
+        self.menu.addAction(file_action)
+
+        # add camera setup and launch
+        camera_action = qt.QAction("Camera Setup and Launch", self)
+        camera_action.triggered.connect(self._camera_menu)
+        self.menu.addAction(camera_action)
+
+        # add about window
+        about_action = qt.QAction("About", self)
+        about_action.triggered.connect(self._about_menu)
+        self.menu.addAction(about_action)
+
+        # add menu to the window
+        self.setMenuBar(self.menu)
+
         # hidden plot2D for stats
         self._hiddenPlot2D = Plot2D()  # not added to layout
         self._hiddenPlot2D.hide()
@@ -129,13 +150,24 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
         # Connect ROI signal to register ROI automatically
-        self._regionManagerWidget.roiManager.sigRoiAdded.connect(self.onRoiAdded)
+        self._regionManagerWidget.roiManager.sigRoiAdded.connect(self._onRoiAdded)
         self._regionManagerWidget.roiManager.sigRoiAboutToBeRemoved.connect(self._statsWidget.unregisterRoi)
 
         self._roisTabWidget.addTab(self._regionManagerWidget, "2D roi(s)")
         self._roisTabWidget.addTab(self._curveRoiWidget, "1D roi(s)")
 
-    def onRoiAdded(self, roi):
+    def _file_menu(self):
+        file_menu.open_h5_dataset()
+        
+    def _camera_menu(self):
+        self.cmw = CameraMenuWindow()
+        self.cmw.show()
+
+    def _about_menu(self):
+        aw = AboutWindow(self)
+        aw.show()
+
+    def _onRoiAdded(self, roi):
         self._statsWidget.registerRoi(roi)
         image = self._hiddenPlot2D.addImage(self.plot._stack[self.plot.getFrameNumber()])
         if image is not None:
@@ -155,6 +187,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 def example_image(mode):
     """set up the roi stats example for images"""
     app = qt.QApplication([])
+    app.quitOnLastWindowClosed()
     window = _RoiStatsDisplayExWindow()
     updateThread = plotUpdateThread(window)
     updateThread.start()
