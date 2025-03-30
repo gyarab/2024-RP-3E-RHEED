@@ -91,6 +91,8 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._statsWidget = roiStatsWindow(parent=self, plot=self._hiddenPlot2D, stackview=self.plot)
         self.plot.sigFrameChanged.connect(self._update_hidden_plot)
 
+        self.plot.sigFrameChanged.connect(self._statsWidget.updateTimeseriesAsync)
+
         # 1D roi management
         self._curveRoiWidget = self.plot.getPlotWidget().getCurvesRoiDockWidget()
         # hide last columns which are of no use now
