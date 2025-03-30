@@ -82,6 +82,15 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         qt.QMainWindow.__init__(self, parent)
         self.plot = StackView(parent=self, backend="gl")
         self.setCentralWidget(self.plot)
+        self.setWindowTitle("RHEED Analysis")
+        self.plot.setColormap("green")
+        self.plot.setKeepDataAspectRatio(True)
+        self.plot.setYAxisInverted(True)
+        self.plot._StackView__planeSelection.setVisible(False)
+        self.plot._StackView__planeSelection.setEnabled(False)
+        #self.plot._StackView__dimensionsLabels.setVisible(False)
+        self.plot._StackView__dimensionsLabels.clear
+        self.plot.layout().spacing = 5
 
         # hidden plot2D for stats
         self._hiddenPlot2D = Plot2D()  # not added to layout
@@ -150,8 +159,6 @@ def example_image(mode):
     updateThread = plotUpdateThread(window)
     updateThread.start()
     window.show()
-    window.plot.setKeepDataAspectRatio(True)
-    window.plot.setYAxisInverted(True)
     app.exec()
     updateThread.stop()
 
