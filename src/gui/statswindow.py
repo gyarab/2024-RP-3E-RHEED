@@ -122,10 +122,9 @@ class roiStatsWindow(qt.QWidget):
         self.statsWidget.registerROI(roi)
 
     def unregisterRoi(self, roi):
-        print("unregistering roi")
+        print("not actually unregistering any roi")
         #Unregister a ROI in the stats widget.
-        self._statsWidget._roiStatsWindow._statsROITable.unregisterROI(roi)
-        self._statsWidget.unregisterROI(roi)
+        #self.statsWidget._statsROITable.unregisterROI(roi)
         #self._statsWidget
 
     def updateTimeseriesAsync(self):

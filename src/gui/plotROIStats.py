@@ -41,7 +41,7 @@ class plotUpdateThread(qt.QThread):
         self.plot2d = self.plot.getPlotWidget()
         self.running = False
         super(plotUpdateThread, self).__init__()
-        self.camera = CameraInit(720, 1280, 100)
+        self.camera = CameraInit(100)
         self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
         self.dataResized.connect(self.update_dataset)
 
