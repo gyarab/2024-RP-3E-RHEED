@@ -377,22 +377,32 @@ Významným prvkem interaktivního uživatelského prostředí je okno vizualiza
 
 Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha, ROI manager, statistický panel, panel režimu aktualizace a Toolbar. Hlavní zobrazovací plocha zobrazuje aktuální snímek. Statistický panel vypočítává a zobrazuje parametry intenzity signálu pro vybrané ROI. Panel režimu aktualizace ovládá způsoby statistických výpočtů. Tyto dva panely spolu úzce souvisí a dodatečné informace k nim, ROI manageru a Toolbaru představíme v následujících podkapitolách. 
 
+Pod vizualizačním oknem se také nachází slider (posuvník), pomocí kterého je uživatel schopen pohybovat se po jednotlivých snímcích které zaznamenal.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]
+    {images/Slider.jpg}
+    \caption{Slider}
+\end{figure}
+
 \subsubsection{Toolbar}
 Toolbar obsahuje sadu tlačítek pro jednoduchou interakci s vizualizací obrazu a jeho přizpůsobením dle potřeb uživatele. Toolbar se nachází v horní části aplikace a poskytuje rychlý přístup k nástrojům pro navigaci, úpravu vzhledu a analýzu dat.\\
 
-Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Vrátit všechny omyly v pohybu ve vizualizaci a oddálit přiblížení vizualizace je možné díky tlačítku přeškrtnuté lupy. Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
+Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Vrátit všechny omyly v pohybu ve vizualizaci a oddálit přiblížení vizualizace je možné díky tlačítku přeškrtnuté lupy. Jako další je zde "colour map dialogue" pomocí kterého si uživatel může přizpůsobit dominantní barvu ve vizualizačním okně. Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/Toolbar.png}
 	\caption{Toolbar}
 \end{figure}
-Tlačítko pro kopírování obsahu vizualice zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko s ikonou uložení, která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko pro horizontální přímkovou analýzu, které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko s přeškrtnutou čarou, které vymaže všechny aktuálně zobrazené přímkové profily.
+Dále v toolbaru lze otevřít nové okno s tzv. historiogram, který slouží k výpočtu různých intenzit v obraze. Ty se následně zobrazují jako sloupce, kde osa X reprezentuje intenzitu a osa Y počet pixelů s touto hodnotou. Možnost filtr uživateli dává větší kontrolu nad tím, jakými postprodukčními úpravami obraz projde, tzn. upravení kontrastu, potlačení šumu nebo zvýraznění difrakčních vzorů. Tlačítko pro kopírování obsahu vizualice zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko s ikonou uložení, která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko pro horizontální přímkovou analýzu, které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko s přeškrtnutou čarou, které vymaže všechny aktuálně zobrazené přímkové profily.
 
 
 \subsubsection{ROI}
 ROI nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována ROI managerem, který se nachází v pravé části GUI jako dokovací okno. Ten zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je ROI automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet, vizualizaci statistik souvisejících s danou oblastí a ukazuje label (název), kind (typ), coordinates (souřadnice) a zároveň umožňuje ROI editovat nebo odstranit.\\
 
 Proces přidávání ROI je umožněn prostřednictvím interaktivního uživatelského rozhraní obsaženého v ROI manageru. Uživatel má možnost manuálně definovat oblast na snímku pomocí myši a následně ji přizpůsobit podle požadavků analýzy. Po výběru ROI se její data okamžitě zapisují do interního systému aplikace. Každá ROI může být individuálně konfigurována, nebo-li uživatel může upravit její velikost, tvar a přesnou polohu ve snímku.\\
+\newpage
 
 \begin{lstlisting}
 	class _RoiStatsDisplayExWindow(qt.QMainWindow):
@@ -418,29 +428,37 @@ Proces přidávání ROI je umožněn prostřednictvím interaktivního uživate
 	
 \end{lstlisting}
 \captionof{lstlisting}{Vizualizace, výběr a analýza ROI}
-\newpage
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/ROIManager.png}
 	\caption{ROI manager}
 \end{figure}
 
+
 Aplikace podporuje různé tvary, mezi které patří předdefinované obdélníkové, eliptické nebo polygony volně definované uživatelem, což poskytuje vysokou flexibilitu při analýze. Každá přidaná oblast je evidována ve správci ROI, kde je možné ji přejmenovat, duplikovat, nebo odstranit, čímž se usnadňuje organizace a porovnávání různých částí snímku.\\
 
 Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat. Pokud uživatel preferuje manuální režim, je možné aktualizaci řídit pomocí ručně spouštěných výpočtů pro lepší kontrolu nad vyhodnocením výsledků. Všechny změny ROI jsou uchovávány po dobu analýzy a lze je dynamicky měnit podle potřeby.
+
 
 \subsubsection{Statistický panel}
 Statistická panel slouží k analýze dat v rámci jednotlivých ROI. Implementován je s pomocí ROIStatsWidget, který propojuje ROI manager s výpočetními funkcemi a poskytuje přehled statistik vypočítaných pro jednotlivé ROI. Hlavním údajem, který je klíčovým pro analýzu difrakčních obrazců je průměrná hodnota vypočtena z celkové plochy pixelů, které jsou obsaženy ve zvoleném ROI.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/StatistickyPanel.png}
+    \includegraphics[width=0.5\textwidth]{images/StatistickyPanel.jpg}
     \caption{Statistický panel}
 \end{figure}
+Pod statistickým panelem nalezneme tlačítko "Show Timeseries Plot", které vyvolá nové okno, kde se uživateli formou grafu ukáže vývoj intenzity v rámci ROI v čase. V grafu jsou vidět všechny ROI, které jsou aktuálně využívány.
 
-\subsubsection{Panel režimu aktualizace}
-Panel režimu aktualizace slouží k ovládání způsobu, jakým se aktualizují statistické výpočty. Uživateli je v něm umožněno přepínat mezi dvěma režimy aktualizace. V automatickém režimu jsou statistiky přepočítávány průběžně bez zásahu uživatele, zatímco v manuálním režimu se aktualizace provede pouze po stisknutí tlačítka "update".\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/TimeseriesPlot.png}
+    \caption{Timeseries Plot}
+\end{figure}
+
 
 \newpage
+
 \section{Zdroje}
 %\textbf{h5py} - \cite{h5pyDocs}\\
 %\textbf{Matplotlib} - \cite{matplotlibDocs}\\
