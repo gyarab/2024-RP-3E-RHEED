@@ -361,6 +361,7 @@ Každý snímek je před uložením převáděn do stupňů šedi a volitelně m
 
 Tento systém umožňuje nejen efektivní ukládání velkého objemu obrazových dat, ale také jejich pokročilou analýzu s využitím interaktivních nástrojů. Kombinace rychlého ukládání, dynamického rozšiřování datasetu a real-time vizualizace poskytuje uživateli výkonný nástroj pro studium difrakčních vzorků s vysokou přesností a flexibilitou.\\
 
+\newpage
 
 \subsubsection{Zpracování obrazu}
 V rámci vývoje softwaru pro analýzu RHEED snímků bylo nutné zajistit efektivní zpracování obrazu v reálném čase a jeho vizualizaci. K tomu je využita kombinace OpenCV pro získávání a předzpracování snímků a knihovny Silx pro jejich vykreslování. Důležitým prvkem je implementace Silx Plot2D s využitím OpenGL akcelerace, která umožňuje práci s obrazovými daty i při vysokém objemu snímků. To umožňuje uživateli provádět analýzu snímků bez výrazné latence.\\
@@ -369,32 +370,37 @@ Proces začíná snímáním obrazu pomocí kamery, přičemž data jsou získá
 
 Pro plynulé zobrazení snímků je implementována vláknová správa aktualizace obrazu, která umožňuje přenos dat mezi OpenCV a Silx Plot2D. Tento přístup zajišťuje, že nově získané snímky jsou ihned přidány do vykreslovacího okna bez nutnosti pozastavení běhu aplikace. Snímky jsou přidávány pomocí asynchronních volání, aby GUI aplikace zůstalo responzivní i při dlouhodobém záznamu. Tím je zajištěno, že všechny vykreslovací operace jsou prováděny na GPU, čímž se významně snižuje zatížení CPU a umožňuje práci i při zobrazení několika snímků najednou. Díky tomu je možné nejen zobrazovat jednotlivé snímky, ale i provádět časovou analýzu sekvenčních dat, což je klíčové pro sledování dynamických změn v difrakčních vzorech.\\
 
+\newpage
+
 \subsection{GUI aplikace}
 GUI pro aplikaci RHEED je navrženo tak, aby poskytovalo uživatelsky přívětivé a intuitivní rozhraní pro vizualizaci obrazových dat a následnou analýzu. V GUI se může pracovat s kamerou, nastavením živého přenosu, vytvářením a úpravou ROI a analýzou dat. GUI je postaveno pomocí knihovny Silx což je nástavba na QTPY5
 
 \subsubsection{Okno vizualizace}
 Významným prvkem interaktivního uživatelského prostředí je okno vizualizace, které slouží k přehlednému zobrazení snímků a videa RHEED a jejich analýze. Tento modul zařizuje jak zobrazování snímků, správu ROI tak výpočty parametrů. Okno vizualizace je vytvořené s knihovnou Silx, která poskytuje užitečné nástroje pro zpracovávání a zobrazování dat.\\
 
-Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha, ROI manager, statistický panel, panel režimu aktualizace a Toolbar. Hlavní zobrazovací plocha zobrazuje aktuální snímek. Statistický panel vypočítává a zobrazuje parametry intenzity signálu pro vybrané ROI. Panel režimu aktualizace ovládá způsoby statistických výpočtů. Tyto dva panely spolu úzce souvisí a dodatečné informace k nim, ROI manageru a Toolbaru představíme v následujících podkapitolách. 
+Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha, ROI manager, statistický panel, panel režimu aktualizace a Toolbar. Hlavní zobrazovací plocha zobrazuje aktuální snímek. Statistický panel vypočítává a zobrazuje parametry intenzity signálu pro vybrané ROI. Panel režimu aktualizace ovládá způsoby statistických výpočtů. Tyto dva panely spolu úzce souvisí a dodatečné informace k nim, ROI manageru a Toolbaru představíme v následujících podkapitolách.\\
 
-Pod vizualizačním oknem se také nachází slider (posuvník), pomocí kterého je uživatel schopen pohybovat se po jednotlivých snímcích které zaznamenal.
+Pod vizualizačním oknem se také nachází slider (posuvník), pomocí kterého je uživatel schopen pohybovat se po jednotlivých snímcích které zaznamenal.\\
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\linewidth]
-    {images/Slider.jpg}
-    \caption{Slider}
+    \includegraphics[width=1\textwidth]{images/GUI.jpg}
+    \caption{Okno vizualizace}
 \end{figure}
+
+\newpage
 
 \subsubsection{Toolbar}
 Toolbar obsahuje sadu tlačítek pro jednoduchou interakci s vizualizací obrazu a jeho přizpůsobením dle potřeb uživatele. Toolbar se nachází v horní části aplikace a poskytuje rychlý přístup k nástrojům pro navigaci, úpravu vzhledu a analýzu dat.\\
 
 Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Vrátit všechny omyly v pohybu ve vizualizaci a oddálit přiblížení vizualizace je možné díky tlačítku přeškrtnuté lupy. Jako další je zde "colour map dialogue" pomocí kterého si uživatel může přizpůsobit dominantní barvu ve vizualizačním okně. Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/Toolbar.png}
 	\caption{Toolbar}
 \end{figure}
+
 Dále v toolbaru lze otevřít nové okno s tzv. historiogram, který slouží k výpočtu různých intenzit v obraze. Ty se následně zobrazují jako sloupce, kde osa X reprezentuje intenzitu a osa Y počet pixelů s touto hodnotou. Možnost filtr uživateli dává větší kontrolu nad tím, jakými postprodukčními úpravami obraz projde, tzn. upravení kontrastu, potlačení šumu nebo zvýraznění difrakčních vzorů. Tlačítko pro kopírování obsahu vizualice zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko s ikonou uložení, která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko pro horizontální přímkovou analýzu, které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko s přeškrtnutou čarou, které vymaže všechny aktuálně zobrazené přímkové profily.
 
 
@@ -452,10 +458,14 @@ Pod statistickým panelem nalezneme tlačítko "Show Timeseries Plot", které vy
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/TimeseriesPlot.png}
+    \includegraphics[width=0.7\textwidth]{images/TimeseriesPlot.png}
     \caption{Timeseries Plot}
 \end{figure}
 
+\newpage
+
+\section{Závěr}
+V naší práci se podařilo naplnit valnou většinu zadaných cílů. Výsledkem je funkční aplikace s praktickým využitím, která je použitelná napříč operačními systémy. Zorientování se v aplikaci je relativně jednoduché a ovládací prvky jsou intuitivní a uživatelsky přívětivé. Naše řešení nabízí velmi široký repertoár funkcí, ať už to je analýze jednoho snímku, analýza již vytvořeného videa, nebo analýza přímého přenosu v reálném čase. Dalším velkým plusem je možnost ukládat si polohy jednotlivých ROI, což velmi usnadňuje případné pokračování analýzy po ukončení a znovuzapnutí aplikace.
 
 \newpage
 

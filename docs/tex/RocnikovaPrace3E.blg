@@ -1,14 +1,14 @@
 [0] Config.pm:308> INFO - This is Biber 2.20
 [0] Config.pm:311> INFO - Logfile is 'output.blg'
-[85] biber:340> INFO - === Sat Mar 29, 2025, 12:35:22
-[99] Biber.pm:420> INFO - Reading 'output.bcf'
-[157] Biber.pm:991> INFO - Using all citekeys in bib section 0
-[168] Biber.pm:4463> INFO - Processing section 0
-[178] Biber.pm:4654> INFO - Looking for bibtex file 'refs.bib' for section 0
-[179] bibtex.pm:1713> INFO - LaTeX decoding ...
-[186] bibtex.pm:1519> INFO - Found BibTeX data source 'refs.bib'
-[264] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[264] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
-[264] Biber.pm:4283> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'cs-CZ'
-[281] bbl.pm:676> INFO - Writing 'output.bbl' with encoding 'UTF-8'
-[285] bbl.pm:779> INFO - Output to output.bbl
+[101] biber:340> INFO - === Sun Mar 30, 2025, 13:33:54
+[123] Biber.pm:420> INFO - Reading 'output.bcf'
+[219] Biber.pm:991> INFO - Using all citekeys in bib section 0
+[233] Biber.pm:4463> INFO - Processing section 0
+[244] Biber.pm:4654> INFO - Looking for bibtex file 'refs.bib' for section 0
+[245] bibtex.pm:1713> INFO - LaTeX decoding ...
+[254] bibtex.pm:1519> INFO - Found BibTeX data source 'refs.bib'
+[345] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[345] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
+[345] Biber.pm:4283> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'cs-CZ'
+[367] bbl.pm:676> INFO - Writing 'output.bbl' with encoding 'UTF-8'
+[372] bbl.pm:779> INFO - Output to output.bbl
