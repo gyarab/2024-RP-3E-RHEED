@@ -53,7 +53,7 @@ Návod pro spuštění a navigaci v prvním okně GUI:
   - V terminálu napište `python src/main.py`
 
 - **Návod k použití**
-  Program umožňuje buď nahrát již zachycený soubor, nebo spustit kameru pro živý záznam. Před zahájením živého záznamu je ale nutné správně nastavit camera port a další         
+- Program umožňuje buď nahrát již zachycený soubor, nebo spustit kameru pro živý záznam. Před zahájením živého záznamu je ale nutné správně nastavit camera port a další         
   parametry kamery, což se provádí v menu baru. Po načtení souboru nebo spuštění kamery se video zobrazí ve vizualizačním okně.
   Snímky v okně je možné pozastavit nebo posouvat mezi nimi. Vizualizační okno lze dále upravovat pomocí nástrojů v toolbaru, kde je možné ovládat jeho zobrazení a pracovat s 
   dalšími funkcemi, například s histogramem.
