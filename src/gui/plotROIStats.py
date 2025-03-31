@@ -26,14 +26,12 @@ from gui.statswindow import roiStatsWindow
 from gui.about_menu import AboutWindow
 from gui.camera_menu import CameraMenuWindow
 import gui.file_menu as file_menu
+from gui.file_menu import H5Playback
 
 class plotUpdateThread(qt.QThread):
     """Thread updating the stack in the stack view.`
 
     :param plot2d: The StackView to update."""
-
-    """Signal to emit when the data is resized"""
-    dataResized = qt.Signal(object, object)
 
     def __init__(self, window):
         self.window = window
@@ -41,22 +39,19 @@ class plotUpdateThread(qt.QThread):
         self.plot2d = self.plot.getPlotWidget()
         self.running = False
         super(plotUpdateThread, self).__init__()
-        self.camera = CameraInit(100)
-        self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
-        self.dataResized.connect(self.update_dataset)
-
 
     def start(self):
         """Start the update thread"""
         self.running = True
         super(plotUpdateThread, self).start()
-        concurrent.submitToQtMainThread(self.plot.setStack, self.camera.image_dataset)
 
     def run(self):
         """Method implementing thread loop that updates the plot"""
         while self.running:
-            self.camera.capture_frame()
-            time.sleep((self.camera.getFPS())/1000)
+            if self.window.camera is not None:
+                if self.window.camera.cap.isOpened():
+                    self.window.camera.capture_frame()
+                    time.sleep((self.window.camera.getFPS())/1000)
             #_framenum = self.plot2d.getFrameNumber()
             #self.plot2d.setFrameNumber(_framenum)
             #if frame is not None:
@@ -66,17 +61,14 @@ class plotUpdateThread(qt.QThread):
         self.running = False
         self.quit()
         self.wait()
-    
-    def update_dataset(self, plot, dataset):
-        """Update the plot with the new dataset"""
-        framenum = plot.getFrameNumber()
-        plot.setStack(dataset)
-        plot.setFrameNumber(framenum)
 
 class _RoiStatsDisplayExWindow(qt.QMainWindow):
     """
     Simple window to group the different statistics actors
     """
+
+    """Signal to emit when the data is resized"""
+    dataResized = qt.Signal(object, object)
 
     def __init__(self, parent=None, mode=None):
         qt.QMainWindow.__init__(self, parent)
@@ -91,6 +83,9 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         #self.plot._StackView__dimensionsLabels.setVisible(False)
         self.plot._StackView__dimensionsLabels.clear
         self.plot.layout().spacing = 5
+
+        # create a none camera object
+        self.camera = None
 
         self.menu = qt.QMenuBar(self)
         self.menu.setNativeMenuBar(False)
@@ -157,11 +152,30 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._roisTabWidget.addTab(self._curveRoiWidget, "1D roi(s)")
 
     def _file_menu(self):
-        file_menu.open_h5_dataset()
+        file_path = file_menu.open_h5_dataset_path()
+        if file_path is not None:
+            try:
+                self.plot.setStack(H5Playback(file_path).image_dataset)
+                self.plot.setFrameNumber(0)
+            except Exception as e:
+                print(f"Failed to load HDF5 dataset: {e}")
         
     def _camera_menu(self):
         self.cmw = CameraMenuWindow()
         self.cmw.show()
+        self.cmw.buttonClicked.connect(self._camera_init)
+        
+
+    def _camera_init(self):
+        self.camera = CameraInit(100)
+        print("Camera Init")
+        self.plot.setStack(self.camera.image_dataset)
+        self.plot.setFrameNumber(0)
+        self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
+        self.dataResized.connect(self.update_dataset)
+
+        self.plot._browser_label.setText("RHEED Analysis 123")
+            
 
     def _about_menu(self):
         aw = AboutWindow(self)
@@ -183,6 +197,12 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         #    self._hiddenPlot2D.clear()
         #    self._hiddenPlot2D.addImage(frame, legend="analysis_frame")
         self._statsWidget.statsWidget._updateAllStats()
+
+    def update_dataset(self, plot, dataset):
+        """Update the plot with the new dataset"""
+        framenum = plot.getFrameNumber()
+        plot.setStack(dataset)
+        plot.setFrameNumber(framenum)
 
 def example_image(mode):
     """set up the roi stats example for images"""

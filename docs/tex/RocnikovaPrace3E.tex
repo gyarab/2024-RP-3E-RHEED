@@ -380,10 +380,48 @@ Pod vizualizačním oknem se také nachází slider (posuvník), pomocí kteréh
 \end{figure}
 
 \newpage
+\subsubsection{Menu bar}
+Menu Bar se skládá ze tří tlačítek umístěných v horní části grafického rozhraní. První tlačítko, Video/Dataset Upload, umožňuje uživateli nahrát soubor z počítače přímo do vizualizačního okna. Druhé tlačítko, Camera Setup and Launch, otevře panel pro nastavení parametrů kamery (viz Tabulka 1). Pro uložení parametrů a spuštění kamery tu poté je tlačítko Save and Launch Camera . Jako poslední je tlačítko About, které zobrazí okno s informacemi o tomto projektu.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Funkce} & \textbf{Default} & \textbf{Možné hodnoty} \\
+\hline
+FPS & 24 & +int\\
+Exposure & 0 & 0--100\\
+Gain & 0 & 0--100\\
+Brightness & 0 & 0--100\\
+Contrast & 0 & 0--100\\
+Saturation & 0 & 0--100\\
+Hue & 0 & 0--100\\
+Sharpness & 0 & 0--100\\
+Gamma & 0 & 0--100\\
+White Balance Blue U & 0 & 0--100\\
+Backlight & 0 & 0--100\\
+Zoom & 0 & 0--100\\
+Focus & 0 & 0--100\\
+Autofocus & 0 & 0-1 (boolean)\\
+WB Temperature & 0 & teplota (K)\\
+Auto Exposure & 1 & 0-1 (boolean)\\
+FourCC & 0 & kódy/formáty\\
+Auto WB & 0 & 0-1 (boolean)\\
+Temperature & 0 & teplota (K)\\
+Trigger & 0 & čas (ms)\\
+Trigger Delay & 0 & čas (ms)\\
+
+\hline
+\end{tabular}
+\caption{Přehled funkcí a jejich výchozích hodnot a možných hodnot}
+\end{table}
+
+\vspace{1.5cm}
+
 
 \subsubsection{Toolbar}
 Toolbar obsahuje sadu tlačítek pro jednoduchou interakci s vizualizací obrazu a jeho přizpůsobením dle potřeb uživatele. Toolbar se nachází v horní části aplikace a poskytuje rychlý přístup k nástrojům pro navigaci, úpravu vzhledu a analýzu dat.\\
-
+\newpage
 Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybrané oblasti, posuvník k pohybu po snímku bez změny měřítka. Vrátit všechny omyly v pohybu ve vizualizaci a oddálit přiblížení vizualizace je možné díky tlačítku přeškrtnuté lupy. Jako další je zde "colour map dialogue" pomocí kterého si uživatel může přizpůsobit dominantní barvu ve vizualizačním okně. Tlačítko "aspect ratio" umožňuje uživatelovi vybrat si mezi poměrem stran obrazu (možnost "keep aspect  ratio") a poměrem stran videa potažmo snímku (možnost "do not keep aspect ratio"). V Toolbaru se nachází nástroj pro změnu orientace osy Y. Uživatel zde má na výběr možnosti kdy osa roste buď nahoru (možnost "orient Y-axis upwards") a možnosti kdy osa klesá směrem dolů (možnost "orient Y-axis downwards").\\
 
 \begin{figure}[H]
