@@ -35,6 +35,8 @@ class plotUpdateThread(qt.QThread):
                 if self.window.camera.cap.isOpened():
                     self.window.camera.capture_frame()
                     time.sleep((self.window.camera.getFPS())/1000)
+            if self.window.syncButton is not None and self.window.syncButton.isChecked():
+                self.window._sync_camera()
             #_framenum = self.plot2d.getFrameNumber()
             #self.plot2d.setFrameNumber(_framenum)
             #if frame is not None:
@@ -72,6 +74,9 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
         # create a none camera object placeholder
         self.camera = None
+
+        # create a none sync button placeholder
+        self.syncButton = None
 
         # create a menu bar
         self.menu = qt.QMenuBar(self)
@@ -148,12 +153,18 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.camera = CameraInit(100)
 
         # create an icon button to sync the stackview and its FPS speed with the camera
-        self.syncButton = qt.QPushButton("Sync with Camera", self)
-        self.syncButton.setIcon(qt.QIcon.fromTheme("QStyle::SP_ArrowRight"))
+        self.syncButton = qt.QPushButton("Sync", self)
+        self.syncButton.setIcon(self.style().standardIcon(qt.QStyle.SP_ArrowRight))
+        self.syncButton.setLayoutDirection(qt.Qt.RightToLeft)
+        self.syncButton.setIconSize(qt.QSize(20, 20))
+        self.syncButton.setToolTip("Sync the stackview with the camera")
+        self.syncButton.setCheckable(True)
         self.syncButton.clicked.connect(self._sync_camera)
+        self.syncButton.toggled.connect(self._sync_camera)
         # add the sync button to the slider browser layout
         self.plot._browser.mainLayout.addWidget(self.syncButton)
         self.plot._browser.setFrameRate(int(self.camera.getFPS()))
+        self.plot._browser.setContentsMargins(0, 0, 15, 0)
 
         # populate the stackview with the camera dataset
         self.plot.setStack(self.camera.image_dataset)
@@ -187,15 +198,13 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         plot.setFrameNumber(framenum)
 
 def example_image(mode):
-    """set up the roi stats example for images"""
     app = qt.QApplication([])
     app.quitOnLastWindowClosed()
     window = _RoiStatsDisplayExWindow()
-    updateThread = plotUpdateThread(window)
-    updateThread.start()
+    window.updateThread = plotUpdateThread(window)
+    window.updateThread.start()
     window.show()
     app.exec()
-    updateThread.stop()
 
 def main(argv):
     parser = argparse.ArgumentParser(description=__doc__)

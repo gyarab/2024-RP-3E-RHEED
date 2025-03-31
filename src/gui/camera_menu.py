@@ -40,7 +40,6 @@ class CameraMenuWindow(qt.QMainWindow):
                 f.write(f"{0}\n")
                 f.write(f"{0}\n")
                 f.write(f"{0}\n")
-                f.write(f"{0}\n")
                 f.close()
 
         # Load the config values from the src/opencv_capture file
@@ -101,7 +100,6 @@ class CameraMenuWindow(qt.QMainWindow):
             config_values["Temperature"] = int(f.readline())
             config_values["Trigger"] = int(f.readline())
             config_values["Trigger Delay"] = int(f.readline())
-            config_values["Auto WB"] = int(f.readline())
             f.close()
 
         return config_values
@@ -115,33 +113,12 @@ class CameraMenuWindow(qt.QMainWindow):
             except ValueError:
                 qt.QMessageBox.warning(self, "Invalid Input", f"Field '{field}' must be an integer.")
                 return
+
+        # write the config_values dictionary into the camera_config.txt file
         with open('camera_config.txt', 'w') as f:
             f.truncate(0)
-            f.write(f"{config_values.get('Camera Port')}\n")
-            f.write(f"{config_values.get('FPS')}\n")
-            f.write(f"{config_values.get('Auto Exposure')}\n")
-            f.write(f"{config_values.get('Exposure')}\n")
-            f.write(f"{config_values.get('Gain')}\n")
-            f.write(f"{config_values.get('Brightness')}\n")
-            f.write(f"{config_values.get('Contrast')}\n")
-            f.write(f"{config_values.get('Saturation')}\n")
-            f.write(f"{config_values.get('Hue')}\n")
-            f.write(f"{config_values.get('Sharpness')}\n")
-            f.write(f"{config_values.get('Gamma')}\n")
-            f.write(f"{config_values.get('White Balance Blue U')}\n")
-            f.write(f"{config_values.get('Backlight')}\n")
-            f.write(f"{config_values.get('Zoom')}\n")
-            f.write(f"{config_values.get('Focus')}\n")
-            f.write(f"{config_values.get('Autofocus')}\n")
-            f.write(f"{config_values.get('WB Temperature')}\n")
-            f.write(f"{config_values.get('FourCC')}\n")
-            f.write(f"{config_values.get('Auto WB')}\n")
-            f.write(f"{config_values.get('Temperature')}\n")
-            f.write(f"{config_values.get('Trigger')}\n")
-            f.write(f"{config_values.get('Trigger Delay')}\n")
-            f.write(f"{config_values.get('Auto WB')}\n")
+            for field, value in config_values.items():
+                f.write(f"{value}\n")
             f.close()
         self.close()
         self.buttonClicked.emit()
-
-        return config_values

@@ -19,62 +19,11 @@ class CameraInit:
                 port = f.readline()
                 if port.isdigit():
                     self.camera_port = int(f.readline())
-                else:
-                    # Save default config with camera port 0
-                    with open("camera_config.txt", "w") as f:
-                        f.write(f"{0}\n")
-                        f.write(f"{10}\n")
-                        f.write(f"{1}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.write(f"{0}\n")
-                        f.close()
                 f.close()
         else:
-            # Save default config with camera port 0
-            with open("camera_config.txt", "w") as f:
-                f.write(f"{0}\n")
-                f.write(f"{10}\n")
-                f.write(f"{1}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.close()
-        
+            qt.QMessageBox.warning(self, "Camera Config Error", "Failed to load camera configuration. "+
+                                    "Check if the camera_config.txt file exists. Always use Camera Setup and Launch menu to "+
+                                    "configure the camera settings and launch the camera.")
 
         # Callback for resizing the dataset
         self.cache_folder = "cacheimg"
@@ -115,62 +64,11 @@ class CameraInit:
                 self.cap.set(cv2.CAP_PROP_TEMPERATURE, int(f.readline()))
                 self.cap.set(cv2.CAP_PROP_TRIGGER, int(f.readline()))
                 self.cap.set(cv2.CAP_PROP_TRIGGER_DELAY, int(f.readline()))
-                self.cap.set(cv2.CAP_PROP_AUTO_WB, int(f.readline()))
                 f.close()
         else:
-            # Save default config
-            with open("camera_config.txt", "w") as f:
-                f.write(f"{0}\n")
-                f.write(f"{10}\n")
-                f.write(f"{1}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.write(f"{0}\n")
-                f.close()
-
-                # Load the config values from the src/opencv_capture file
-                with open("camera_config.txt", "r") as f:
-                    self.cap.set(self.camera_port, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_FPS, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_EXPOSURE, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_GAIN, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_BRIGHTNESS, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_CONTRAST, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_SATURATION, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_HUE, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_SHARPNESS, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_GAMMA, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_WHITE_BALANCE_BLUE_U, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_BACKLIGHT, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_ZOOM, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_FOCUS, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_AUTOFOCUS, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_WB_TEMPERATURE, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_FOURCC, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_AUTO_WB, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_TEMPERATURE, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_TRIGGER, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_TRIGGER_DELAY, int(f.readline()))
-                    self.cap.set(cv2.CAP_PROP_AUTO_WB, int(f.readline()))
-                    f.close()
+            qt.messageQtMessageBox.warning(self, "Camera Config Error", "Failed to load camera configuration. "+
+                                    "Check if the camera_config.txt file exists. Always use Camera Setup and Launch menu to "+
+                                    "configure the camera settings and launch the camera.")
         
         # test frame capture and set the frame size
         ret, frame = self.cap.read()
@@ -233,7 +131,6 @@ class CameraInit:
         #    self.cleanup()
 
     def cleanup(self):
-        print(f"Saved {self.frame_index} frames.")
         self.cap.release()
         self.h5_file.close()
         cv2.destroyAllWindows()
@@ -244,4 +141,4 @@ class CameraInit:
  
     def getCurrentFrame(self):
         """ Returns the current frame index. """
-        return (self.frame_index-1)
+        return (self.frame_index-2)
