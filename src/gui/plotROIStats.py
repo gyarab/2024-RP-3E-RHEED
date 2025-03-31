@@ -11,8 +11,9 @@ from gui.camera_menu import CameraMenuWindow
 import gui.file_menu as file_menu
 from gui.file_menu import H5Playback
 
+
 class plotUpdateThread(qt.QThread):
-    """Thread updating the stack in the stack view.`
+    """Thread updating the stack in the stack view.
 
     :param plot2d: The StackView to update."""
 
@@ -169,11 +170,26 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         # populate the stackview with the camera dataset
         self.plot.setStack(self.camera.image_dataset)
         self.plot.setFrameNumber(0)
+
+        # connect the resize callback to the camera
         self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
+
+        # connect the resize signal to the plot
         self.dataResized.connect(self.update_dataset)
+        
+        self.timer = qt.QTimer(self)
+        self.timer.timeout.connect(self._camera_loop)
+        self.timer.start(int(self.camera.getFPS()/1000))
+
 
     def _sync_camera(self):
         self.plot.setFrameNumber(self.camera.getCurrentFrame())
+
+    def _camera_loop(self):
+        if self.camera is not None and self.camera.cap.isOpened():
+            self.camera.capture_frame()
+            if self.syncButton is not None and self.syncButton.isChecked():
+                self._sync_camera()
             
     def _about_menu(self):
         aw = AboutWindow(self)
@@ -188,8 +204,14 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
             self._statsWidget.statsWidget._updateAllStats()
 
     def _update_hidden_plot(self, index):
-        self._hiddenPlot2D.addImage(self.plot._stack[self.plot.getFrameNumber()])
-        self._statsWidget.statsWidget._updateAllStats()
+        try:
+            frame = self.plot._stack[self.plot.getFrameNumber()]
+            if frame is None or frame.size == 0:
+                return
+            self._hiddenPlot2D.addImage(frame)
+            self._statsWidget.statsWidget._updateAllStats()
+        except Exception as e:
+            print(f"Failed to update hidden plot: {e}")
 
     def update_dataset(self, plot, dataset):
         """Update the plot with the new dataset"""
@@ -201,8 +223,8 @@ def example_image(mode):
     app = qt.QApplication([])
     app.quitOnLastWindowClosed()
     window = _RoiStatsDisplayExWindow()
-    window.updateThread = plotUpdateThread(window)
-    window.updateThread.start()
+    #t = plotUpdateThread(window)
+    #t.start()
     window.show()
     app.exec()
 
