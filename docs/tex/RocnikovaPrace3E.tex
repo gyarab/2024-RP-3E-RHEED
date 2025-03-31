@@ -389,6 +389,44 @@ Pod vizualizačním oknem se také nachází slider (posuvník), pomocí kteréh
 \end{figure}
 
 \newpage
+\subsubsection{Menu bar}
+Menu Bar se skládá ze tří tlačítek umístěných v horní části grafického rozhraní. První tlačítko, Video/Dataset Upload, umožňuje uživateli nahrát soubor z počítače přímo do vizualizačního okna. Druhé tlačítko, Camera Setup and Launch, otevře panel pro nastavení parametrů kamery (viz Tabulka 1). Pro uložení parametrů a spuštění kamery tu poté je tlačítko Save and Launch Camera . Jako poslední je tlačítko About, které zobrazí okno s informacemi o tomto projektu.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Funkce} & \textbf{Default} & \textbf{Možné hodnoty} \\
+\hline
+FPS & 24 & +int\\
+Exposure & 0 & 0--100\\
+Gain & 0 & 0--100\\
+Brightness & 0 & 0--100\\
+Contrast & 0 & 0--100\\
+Saturation & 0 & 0--100\\
+Hue & 0 & 0--100\\
+Sharpness & 0 & 0--100\\
+Gamma & 0 & 0--100\\
+White Balance Blue U & 0 & 0--100\\
+Backlight & 0 & 0--100\\
+Zoom & 0 & 0--100\\
+Focus & 0 & 0--100\\
+Autofocus & 0 & 0-1 (boolean)\\
+WB Temperature & 0 & teplota (K)\\
+Auto Exposure & 1 & 0-1 (boolean)\\
+FourCC & 0 & kódy/formáty\\
+Auto WB & 0 & 0-1 (boolean)\\
+Temperature & 0 & teplota (K)\\
+Trigger & 0 & čas (ms)\\
+Trigger Delay & 0 & čas (ms)\\
+
+\hline
+\end{tabular}
+\caption{Přehled funkcí a jejich výchozích hodnot a možných hodnot}
+\end{table}
+
+\vspace{1.5cm}
+
 
 \subsubsection{Toolbar}
 Toolbar obsahuje sadu tlačítek pro jednoduchou interakci s vizualizací obrazu a jeho přizpůsobením dle potřeb uživatele. Toolbar se nachází v horní části aplikace a poskytuje rychlý přístup k nástrojům pro navigaci, úpravu vzhledu a analýzu dat.\\
