@@ -52,10 +52,16 @@ Návod pro spuštění a navigaci v prvním okně GUI:
 - **Spuštění**  
   - V terminálu napište `python src/main.py`
 
-- **Navigace**  
-  Zatím fungují pouze funkce spojené s obrazci - pomocí tlačítka **"New"** si uživatel vygeneruje nový tvar, spolu s ním se mu pod tlačítkem **"New"** objeví i panel vlastností tohoto tvaru kde je obrázek barvy, název barvy a tlačítko **"analyze"**, toto tlačítko vygeneruje zatím nevyužité okno, do kterého bude v budoucnu umístěn graf spolu s dalšími funkcemi.
+- **Návod k použití**
+  Program umožňuje buď nahrát již zachycený soubor, nebo spustit kameru pro živý záznam. Před zahájením živého záznamu je ale nutné správně nastavit camera port a další         
+  parametry kamery, což se provádí v menu baru. Po načtení souboru nebo spuštění kamery se video zobrazí ve vizualizačním okně.
+  Snímky v okně je možné pozastavit nebo posouvat mezi nimi. Vizualizační okno lze dále upravovat pomocí nástrojů v toolbaru, kde je možné ovládat jeho zobrazení a pracovat s 
+  dalšími funkcemi, například s histogramem.
 
-  Tvary jsou k dispozici zatím dva: obdélník a kruhová výseč. Na levém panelu se dají měnit hodnoty jejich vlastností a při stisku pravého tlačítka se dá tvar změnit nebo vymazat.
+
+  ROI lze přidávat a spravovat v ROI manageru umístěném v pravém horním rohu. Analýza vybraných ROI pak probíhá ve statistickém okně v pravém dolním rohu, kde lze zjistit 
+  průměrnou hodnotu intenzity (mean) a využít možnost zobrazení časových průběhů v grafu timeseries plot.
+
 
 
 - Prezentace: [`.PPTX`](docs/presentation_5-12)
