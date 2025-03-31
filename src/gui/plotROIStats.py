@@ -1,24 +1,7 @@
 from silx.gui import qt
-from silx.gui.plot.tools.roi import RegionOfInterestManager
-from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
-from silx.gui.plot import Plot2D
-from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
-from silx.gui.plot.StatsWidget import UpdateModeWidget
-import sys
-from silx.gui import qt
 from silx.gui.plot import Plot2D
 from silx.gui.plot.StackView import StackView
-from silx.gui.plot.tools.roi import RegionOfInterestManager
-from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
-from silx.gui.plot.tools.roi import RoiModeSelectorAction
-from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
-from silx.gui.plot.StatsWidget import UpdateModeWidget
 import argparse
-import functools
-import numpy
-import concurrent.futures
-import threading
-from silx.gui.utils import concurrent
 import time
 from camera.opencv_capture import CameraInit
 from gui.roiwidget import roiManagerWidget
@@ -52,6 +35,8 @@ class plotUpdateThread(qt.QThread):
                 if self.window.camera.cap.isOpened():
                     self.window.camera.capture_frame()
                     time.sleep((self.window.camera.getFPS())/1000)
+            if self.window.syncButton is not None and self.window.syncButton.isChecked():
+                self.window._sync_camera()
             #_framenum = self.plot2d.getFrameNumber()
             #self.plot2d.setFrameNumber(_framenum)
             #if frame is not None:
@@ -78,15 +63,22 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.plot.setColormap("green")
         self.plot.setKeepDataAspectRatio(True)
         self.plot.setYAxisInverted(True)
+        # remove unnecessary plane selection widget
         self.plot._StackView__planeSelection.setVisible(False)
         self.plot._StackView__planeSelection.setEnabled(False)
         #self.plot._StackView__dimensionsLabels.setVisible(False)
         self.plot._StackView__dimensionsLabels.clear
+        # change the plane widget label to a slider label for consistency
+        self.plot._browser_label.setText("Slider (Frames):")
         self.plot.layout().spacing = 5
 
-        # create a none camera object
+        # create a none camera object placeholder
         self.camera = None
 
+        # create a none sync button placeholder
+        self.syncButton = None
+
+        # create a menu bar
         self.menu = qt.QMenuBar(self)
         self.menu.setNativeMenuBar(False)
 
@@ -115,22 +107,16 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         # widget for displaying stats results and update mode
         self._statsWidget = roiStatsWindow(parent=self, plot=self._hiddenPlot2D, stackview=self.plot)
         self.plot.sigFrameChanged.connect(self._update_hidden_plot)
-
         self.plot.sigFrameChanged.connect(self._statsWidget.updateTimeseriesAsync)
 
         # 1D roi management
         self._curveRoiWidget = self.plot.getPlotWidget().getCurvesRoiDockWidget()
-        # hide last columns which are of no use now
-        #for index in (5, 6, 7, 8):
-        #self._curveRoiWidget.roiTable.setColumnHidden(index, True)
 
         # 2D - 3D roi manager
         self._regionManagerWidget = roiManagerWidget(parent=self, plot=self.plot.getPlotWidget())
         
         # tabWidget for displaying the rois
         self._roisTabWidget = qt.QTabWidget(parent=self)
-        #if hasattr(self._roisTabWidget, "setTabBarAutoHide"):
-        #    self._roisTabWidget.setTabBarAutoHide(True)
 
         # create Dock widgets
         self._roisTabWidgetDockWidget = qt.QDockWidget(parent=self)
@@ -140,8 +126,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         # create Dock widgets
         self._roiStatsWindowDockWidget = qt.QDockWidget(parent=self)
         self._roiStatsWindowDockWidget.setWidget(self._statsWidget)
-        # move the docker contain in the parent widget
-        #self.addDockWidget(qt.Qt.RightDockWidgetArea, self._statsWidget._docker)
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
         # Connect ROI signal to register ROI automatically
@@ -164,19 +148,33 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.cmw = CameraMenuWindow()
         self.cmw.show()
         self.cmw.buttonClicked.connect(self._camera_init)
-        
 
     def _camera_init(self):
         self.camera = CameraInit(100)
-        print("Camera Init")
+
+        # create an icon button to sync the stackview and its FPS speed with the camera
+        self.syncButton = qt.QPushButton("Sync", self)
+        self.syncButton.setIcon(self.style().standardIcon(qt.QStyle.SP_ArrowRight))
+        self.syncButton.setLayoutDirection(qt.Qt.RightToLeft)
+        self.syncButton.setIconSize(qt.QSize(20, 20))
+        self.syncButton.setToolTip("Sync the stackview with the camera")
+        self.syncButton.setCheckable(True)
+        self.syncButton.clicked.connect(self._sync_camera)
+        self.syncButton.toggled.connect(self._sync_camera)
+        # add the sync button to the slider browser layout
+        self.plot._browser.mainLayout.addWidget(self.syncButton)
+        self.plot._browser.setFrameRate(int(self.camera.getFPS()))
+        self.plot._browser.setContentsMargins(0, 0, 15, 0)
+
+        # populate the stackview with the camera dataset
         self.plot.setStack(self.camera.image_dataset)
         self.plot.setFrameNumber(0)
         self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
         self.dataResized.connect(self.update_dataset)
 
-        self.plot._browser_label.setText("RHEED Analysis 123")
+    def _sync_camera(self):
+        self.plot.setFrameNumber(self.camera.getCurrentFrame())
             
-
     def _about_menu(self):
         aw = AboutWindow(self)
         aw.show()
@@ -190,12 +188,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
             self._statsWidget.statsWidget._updateAllStats()
 
     def _update_hidden_plot(self, index):
-        #print(self.plot.getStack())
         self._hiddenPlot2D.addImage(self.plot._stack[self.plot.getFrameNumber()])
-        #frame = self.plot._plot.getAllImages()[index]
-        #if frame is not None:
-        #    self._hiddenPlot2D.clear()
-        #    self._hiddenPlot2D.addImage(frame, legend="analysis_frame")
         self._statsWidget.statsWidget._updateAllStats()
 
     def update_dataset(self, plot, dataset):
@@ -205,15 +198,13 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         plot.setFrameNumber(framenum)
 
 def example_image(mode):
-    """set up the roi stats example for images"""
     app = qt.QApplication([])
     app.quitOnLastWindowClosed()
     window = _RoiStatsDisplayExWindow()
-    updateThread = plotUpdateThread(window)
-    updateThread.start()
+    window.updateThread = plotUpdateThread(window)
+    window.updateThread.start()
     window.show()
     app.exec()
-    updateThread.stop()
 
 def main(argv):
     parser = argparse.ArgumentParser(description=__doc__)
