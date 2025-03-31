@@ -97,7 +97,7 @@
 		Marek Švec\\
 		Jan Schreiber
 		\hspace{11cm}
-		březen 2024\\
+		březen 2025\\
 	\end{flushleft}
 	
 	\newpage
@@ -241,7 +241,7 @@ Braggova difrakce je závislá nejen na geometrii krystalu a vlnové délce zá�
 \newpage
 
 
-\subsection{difrakční vzorce}
+\subsection{Difrakční vzorce}
 Difrakční vzorce představují specifické obrazce vznikající v důsledku zásahu elektronových vln odražených od pravidelně uspořádaných atomů na povrchu krystalické látky. Tyto vzorce jsou základním výstupem metod jako RHEED a umožňují nepřímé zkoumání struktury a kvality krystalického povrchu.
 
 Při dopadu vysokoenergetického elektronového svazku na vzorek pod malým úhlem dochází k jeho rozptylu na periodické mřížce atomů. Vlnové vlastnosti elektronů způsobují, že některé rozptýlené vlny zesilují, zatímco jiné se ruší. Výsledkem je charakteristický obrazec světlých a tmavých oblastí, difrakční vzor. Jeho tvar a intenzita přímo odrážejí uspořádání atomů na povrchu, symetrii krystalické mřížky a přítomnost poruch.
@@ -357,30 +357,21 @@ def capture_frame(self):
 \captionof{lstlisting}{Zachycení a uložení snímku do datasetu}
 \vspace{0.5cm}
 
-Každý snímek je před uložením převáděn do stupňů šedi a volitelně může být normalizován s vysokou přesností pomocí 64bitových hodnot. Tento přístup je klíčový pro zachování detailů v intenzitě difrakčních vzorků, které by mohly být při běžném 8bitovém nebo 16bitovém ukládání ztraceny. Uložené snímky lze následně číst a zpracovávat v rámci dalších analýz, aniž by došlo ke snížení kvality záznamu. Vizualizace snímků probíhá v interaktivním grafickém prostředí s možností výběru konkrétních oblastí zájmu, více v kapitole "ROI a jejich správa". Pro zajištění plynulé vizualizace a analýzy je veškeré zpracování snímků realizováno v samostatném vláknu, které neblokuje hlavní běh aplikace. Díky tomu je možné sledovat změny v datech bez jakýchkoliv prodlev. Celý proces podporuje automatickou aktualizaci, přičemž uživatel může volit mezi manuálním a automatickým režimem, který průběžně zpracovává nové snímky.\\
+Každý snímek je před uložením převáděn do stupňů šedi a volitelně může být normalizován s vysokou přesností pomocí 64bitových hodnot. Tento přístup je klíčový pro zachování detailů v intenzitě difrakčních vzorků, které by mohly být při běžném 8bitovém nebo 16bitovém ukládání ztraceny. Uložené snímky lze následně číst a zpracovávat v rámci dalších analýz, aniž by došlo ke snížení kvality záznamu. Vizualizace snímků probíhá v interaktivním grafickém prostředí s možností výběru konkrétních oblastí zájmu, více v kapitole "ROI a jejich správa". Pro zajištění plynulé vizualizace a analýzy je veškeré zpracování snímků realizováno v samostatném vláknu, které neblokuje hlavní běh aplikace. Díky tomu je možné sledovat změny v datech bez jakýchkoliv prodlev. V plot ROI stats se jednotlivé datasety přiřazují StackView, přičemž při každé změně velikosti si program pamatuje snímek, na kterém se před změnou nacházel.\\
 
 Tento systém umožňuje nejen efektivní ukládání velkého objemu obrazových dat, ale také jejich pokročilou analýzu s využitím interaktivních nástrojů. Kombinace rychlého ukládání, dynamického rozšiřování datasetu a real-time vizualizace poskytuje uživateli výkonný nástroj pro studium difrakčních vzorků s vysokou přesností a flexibilitou.\\
 
 \newpage
 
-\subsubsection{Zpracování obrazu}
-V rámci vývoje softwaru pro analýzu RHEED snímků bylo nutné zajistit efektivní zpracování obrazu v reálném čase a jeho vizualizaci. K tomu je využita kombinace OpenCV pro získávání a předzpracování snímků a knihovny Silx pro jejich vykreslování. Důležitým prvkem je implementace Silx Plot2D s využitím OpenGL akcelerace, která umožňuje práci s obrazovými daty i při vysokém objemu snímků. To umožňuje uživateli provádět analýzu snímků bez výrazné latence.\\
-
-Proces začíná snímáním obrazu pomocí kamery, přičemž data jsou získávána přes OpenCV a jak bylo zmíněno výše, jsou ihned převedena do odstínů šedi. Převod do monochromatické formy snižuje datovou náročnost a zjednodušuje další zpracování, především při analýze intenzity difrakčních vzorů. V této fázi může být prováděna také normalizace obrazu, což umožňuje optimalizaci kontrastu snímků. Po získání a úpravě obrazu je snímek odeslán do Silx Plot2D, který slouží jako vizualizační nástroj pro zobrazení jednotlivých snímků a dat. Zásadní výhodou tohoto řešení je využití OpenGL backendu, což umožňuje hardwarově akcelerované vykreslování. OpenGL významně snižuje nároky na procesor a umožňuje manipulaci se snímky i při vysokém objemu dat.\\
-
-Pro plynulé zobrazení snímků je implementována vláknová správa aktualizace obrazu, která umožňuje přenos dat mezi OpenCV a Silx Plot2D. Tento přístup zajišťuje, že nově získané snímky jsou ihned přidány do vykreslovacího okna bez nutnosti pozastavení běhu aplikace. Snímky jsou přidávány pomocí asynchronních volání, aby GUI aplikace zůstalo responzivní i při dlouhodobém záznamu. Tím je zajištěno, že všechny vykreslovací operace jsou prováděny na GPU, čímž se významně snižuje zatížení CPU a umožňuje práci i při zobrazení několika snímků najednou. Díky tomu je možné nejen zobrazovat jednotlivé snímky, ale i provádět časovou analýzu sekvenčních dat, což je klíčové pro sledování dynamických změn v difrakčních vzorech.\\
-
-\newpage
-
 \subsection{GUI aplikace}
-GUI pro aplikaci RHEED je navrženo tak, aby poskytovalo uživatelsky přívětivé a intuitivní rozhraní pro vizualizaci obrazových dat a následnou analýzu. V GUI se může pracovat s kamerou, nastavením živého přenosu, vytvářením a úpravou ROI a analýzou dat. GUI je postaveno pomocí knihovny Silx což je nástavba na QTPY5
+GUI pro aplikaci RHEED je navrženo tak, aby poskytovalo uživatelsky přívětivé a intuitivní rozhraní pro vizualizaci obrazových dat a následnou analýzu. V GUI se může pracovat s kamerou, nastavením živého přenosu, vytvářením a úpravou ROI a analýzou dat. GUI je postaveno pomocí knihovny Silx a QTPY5
 
 \subsubsection{Okno vizualizace}
 Významným prvkem interaktivního uživatelského prostředí je okno vizualizace, které slouží k přehlednému zobrazení snímků a videa RHEED a jejich analýze. Tento modul zařizuje jak zobrazování snímků, správu ROI tak výpočty parametrů. Okno vizualizace je vytvořené s knihovnou Silx, která poskytuje užitečné nástroje pro zpracovávání a zobrazování dat.\\
 
-Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha, ROI manager, statistický panel, panel režimu aktualizace a Toolbar. Hlavní zobrazovací plocha zobrazuje aktuální snímek. Statistický panel vypočítává a zobrazuje parametry intenzity signálu pro vybrané ROI. Panel režimu aktualizace ovládá způsoby statistických výpočtů. Tyto dva panely spolu úzce souvisí a dodatečné informace k nim, ROI manageru a Toolbaru představíme v následujících podkapitolách.\\
+Okno vizualizace se skládá z několika komponent: hlavní zobrazovací plocha, ROI manager, statistický panel a Toolbar. Hlavní zobrazovací plocha zobrazuje aktuální snímek. Statistický panel vypočítává a zobrazuje parametry intenzity signálu pro vybrané ROI. Panel režimu aktualizace ovládá způsoby statistických výpočtů. Tyto dva panely spolu úzce souvisí a dodatečné informace k nim, ROI manageru a Toolbaru představíme v následujících podkapitolách.\\
 
-Pod vizualizačním oknem se také nachází slider (posuvník), pomocí kterého je uživatel schopen pohybovat se po jednotlivých snímcích které zaznamenal.\\
+Pod vizualizačním oknem se také nachází slider (posuvník), pomocí kterého je uživatel schopen pohybovat se po jednotlivých snímcích které zaznamenal. Také existuje možnost měnit počet snímků za sekundu posuvu a tím urychlit analýzu již zachyceného datasetu\\
 
 \begin{figure}
     \centering
@@ -401,13 +392,13 @@ Pro manipulaci s obrazem lze využít tlačítkem lupy pro přiblížení vybran
 	\caption{Toolbar}
 \end{figure}
 
-Dále v toolbaru lze otevřít nové okno s tzv. historiogram, který slouží k výpočtu různých intenzit v obraze. Ty se následně zobrazují jako sloupce, kde osa X reprezentuje intenzitu a osa Y počet pixelů s touto hodnotou. Možnost filtr uživateli dává větší kontrolu nad tím, jakými postprodukčními úpravami obraz projde, tzn. upravení kontrastu, potlačení šumu nebo zvýraznění difrakčních vzorů. Tlačítko pro kopírování obsahu vizualice zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko s ikonou uložení, která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko pro horizontální přímkovou analýzu, které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko s přeškrtnutou čarou, které vymaže všechny aktuálně zobrazené přímkové profily.
+Dále lze v toolbaru otevřít nové okno s tzv. historogramem, který slouží k výpočtu různých intenzit v obraze. Ty se následně zobrazují jako sloupce, kde osa X reprezentuje intenzitu a osa Y počet pixelů s touto hodnotou. Možnost filtr uživateli dává větší kontrolu nad tím, jakými postprodukčními úpravami obraz projde, tzn. upravení kontrastu, potlačení šumu nebo zvýraznění difrakčních vzorů. Tlačítko pro kopírování obsahu vizualice zachycuje aktuální vizualizaci a ukládá snímek do schránky. Podobnou funkci zastává tlačítko s ikonou uložení, která uloží aktuální graf, obraz, nebo konkrétní křivku do souboru. Aplikace disponuje i tlačítkem pro tisk které při aktivaci umožní vytisknout aktuální graf a otevírá běžného správce tisku pro daný operační systém. Pro účely analýzy je zde i tlačítko pro horizontální přímkovou analýzu, které umožňuje výběr horizontálního profilu dat. Nakonec je zde tlačítko s přeškrtnutou čarou, které vymaže všechny aktuálně zobrazené přímkové profily.
 
 
 \subsubsection{ROI}
-ROI nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována ROI managerem, který se nachází v pravé části GUI jako dokovací okno. Ten zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je ROI automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet, vizualizaci statistik souvisejících s danou oblastí a ukazuje label (název), kind (typ), coordinates (souřadnice) a zároveň umožňuje ROI editovat nebo odstranit.\\
+ROI nebo také oblast zájmu slouží k vyhodnocování intenzity signálu v konkrétních částech snímku, tím umožňuje izolovat klíčové detaily pro další zpracování. ROI jsou základním nástrojem pro kvantitativní analýzu. Každá oblast je spravována ROI managerem, který se nachází v pravé části GUI jako dokovací okno. Ten zajišťuje jejich evidenci a propojení s analytickými funkcemi. Po přidání je ROI automaticky registrována do systému a propojena s nástrojem ROI Stats Widget, který umožňuje výpočet, vizualizaci statistik souvisejících s danou oblastí.\\
 
-Proces přidávání ROI je umožněn prostřednictvím interaktivního uživatelského rozhraní obsaženého v ROI manageru. Uživatel má možnost manuálně definovat oblast na snímku pomocí myši a následně ji přizpůsobit podle požadavků analýzy. Po výběru ROI se její data okamžitě zapisují do interního systému aplikace. Každá ROI může být individuálně konfigurována, nebo-li uživatel může upravit její velikost, tvar a přesnou polohu ve snímku.\\
+Proces přidávání ROI je umožněn prostřednictvím interaktivního uživatelského rozhraní obsaženého v ROI manageru. Uživatel má možnost manuálně definovat oblast na snímku pomocí myši a následně ji přizpůsobit podle požadavků analýzy.\\
 \newpage
 
 \begin{lstlisting}
@@ -442,13 +433,12 @@ Proces přidávání ROI je umožněn prostřednictvím interaktivního uživate
 \end{figure}
 
 
-Aplikace podporuje různé tvary, mezi které patří předdefinované obdélníkové, eliptické nebo polygony volně definované uživatelem, což poskytuje vysokou flexibilitu při analýze. Každá přidaná oblast je evidována ve správci ROI, kde je možné ji přejmenovat, duplikovat, nebo odstranit, čímž se usnadňuje organizace a porovnávání různých částí snímku.\\
+Aplikace podporuje různé druhy ROI, mezi které patří předdefinované obdélníkové tvary, eliptické tvary nebo polygony volně definované uživatelem, což poskytuje vysokou flexibilitu při analýze. Každá přidaná oblast je evidována ve správci ROI, kde je možné ji přejmenovat, duplikovat, nebo odstranit, čímž se usnadňuje organizace a porovnávání různých částí snímku. Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat.
 
-Díky automatickému režimu aktualizace je jakákoli změna ROI okamžitě reflektována ve výpočtech a vizualizaci dat. Pokud uživatel preferuje manuální režim, je možné aktualizaci řídit pomocí ručně spouštěných výpočtů pro lepší kontrolu nad vyhodnocením výsledků. Všechny změny ROI jsou uchovávány po dobu analýzy a lze je dynamicky měnit podle potřeby.
-
+\newpage
 
 \subsubsection{Statistický panel}
-Statistická panel slouží k analýze dat v rámci jednotlivých ROI. Implementován je s pomocí ROIStatsWidget, který propojuje ROI manager s výpočetními funkcemi a poskytuje přehled statistik vypočítaných pro jednotlivé ROI. Hlavním údajem, který je klíčovým pro analýzu difrakčních obrazců je průměrná hodnota vypočtena z celkové plochy pixelů, které jsou obsaženy ve zvoleném ROI.
+Statistický panel slouží k analýze dat v rámci jednotlivých ROI. Implementován je s pomocí ROIStatsWidget, který propojuje ROI manager s výpočetními funkcemi a poskytuje přehled statistik vypočítaných pro jednotlivé ROI. Hlavním údajem, který je klíčovým pro analýzu difrakčních obrazců je průměrná hodnota vypočtena z celkové plochy pixelů, které jsou obsaženy ve zvoleném ROI.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/StatistickyPanel.jpg}
@@ -465,7 +455,7 @@ Pod statistickým panelem nalezneme tlačítko "Show Timeseries Plot", které vy
 \newpage
 
 \section{Závěr}
-V naší práci se podařilo naplnit valnou většinu zadaných cílů. Výsledkem je funkční aplikace s praktickým využitím, která je použitelná napříč operačními systémy. Zorientování se v aplikaci je relativně jednoduché a ovládací prvky jsou intuitivní a uživatelsky přívětivé. Naše řešení nabízí velmi široký repertoár funkcí, ať už to je analýze jednoho snímku, analýza již vytvořeného videa, nebo analýza přímého přenosu v reálném čase. Dalším velkým plusem je možnost ukládat si polohy jednotlivých ROI, což velmi usnadňuje případné pokračování analýzy po ukončení a znovuzapnutí aplikace.
+V naší práci se podařilo naplnit valnou většinu zadaných cílů. Výsledkem je funkční aplikace s praktickým využitím, která je použitelná napříč operačními systémy. Zorientování se v aplikaci je relativně jednoduché a ovládací prvky jsou intuitivní a uživatelsky přívětivé. Naše řešení nabízí velmi široký repertoár funkcí, ať už to je analýza jednoho snímku, analýza již vytvořeného datasetu, nebo analýza přímého přenosu v reálném čase. Dalším velkým plusem je možnost ukládat si polohy jednotlivých ROI, což velmi usnadňuje případné pokračování analýzy po ukončení a znovuzapnutí aplikace.
 
 \newpage
 
