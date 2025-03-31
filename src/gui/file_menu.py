@@ -32,7 +32,7 @@ def open_h5_dataset_path():
     dialog.setNameFilter("H5 Datasets (*.h5)")
     dialog.setViewMode(qt.QFileDialog.Detail)
 
-    if dialog.exec_():
+    if dialog.exec():
         selected_files = dialog.selectedFiles()
         if selected_files:
             return selected_files[0]

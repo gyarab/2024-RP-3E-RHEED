@@ -22,7 +22,7 @@ class CameraInit:
                     self.camera_port = int(f.readline())
                 f.close()
         else:
-            qt.QMessageBox.warning("Camera Config Error", "Failed to load camera configuration. "+
+            qt.QMessageBox.warning(None, "Camera Config Error", "Failed to load camera configuration. "+
                                     "Check if the camera_config.txt file exists. Always use Camera Setup and Launch menu to "+
                                     "configure the camera settings and launch the camera.")
 
@@ -33,7 +33,7 @@ class CameraInit:
         # Open the camera
         self.cap = cv2.VideoCapture(self.camera_port)
         if not self.cap.isOpened():
-            qt.QMessageBox.warning("Camera Error", "Failed to open camera. Check if it is connected."+
+            qt.QMessageBox.warning(None, "Camera Error", "Failed to open camera. Check if it is connected."+
                                    " It may be caused by a wrong port configuration. For integrated camera "+
                                    "use 0, for virtual camera or external camera use 1 or higher. -1 is reserved for "+
                                    "automatic assignment but works only on certain OS. Check the Camera Setup and Launch"+
@@ -67,14 +67,14 @@ class CameraInit:
                 self.cap.set(cv2.CAP_PROP_TRIGGER_DELAY, int(f.readline()))
                 f.close()
         else:
-            qt.messageQtMessageBox.warning("Camera Config Error", "Failed to load camera configuration. "+
+            qt.messageQtMessageBox.warning(None, "Camera Config Error", "Failed to load camera configuration. "+
                                     "Check if the camera_config.txt file exists. Always use Camera Setup and Launch menu to "+
                                     "configure the camera settings and launch the camera.")
         
         # test frame capture and set the frame size
         ret, frame = self.cap.read()
         if not ret:
-            qt.QMessageBox.warning("Camera Error", "Failed to capture frame. Check if the camera is connected.")
+            qt.QMessageBox.warning(None, "Camera Error", "Failed to capture frame. Check if the camera is connected.")
             return
         
         # Convert to grayscale
