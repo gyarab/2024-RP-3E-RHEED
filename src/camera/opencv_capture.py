@@ -12,10 +12,88 @@ class CameraInit:
         self.dataset_size = initial_size
         self.camera_port = 0
 
+        # Check for a config file and load the camera port
+        if os.path.exists("camera_config.txt"):
+            with open("camera_config.txt", "r") as f:
+                # Check if the port is an integer
+                port = f.readline()
+                if port.isdigit():
+                    self.camera_port = int(f.readline())
+                else:
+                    # Save default config with camera port 0
+                    with open("camera_config.txt", "w") as f:
+                        f.write(f"{0}\n")
+                        f.write(f"{10}\n")
+                        f.write(f"{1}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.write(f"{0}\n")
+                        f.close()
+                f.close()
+        else:
+            # Save default config with camera port 0
+            with open("camera_config.txt", "w") as f:
+                f.write(f"{0}\n")
+                f.write(f"{10}\n")
+                f.write(f"{1}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.close()
+        
+
+        # Callback for resizing the dataset
+        self.cache_folder = "cacheimg"
+        os.makedirs(self.cache_folder, exist_ok=True)
+        
+        # Open the camera
+        self.cap = cv2.VideoCapture(self.camera_port)
+        if not self.cap.isOpened():
+            qt.QMessageBox.warning(self, "Camera Error", "Failed to open camera. Check if it is connected."+
+                                   " It may be caused by a wrong port configuration. For integrated camera "+
+                                   "use 0, for virtual camera or external camera use 1 or higher. -1 is reserved for "+
+                                   "automatic assignment but works only on certain OS. Check the Camera Setup and Launch"+
+                                   " menu for more information.")
+            return
+
         # Check for a config file
         if os.path.exists("camera_config.txt"):
             with open("camera_config.txt", "r") as f:
-                self.cap.set(self.camera_port, int(f.readline()))
+                self.camera_port = int(f.readline())
                 self.cap.set(cv2.CAP_PROP_FPS, int(f.readline()))
                 self.cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, int(f.readline()))
                 self.cap.set(cv2.CAP_PROP_EXPOSURE, int(f.readline()))
@@ -94,21 +172,6 @@ class CameraInit:
                     self.cap.set(cv2.CAP_PROP_AUTO_WB, int(f.readline()))
                     f.close()
         
-
-        # Callback for resizing the dataset
-        self.cache_folder = "cacheimg"
-        os.makedirs(self.cache_folder, exist_ok=True)
-        
-        # Open the camera
-        self.cap = cv2.VideoCapture(self.camera_port)
-        if not self.cap.isOpened():
-            qt.QMessageBox.warning(self, "Camera Error", "Failed to open camera. Check if it is connected."+
-                                   " It may be caused by a wrong port configuration. For integrated camera "+
-                                   "use 0, for virtual camera or external camera use 1 or higher. -1 is reserved for "+
-                                   "automatic assignment but works only on certain OS. Check the Camera Setup and Launch"+
-                                   " menu for more information.")
-            return
-        
         # test frame capture and set the frame size
         ret, frame = self.cap.read()
         if not ret:
@@ -178,8 +241,7 @@ class CameraInit:
     def getFPS(self):
         """ Returns the FPS setting of the camera. """
         return self.cap.get(cv2.CAP_PROP_FPS)
-    
  
     def getCurrentFrame(self):
         """ Returns the current frame index. """
-        return self.frame_index
+        return (self.frame_index-1)

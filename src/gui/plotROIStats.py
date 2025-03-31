@@ -67,7 +67,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         #self.plot._StackView__dimensionsLabels.setVisible(False)
         self.plot._StackView__dimensionsLabels.clear
         # change the plane widget label to a slider label for consistency
-        self.plot._browser_label.setText("Slider:")
+        self.plot._browser_label.setText("Slider (Frames):")
         self.plot.layout().spacing = 5
 
         # create a none camera object placeholder
@@ -143,17 +143,27 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.cmw = CameraMenuWindow()
         self.cmw.show()
         self.cmw.buttonClicked.connect(self._camera_init)
-        
 
     def _camera_init(self):
         self.camera = CameraInit(100)
-        print("Camera Init")
+
+        # create an icon button to sync the stackview and its FPS speed with the camera
+        self.syncButton = qt.QPushButton("Sync with Camera", self)
+        self.syncButton.setIcon(qt.QIcon.fromTheme("QStyle::SP_ArrowRight"))
+        self.syncButton.clicked.connect(self._sync_camera)
+        # add the sync button to the slider browser layout
+        self.plot._browser.mainLayout.addWidget(self.syncButton)
+        self.plot._browser.setFrameRate(int(self.camera.getFPS()))
+
+        # populate the stackview with the camera dataset
         self.plot.setStack(self.camera.image_dataset)
         self.plot.setFrameNumber(0)
         self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
         self.dataResized.connect(self.update_dataset)
-            
 
+    def _sync_camera(self):
+        self.plot.setFrameNumber(self.camera.getCurrentFrame())
+            
     def _about_menu(self):
         aw = AboutWindow(self)
         aw.show()
