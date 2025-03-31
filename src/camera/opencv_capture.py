@@ -3,34 +3,18 @@ import os
 import numpy
 import h5py
 import datetime
+import silx.gui.qt as qt
 
 class CameraInit:
     def __init__(self, initial_size):
         self.frame_index = 0
-        self.dataset_size = initial_size  # Initial allocation size
-        
-        # Callback for resizing the dataset
-        self.cache_folder = "cacheimg"
-        os.makedirs(self.cache_folder, exist_ok=True)
-        
-        # Open the camera
-        self.cap = cv2.VideoCapture(0)
-        if not self.cap.isOpened():
-            print("Failed to open camera.")
-            return
-        
-        # test frame capture and set the frame size
-        ret, frame = self.cap.read()
-        if not ret:
-            print("Failed to capture frame.")
-            return
-        
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        height, width = frame.shape
+        self.dataset_size = initial_size
+        self.camera_port = 0
 
         # Check for a config file
         if os.path.exists("camera_config.txt"):
             with open("camera_config.txt", "r") as f:
+                self.cap.set(self.camera_port, int(f.readline()))
                 self.cap.set(cv2.CAP_PROP_FPS, int(f.readline()))
                 self.cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, int(f.readline()))
                 self.cap.set(cv2.CAP_PROP_EXPOSURE, int(f.readline()))
@@ -57,7 +41,8 @@ class CameraInit:
         else:
             # Save default config
             with open("camera_config.txt", "w") as f:
-                f.write(f"{24}\n")
+                f.write(f"{0}\n")
+                f.write(f"{10}\n")
                 f.write(f"{1}\n")
                 f.write(f"{0}\n")
                 f.write(f"{0}\n")
@@ -81,7 +66,9 @@ class CameraInit:
                 f.write(f"{0}\n")
                 f.close()
 
+                # Load the config values from the src/opencv_capture file
                 with open("camera_config.txt", "r") as f:
+                    self.cap.set(self.camera_port, int(f.readline()))
                     self.cap.set(cv2.CAP_PROP_FPS, int(f.readline()))
                     self.cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, int(f.readline()))
                     self.cap.set(cv2.CAP_PROP_EXPOSURE, int(f.readline()))
@@ -105,11 +92,37 @@ class CameraInit:
                     self.cap.set(cv2.CAP_PROP_TRIGGER_DELAY, int(f.readline()))
                     self.cap.set(cv2.CAP_PROP_AUTO_WB, int(f.readline()))
                     f.close()
+        
 
+        # Callback for resizing the dataset
+        self.cache_folder = "cacheimg"
+        os.makedirs(self.cache_folder, exist_ok=True)
+        
+        # Open the camera
+        self.cap = cv2.VideoCapture(self.camera_port)
+        if not self.cap.isOpened():
+            qt.QMessageBox.warning(self, "Camera Error", "Failed to open camera. Check if it is connected."+
+                                   " It may be caused by a wrong port configuration. For integrated camera "+
+                                   "use 0, for virtual camera or external camera use 1 or higher. -1 is reserved for "+
+                                   "automatic assignment but works only on certain OS. Check the Camera Setup and Launch"+
+                                   " menu for more information.")
+            return
+        
+        # test frame capture and set the frame size
+        ret, frame = self.cap.read()
+        if not ret:
+            qt.QMessageBox.warning(self, "Camera Error", "Failed to capture frame. Check if the camera is connected.")
+            return
+        
+        # Convert to grayscale
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        height, width = frame.shape
+
+        # Create a new h5 dataset
         self.h5_file = h5py.File(
             os.path.join(self.cache_folder, f"dataset_{datetime.datetime.now().strftime('%d-%m-%Y_%H-%M-%S')}.h5"), "w")
 
-        # **Preallocate initial dataset size**
+        # Preallocate initial dataset size
         self.image_dataset = self.h5_file.create_dataset(
             "arrays",
             shape=(self.dataset_size, height, width),
@@ -118,6 +131,7 @@ class CameraInit:
             chunks=(10, height, width),
             )
 
+    """ Capture a frame from the camera and store it in the dataset. """
     def capture_frame(self):
         ret, fr = self.cap.read()
         if not ret:
@@ -160,8 +174,10 @@ class CameraInit:
         self.h5_file.close()
         cv2.destroyAllWindows()
 
+    """ Returns the FPS setting of the camera. """
     def getFPS(self):
         return self.cap.get(cv2.CAP_PROP_FPS)
     
+    """ Returns the current frame index. """
     def getCurrentFrame(self):
         return self.frame_index

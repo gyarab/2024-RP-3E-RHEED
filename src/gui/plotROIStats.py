@@ -78,15 +78,19 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.plot.setColormap("green")
         self.plot.setKeepDataAspectRatio(True)
         self.plot.setYAxisInverted(True)
+        # remove unnecessary plane selection widget
         self.plot._StackView__planeSelection.setVisible(False)
         self.plot._StackView__planeSelection.setEnabled(False)
         #self.plot._StackView__dimensionsLabels.setVisible(False)
         self.plot._StackView__dimensionsLabels.clear
+        # change the plane widget label to a slider label for consistency
+        self.plot._browser_label.setText("Slider:")
         self.plot.layout().spacing = 5
 
-        # create a none camera object
+        # create a none camera object placeholder
         self.camera = None
 
+        # create a menu bar
         self.menu = qt.QMenuBar(self)
         self.menu.setNativeMenuBar(False)
 
@@ -173,8 +177,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.plot.setFrameNumber(0)
         self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
         self.dataResized.connect(self.update_dataset)
-
-        self.plot._browser_label.setText("RHEED Analysis 123")
             
 
     def _about_menu(self):

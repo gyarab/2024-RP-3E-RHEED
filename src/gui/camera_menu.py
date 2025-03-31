@@ -1,4 +1,5 @@
 import silx.gui.qt as qt
+import os
 import cv2
 
 class CameraMenuWindow(qt.QMainWindow):
@@ -12,35 +13,35 @@ class CameraMenuWindow(qt.QMainWindow):
         self.setWindowTitle("Camera Setup and Launch")
         self.resize(600, 400)
 
-        # Check if the camera_config.txt file is empty
-        with open("camera_config.txt", "r") as f:
-            if f.read() == "":
-                # Save default config
-                with open("camera_config.txt", "w") as f:
-                    f.write(f"{0}\n")
-                    f.write(f"{1}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.write(f"{0}\n")
-                    f.close()
-        f.close()
+        self.input_fields = {}
+
+        # Check if the camera_config.txt file is empty or non-existent, if yes create it with default values
+        if not os.path.exists("camera_config.txt") or not os.path.getsize("camera_config.txt") > 0:
+            with open("camera_config.txt", "w") as f:
+                f.write(f"{0}\n")
+                f.write(f"{10}\n")
+                f.write(f"{1}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.write(f"{0}\n")
+                f.close()
 
         # Load the config values from the src/opencv_capture file
         self.config_values = self.load_config_values()
@@ -61,6 +62,7 @@ class CameraMenuWindow(qt.QMainWindow):
             layout.addWidget(label, row, col)
 
             input_field = qt.QLineEdit(str(value), self)
+            self.input_fields[field] = input_field
             layout.addWidget(input_field, row, col+1)
 
             if col == 2:
@@ -77,6 +79,7 @@ class CameraMenuWindow(qt.QMainWindow):
     def load_config_values(self):
         config_values = {}
         with open('camera_config.txt', 'r') as f:
+            config_values["Camera Port"] = int(f.readline())
             config_values["FPS"] = int(f.readline())
             config_values["Auto Exposure"] = int(f.readline())
             config_values["Exposure"] = int(f.readline())
@@ -104,8 +107,17 @@ class CameraMenuWindow(qt.QMainWindow):
         return config_values
     
     def save_config_values(self):
-        config_values = self.config_values
+        # save values from the text boxes into the config_values dictionary
+        config_values = {}
+        for field, input_field in self.input_fields.items():
+            try:
+                config_values[field] = int(input_field.text())
+            except ValueError:
+                qt.QMessageBox.warning(self, "Invalid Input", f"Field '{field}' must be an integer.")
+                return
         with open('camera_config.txt', 'w') as f:
+            f.truncate(0)
+            f.write(f"{config_values.get('Camera Port')}\n")
             f.write(f"{config_values.get('FPS')}\n")
             f.write(f"{config_values.get('Auto Exposure')}\n")
             f.write(f"{config_values.get('Exposure')}\n")
