@@ -1,6 +1,7 @@
 import silx.gui.qt as qt
 
 class AboutWindow(qt.QDialog):
+    """About window with information about the app, contacts and links."""
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("About")

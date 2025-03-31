@@ -6,6 +6,7 @@ import datetime
 import silx.gui.qt as qt
 
 class CameraInit:
+    """Class for capturing frames from a camera and storing them in an h5 dataset."""
     def __init__(self, initial_size):
         self.frame_index = 0
         self.dataset_size = initial_size
@@ -131,8 +132,8 @@ class CameraInit:
             chunks=(10, height, width),
             )
 
-    """ Capture a frame from the camera and store it in the dataset. """
     def capture_frame(self):
+        """ Capture a frame from the camera and store it in the dataset. """
         ret, fr = self.cap.read()
         if not ret:
             print("Failed to capture frame.")
@@ -174,10 +175,11 @@ class CameraInit:
         self.h5_file.close()
         cv2.destroyAllWindows()
 
-    """ Returns the FPS setting of the camera. """
     def getFPS(self):
+        """ Returns the FPS setting of the camera. """
         return self.cap.get(cv2.CAP_PROP_FPS)
     
-    """ Returns the current frame index. """
+ 
     def getCurrentFrame(self):
+        """ Returns the current frame index. """
         return self.frame_index

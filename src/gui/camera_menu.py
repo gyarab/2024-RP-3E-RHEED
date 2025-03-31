@@ -1,8 +1,8 @@
 import silx.gui.qt as qt
 import os
-import cv2
 
 class CameraMenuWindow(qt.QMainWindow):
+    """Window for setting up and launching the camera."""
     buttonClicked = qt.Signal()
 
     def __init__(self):

@@ -1,8 +1,8 @@
-import silx.io
 from silx.gui import qt
 import h5py
 
 class H5Playback:
+    """Class for reading and playing back 3D datasets from an H5 file."""
     def __init__(self, file_path):
         self.h5_file = h5py.File(file_path, "r")
         # Try to find a 3D dataset (image stack, video)

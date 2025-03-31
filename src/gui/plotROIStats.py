@@ -1,24 +1,7 @@
 from silx.gui import qt
-from silx.gui.plot.tools.roi import RegionOfInterestManager
-from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
-from silx.gui.plot import Plot2D
-from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
-from silx.gui.plot.StatsWidget import UpdateModeWidget
-import sys
-from silx.gui import qt
 from silx.gui.plot import Plot2D
 from silx.gui.plot.StackView import StackView
-from silx.gui.plot.tools.roi import RegionOfInterestManager
-from silx.gui.plot.tools.roi import RegionOfInterestTableWidget
-from silx.gui.plot.tools.roi import RoiModeSelectorAction
-from silx.gui.plot.ROIStatsWidget import ROIStatsWidget
-from silx.gui.plot.StatsWidget import UpdateModeWidget
 import argparse
-import functools
-import numpy
-import concurrent.futures
-import threading
-from silx.gui.utils import concurrent
 import time
 from camera.opencv_capture import CameraInit
 from gui.roiwidget import roiManagerWidget
@@ -119,22 +102,16 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         # widget for displaying stats results and update mode
         self._statsWidget = roiStatsWindow(parent=self, plot=self._hiddenPlot2D, stackview=self.plot)
         self.plot.sigFrameChanged.connect(self._update_hidden_plot)
-
         self.plot.sigFrameChanged.connect(self._statsWidget.updateTimeseriesAsync)
 
         # 1D roi management
         self._curveRoiWidget = self.plot.getPlotWidget().getCurvesRoiDockWidget()
-        # hide last columns which are of no use now
-        #for index in (5, 6, 7, 8):
-        #self._curveRoiWidget.roiTable.setColumnHidden(index, True)
 
         # 2D - 3D roi manager
         self._regionManagerWidget = roiManagerWidget(parent=self, plot=self.plot.getPlotWidget())
         
         # tabWidget for displaying the rois
         self._roisTabWidget = qt.QTabWidget(parent=self)
-        #if hasattr(self._roisTabWidget, "setTabBarAutoHide"):
-        #    self._roisTabWidget.setTabBarAutoHide(True)
 
         # create Dock widgets
         self._roisTabWidgetDockWidget = qt.QDockWidget(parent=self)
@@ -144,8 +121,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         # create Dock widgets
         self._roiStatsWindowDockWidget = qt.QDockWidget(parent=self)
         self._roiStatsWindowDockWidget.setWidget(self._statsWidget)
-        # move the docker contain in the parent widget
-        #self.addDockWidget(qt.Qt.RightDockWidgetArea, self._statsWidget._docker)
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
         # Connect ROI signal to register ROI automatically
@@ -192,12 +167,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
             self._statsWidget.statsWidget._updateAllStats()
 
     def _update_hidden_plot(self, index):
-        #print(self.plot.getStack())
         self._hiddenPlot2D.addImage(self.plot._stack[self.plot.getFrameNumber()])
-        #frame = self.plot._plot.getAllImages()[index]
-        #if frame is not None:
-        #    self._hiddenPlot2D.clear()
-        #    self._hiddenPlot2D.addImage(frame, legend="analysis_frame")
         self._statsWidget.statsWidget._updateAllStats()
 
     def update_dataset(self, plot, dataset):
