@@ -19,6 +19,7 @@ def open_h5_dataset():
                         if dataset.ndim == 3:
                             # Process the 3D dataset
                             print(f"Processing dataset: {dataset_name}")
+                            return dataset
                         else:
                             print(f"Skipping dataset: {dataset_name} (not 3D)")
             except Exception as e:

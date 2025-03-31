@@ -2,6 +2,8 @@ import silx.gui.qt as qt
 import cv2
 
 class CameraMenuWindow(qt.QMainWindow):
+    buttonClicked = qt.Signal()
+
     def __init__(self):
         super().__init__()
 
@@ -15,7 +17,7 @@ class CameraMenuWindow(qt.QMainWindow):
             if f.read() == "":
                 # Save default config
                 with open("camera_config.txt", "w") as f:
-                    f.write(f"{24}\n")
+                    f.write(f"{0}\n")
                     f.write(f"{1}\n")
                     f.write(f"{0}\n")
                     f.write(f"{0}\n")
@@ -128,5 +130,6 @@ class CameraMenuWindow(qt.QMainWindow):
             f.write(f"{config_values.get('Auto WB')}\n")
             f.close()
         self.close()
+        self.buttonClicked.emit()
 
         return config_values
