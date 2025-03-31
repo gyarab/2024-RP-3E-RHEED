@@ -26,6 +26,7 @@ from gui.statswindow import roiStatsWindow
 from gui.about_menu import AboutWindow
 from gui.camera_menu import CameraMenuWindow
 import gui.file_menu as file_menu
+from gui.file_menu import H5Playback
 
 class plotUpdateThread(qt.QThread):
     """Thread updating the stack in the stack view.`
@@ -151,9 +152,13 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._roisTabWidget.addTab(self._curveRoiWidget, "1D roi(s)")
 
     def _file_menu(self):
-        f = file_menu.open_h5_dataset()
-        if f is not None:
-            self.plot.setStack(f)
+        file_path = file_menu.open_h5_dataset_path()
+        if file_path is not None:
+            try:
+                self.plot.setStack(H5Playback(file_path).image_dataset)
+                self.plot.setFrameNumber(0)
+            except Exception as e:
+                print(f"Failed to load HDF5 dataset: {e}")
         
     def _camera_menu(self):
         self.cmw = CameraMenuWindow()
@@ -168,6 +173,8 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.plot.setFrameNumber(0)
         self.camera.on_resize = lambda new_dataset: self.dataResized.emit(self.plot, new_dataset)
         self.dataResized.connect(self.update_dataset)
+
+        self.plot._browser_label.setText("RHEED Analysis 123")
             
 
     def _about_menu(self):

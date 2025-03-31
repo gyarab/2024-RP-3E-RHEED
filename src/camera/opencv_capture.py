@@ -14,7 +14,7 @@ class CameraInit:
         os.makedirs(self.cache_folder, exist_ok=True)
         
         # Open the camera
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(1)
         if not self.cap.isOpened():
             print("Failed to open camera.")
             return
