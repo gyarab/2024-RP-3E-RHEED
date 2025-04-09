@@ -106,11 +106,6 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self._hiddenPlot2D = Plot2D()  # not added to layout
         self._hiddenPlot2D.hide()
 
-        # widget for displaying stats results and update mode
-        self._statsWidget = roiStatsWindow(parent=self, plot=self._hiddenPlot2D, stackview=self.plot)
-        self.plot.sigFrameChanged.connect(self._update_hidden_plot)
-        self.plot.sigFrameChanged.connect(self._statsWidget.updateTimeseriesAsync)
-
         # 1D roi management
         self._curveRoiWidget = self.plot.getPlotWidget().getCurvesRoiDockWidget()
 
@@ -119,6 +114,11 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         
         # tabWidget for displaying the rois
         self._roisTabWidget = qt.QTabWidget(parent=self)
+
+         # widget for displaying stats results and update mode
+        self._statsWidget = roiStatsWindow(parent=self, plot=self._hiddenPlot2D, stackview=self.plot, roimanager=self._regionManagerWidget.roiManager)
+        self.plot.sigFrameChanged.connect(self._update_hidden_plot)
+        self.plot.sigFrameChanged.connect(self._statsWidget.updateTimeseriesAsync)
 
         # create Dock widgets
         self._roisTabWidgetDockWidget = qt.QDockWidget(parent=self)
@@ -131,7 +131,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         self.addDockWidget(qt.Qt.RightDockWidgetArea, self._roiStatsWindowDockWidget)
 
         # Connect ROI signal to register ROI automatically
-        self._regionManagerWidget.roiManager.sigRoiAdded.connect(self._onRoiAdded)
+        self._regionManagerWidget.roiManager.sigRoiAdded.connect(self._statsWidget.registerRoi)
         self._regionManagerWidget.roiManager.sigRoiAboutToBeRemoved.connect(self._statsWidget.unregisterRoi)
 
         self._roisTabWidget.addTab(self._regionManagerWidget, "2D roi(s)")
@@ -196,6 +196,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
         aw = AboutWindow(self)
         aw.show()
 
+    """
     def _onRoiAdded(self, roi):
         self._statsWidget.registerRoi(roi)
         image = self._hiddenPlot2D.addImage(self.plot._stack[self.plot.getFrameNumber()])
@@ -203,6 +204,7 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
             print(image)
             self._statsWidget.addItem(roi=roi, item=image)
             self._statsWidget.statsWidget._updateAllStats()
+    """
 
     def _update_hidden_plot(self, index):
         try:

@@ -111,7 +111,7 @@ class CameraMenuWindow(qt.QMainWindow):
             try:
                 config_values[field] = int(input_field.text())
             except ValueError:
-                q = qt.QMessageBox.warning(self, "Invalid Input", f"Field '{field}' must be an integer.")
+                qt.QMessageBox.warning(self, "Invalid Input", f"Field '{field}' must be an integer.")
                 return
 
         # write the config_values dictionary into the camera_config.txt file

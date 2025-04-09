@@ -12,7 +12,7 @@ class roiStatsWindow(qt.QWidget):
     ("mean", numpy.mean),
     ]
 
-    def __init__(self, parent=None, plot=None, stackview=None):
+    def __init__(self, parent=None, plot=None, stackview=None, roimanager=None):
         """
         Create a window that embeds the stats widget and button for showing _timeseries of the ROIs.
         """
@@ -22,6 +22,7 @@ class roiStatsWindow(qt.QWidget):
         self._stackview = stackview
         layout = qt.QVBoxLayout(self)
         self.statsWidget = ROIStatsWidget(plot=self._plot2d)
+        self._roiManager = roimanager
         
         self._timeseries = qt.QWidget()
         self._timeseries.setLayout(qt.QVBoxLayout())
@@ -49,10 +50,12 @@ class roiStatsWindow(qt.QWidget):
         btnLayout = qt.QHBoxLayout()
         btnLayout.setAlignment(qt.Qt.AlignmentFlag.AlignVCenter)
         timeseriesbutton = qt.QPushButton("Show Timeseries Plot", self)
+        roisbutton = qt.QPushButton("Add All ROIs", self)
         btnLayout.addStretch(2)
+        btnLayout.addWidget(roisbutton)
         btnLayout.addWidget(timeseriesbutton)
 
-        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setContentsMargins(4, 4, 4, 4)
         layout.setSpacing(5)
         layout.addWidget(self.statsWidget)
         layout.addLayout(btnLayout)
@@ -60,6 +63,22 @@ class roiStatsWindow(qt.QWidget):
         self.statsWidget._setUpdateMode("manual")
         self.setStats(self.STATS)
         timeseriesbutton.clicked.connect(self.showTimeseries)
+        roisbutton.clicked.connect(self.addAllRois)
+
+    def addAllRois(self):
+        """Add all ROIs to the stats widget and update the plot."""
+        # Get all ROIs from the ROI manager
+        try : 
+            rois = self._roiManager.getRois()
+            for roi in rois:
+                self.statsWidget.registerROI(roi)
+                self.statsWidget.addItem(plotItem=self._plot2d.getImage(), roi=roi)
+        except Exception:
+            qt.QMessageBox.warning(self, "No Plot2D","It is not possible to add ROIs until there is a "+
+                                   "base plot to make analysis from.")
+            return
+
+        # Update the timeseries plot with the new ROIs
     
     def showTimeseries(self):
             self.updateTimeseriesAsync()
