@@ -1,3 +1,4 @@
+import os
 from silx.gui import qt
 from silx.gui.plot import Plot2D
 from silx.gui.plot.StackView import StackView
@@ -221,6 +222,8 @@ class _RoiStatsDisplayExWindow(qt.QMainWindow):
 
 def example_image(mode):
     app = qt.QApplication([])
+    icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img", "logo.png")
+    app.setWindowIcon(qt.QIcon(icon_path))
     app.quitOnLastWindowClosed()
     window = _RoiStatsDisplayExWindow()
     #t = plotUpdateThread(window)

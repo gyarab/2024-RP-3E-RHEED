@@ -1,12 +1,21 @@
 import silx.gui.qt as qt
+import os
 
 class AboutWindow(qt.QDialog):
     """About window with information about the app, contacts and links."""
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("About")
+        self.setFixedSize(850, 400)
         
+        hlayout = qt.QHBoxLayout()
+        hlayout.setContentsMargins(20, 20, 20, 20)
+        icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "img", "logo.png")
+        logo_label = qt.QLabel()
+        logo_label.setPixmap(qt.QPixmap(icon_path).scaled(200, 200, qt.Qt.KeepAspectRatio, qt.Qt.SmoothTransformation))
         layout = qt.QVBoxLayout()
+        hlayout.addLayout(layout)
+        hlayout.addWidget(logo_label)
         
         gradient = qt.QLinearGradient(0, 0, 210, 0)
         gradient.setColorAt(0.0, qt.QColor("red"))
@@ -85,4 +94,4 @@ class AboutWindow(qt.QDialog):
         thanks2_label.setPalette(palette)
         layout.addWidget(thanks2_label)
         
-        self.setLayout(layout)
+        self.setLayout(hlayout)
