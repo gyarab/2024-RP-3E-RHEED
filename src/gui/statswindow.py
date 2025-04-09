@@ -166,10 +166,11 @@ class roiStatsWindow(qt.QWidget):
             self.c.setColor(color)
 
 class TimeseriesWorker(qt.QThread):
-    updated = qt.Signal(dict)  # signal to send processed data back to GUI
+    updated = qt.Signal(dict)
 
     def __init__(self, rois, meanarray, getMeanFunc, frameNumber):
         super().__init__()
+        self._running = True
         self.rois = rois
         self.meanarray = meanarray
         self.getMean = getMeanFunc
@@ -178,6 +179,8 @@ class TimeseriesWorker(qt.QThread):
     def run(self):
         result = {}
         for roi in self.rois:
+            if not self._running:
+                break
             name = roi.getName()
             if name not in self.meanarray:
                 self.meanarray[name] = numpy.array([])
@@ -188,10 +191,15 @@ class TimeseriesWorker(qt.QThread):
 
                 x = numpy.arange(self.framenum)
                 y = self.meanarray[name][:self.framenum]
-                
+
                 if x.size != y.size:
                     y = numpy.resize(y, x.size)
 
                 result[name] = (x, y, roi.getColor())
 
-        self.updated.emit(result)  # send data back to GUI thread
+        if self._running:
+            self.updated.emit(result)
+
+    def quit(self):
+        self._running = False
+        super().quit()
