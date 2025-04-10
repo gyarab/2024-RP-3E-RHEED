@@ -16,10 +16,7 @@ class CameraInit:
         # Check for a config file and load the camera port
         if os.path.exists("camera_config.txt"):
             with open("camera_config.txt", "r") as f:
-                # Check if the port is an integer
-                port = f.readline()
-                if port.isdigit():
-                    self.camera_port = int(f.readline())
+                self.camera_port = int(f.readline())
                 f.close()
         else:
             qt.QMessageBox.warning(None, "Camera Config Error", "Failed to load camera configuration. "+
